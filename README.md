@@ -10,7 +10,7 @@ Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com
 - probabilidades calculadas para os dois lados (Poisson/Dixon-Coles, Elo, distribuição normal para esportes de pontos), comparadas com o mercado sem margem;
 - palpite com nível de confiança, "odd justa", o que mudaria o palpite e lacunas de dados;
 - resumo final com todos os palpites ordenados por confiança;
-- opções de aposta e combos (seguro, equilibrado, arriscado) dizendo em dólar quanto o app precisa pagar para valer a pena (Kalshi e apps parecidos);
+- opções de aposta e combos (seguro, equilibrado, arriscado) no app que você escolher (Hard Rock, FanDuel, DraftKings, bet365, Kalshi, Betano...), com a odd mínima em dólar e a comparação de qual app paga mais;
 - plano de proteção (hedge) em dólar: quanto apostar no lado contrário e quanto lucro fica garantido;
 - modo advisor ao vivo: acompanha as apostas e avisa "manter" ou "considere sair" com base em estatística (a decisão é sempre sua).
 
@@ -47,7 +47,7 @@ cd ~/.claude/skills/guessitup && git pull
 - `/guessitup jogos do Brasileirão deste fim de semana`
 - "quem leva Palmeiras x Flamengo? quero as chances dos dois lados"
 - "palpites do card do UFC de sábado"
-- "monta opções de combo pra hoje no Kalshi"
+- "monta opções de combo pra hoje na Hard Rock e compara com os outros apps"
 - "acompanha minhas apostas e me avisa se devo manter ou sair"
 
 ## Estrutura
@@ -77,6 +77,8 @@ guessitup/
 | `combo --probs ... --stake --pays` | chance do combo e pagamento mínimo em dólar para valer a pena |
 | `hedge --stake --payout --opp-pct` | proteção total e pela metade: quanto apostar no lado contrário e lucro garantido |
 | `livewp --lead --minutes-left --spread --app-pct` | chance ao vivo (NFL/NBA) e sinal MANTER / CONSIDERE SAIR |
+| `odds --odd --prob` | converte odd americana, decimal ou % para dólar e diz a odd mínima |
+| `compare --apps App=odd ... --prob` | mesma aposta em vários apps: qual paga mais |
 | `aggregate --home --away --lead` | mata-mata de ida e volta: chance de classificar pelo placar agregado |
 | `ledger add/result/report` | registro de palpites e calibração: Brier, log loss, RPS, acerto por faixa, ROI, CLV |
 

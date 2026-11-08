@@ -17,6 +17,8 @@ Subcomandos:
   combo --probs P1 P2 ... [--stake 10 --pays Y]      chance do combo e o pagamento mínimo em dólar para valer a pena
   hedge --stake S --payout P --opp-pct C             aposta de proteção (hedge): quanto apostar no lado contrário e lucro garantido
   livewp --lead L --minutes-left M --spread S        chance ao vivo (NFL/NBA) e sinal MANTER/SAIR contra o % do app
+  odds --odd X [--prob P]                            converte odd (americana, decimal ou %) e diz a odd mínima para a chance P
+  compare --apps App=odd ... [--prob P]              compara a mesma aposta em vários apps e diz qual paga mais
   aggregate --home MU --away MU --lead N             mata-mata de ida e volta: chance de classificar
   ledger add|result|report                           registro de palpites e calibração (Brier, RPS, CLV, ROI)
 """
@@ -227,6 +229,50 @@ def cmd_livewp(a):
         print(f"O app mostra {a.app_pct:g}% -> diferença {d:+.0f} pontos -> {sig}")
 
 
+# ---------- apps de apostas: formatos de odd e comparação ----------
+def _to_dec(x):
+    """Aceita odd americana (-150, +130), decimal (1.80) ou % de app de previsão (55%)."""
+    x = str(x).strip().replace(",", ".")
+    if x.endswith("%"):
+        return 100 / float(x[:-1])
+    v = float(x)
+    if x.startswith("+") or v >= 100:
+        return 1 + v / 100
+    if v <= -100:
+        return 1 + 100 / abs(v)
+    return v
+
+
+def _fmt(d):
+    am = f"+{(d-1)*100:.0f}" if d >= 2 else f"-{100/(d-1):.0f}"
+    return f"americana {am} | decimal {d:.2f} | app de previsão {100/d:.0f}% | aposta $10 recebe ${10*d:.2f}"
+
+
+def cmd_odds(a):
+    """Converte uma odd para todos os formatos e, com --prob, diz a odd mínima para valer a pena."""
+    if a.odd:
+        print("Essa odd em todos os formatos: " + _fmt(_to_dec(a.odd)))
+    if a.prob:
+        d = 1 / max(a.prob - a.margin, 0.01)
+        print(f"Chance {a.prob:.0%} -> odd mínima: " + _fmt(d))
+        print("Regra: só aposte se o app pagar igual ou mais que isso.")
+
+
+def cmd_compare(a):
+    """Compara a mesma aposta em vários apps (formato app=odd) e ordena por quanto paga."""
+    rows = []
+    for item in a.apps:
+        app, odd = item.split("=", 1)
+        d = _to_dec(odd)
+        rows.append((d, app))
+    rows.sort(reverse=True)
+    for d, app in rows:
+        ev = a.prob * d - 1 if a.prob else None
+        tag = "" if ev is None else f" | ganho médio {ev:+.0%} ({'vale' if ev > 0.03 else 'caro' if ev < -0.03 else 'justo'})"
+        print(f"{app:<14} aposta $10 recebe ${10*d:.2f}{tag}")
+    print(f"Melhor: {rows[0][1]} (paga ${10*rows[0][0]:.2f} por $10). Se o seu app pagar menos, considere apostar no melhor.")
+
+
 def cmd_aggregate(a):
     """Mata-mata de ida e volta: chance de classificar dado o placar agregado da ida."""
     g = {(i, j): pois(i, a.home) * pois(j, a.away) for i in range(11) for j in range(11)}
@@ -355,6 +401,8 @@ def main():
     s = add("combo", cmd_combo); s.add_argument("--probs", type=float, nargs="+", required=True); s.add_argument("--stake", type=float, default=10, help="quanto vai apostar ($)"); s.add_argument("--pays", type=float, help="quanto o app paga se ganhar ($)"); s.add_argument("--margin", type=float, default=0.01)
     s = add("hedge", cmd_hedge); s.add_argument("--stake", type=float, required=True, help="quanto você apostou ($)"); s.add_argument("--payout", type=float, required=True, help="quanto recebe se ganhar ($)"); s.add_argument("--opp-pct", type=float, required=True, help="chance do lado contrário que o app mostra (%%)")
     s = add("livewp", cmd_livewp); s.add_argument("--lead", type=float, required=True); s.add_argument("--minutes-left", type=float, required=True); s.add_argument("--spread", type=float, required=True, help="pontos que o time era favorito antes do jogo (+ favorito, - azarão)"); s.add_argument("--game-minutes", type=float, default=60, help="60 NFL, 48 NBA"); s.add_argument("--sd", type=float, default=13.5, help="13.5 NFL, 12 NBA"); s.add_argument("--app-pct", type=float, help="chance que o app mostra agora (%%)")
+    s = add("odds", cmd_odds); s.add_argument("--odd", help="-150, +130, 1.80 ou 55%%"); s.add_argument("--prob", type=float); s.add_argument("--margin", type=float, default=0.01)
+    s = add("compare", cmd_compare); s.add_argument("--apps", nargs="+", required=True, help="ex.: HardRock=-210 Kalshi=68%% Bet365=1.47"); s.add_argument("--prob", type=float)
     s = add("aggregate", cmd_aggregate); s.add_argument("--home", type=float, required=True, help="gols esperados do mandante da volta"); s.add_argument("--away", type=float, required=True); s.add_argument("--lead", type=int, required=True, help="vantagem do visitante no agregado"); s.add_argument("--pen", type=float, default=0.5)
     s = add("ledger", cmd_ledger)
     s.add_argument("action", choices=["add", "result", "report"])

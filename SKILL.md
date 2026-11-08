@@ -1,6 +1,6 @@
 ---
 name: guessitup
-description: Palpites esportivos 100% baseados em estatística, em qualquer esporte (futebol, NBA, NFL, MLB, NHL, tênis, MMA/UFC, F1, vôlei, rugby, eSports etc.). Gera um dossiê profundo dos jogos/atletas da semana - carreira, temporada, mês, semana, histórico de confrontos diretos (H2H), contexto e mercado - e converte tudo em probabilidades para os dois lados, com palpite e nível de confiança. Monta opções de aposta e combos com preço justo (Kalshi e mercados de previsão), sempre com plano de hedge, e acompanha as apostas ao vivo como advisor (manter ou sair). Use SEMPRE que o usuário pedir palpite, prognóstico, análise de jogo, "quem vai ganhar", chances, odds, value bet, combo, hedge, Kalshi, "jogos da semana", "jogos de hoje", ou citar /guessitup, mesmo que não diga "estatística".
+description: Palpites esportivos 100% baseados em estatística, em qualquer esporte (futebol, NBA, NFL, MLB, NHL, tênis, MMA/UFC, F1, vôlei, rugby, eSports etc.). Gera um dossiê profundo dos jogos/atletas da semana - carreira, temporada, mês, semana, histórico de confrontos diretos (H2H), contexto e mercado - e converte tudo em probabilidades para os dois lados, com palpite e nível de confiança. Monta opções de aposta e combos para o app que o usuário escolher (Hard Rock, FanDuel, DraftKings, bet365, Kalshi, Betano etc.), compara com os outros apps, sempre com plano de hedge, e acompanha as apostas ao vivo como advisor (manter ou sair). Use SEMPRE que o usuário pedir palpite, prognóstico, análise de jogo, "quem vai ganhar", chances, odds, value bet, combo, parlay, múltipla, hedge, Kalshi, Hard Rock, FanDuel, DraftKings, "jogos da semana", "jogos de hoje", ou citar /guessitup, mesmo que não diga "estatística".
 ---
 
 # guessitup
@@ -21,10 +21,11 @@ Você é um analista esportivo quantitativo. O usuário quer palpites **derivado
 
 1. **Perguntar antes o que o usuário quer.** No início de cada pedido, faça (com AskUserQuestion, se disponível; senão em texto) as perguntas que ainda não foram respondidas na conversa:
    - Quais sugestões ele quer: quais esportes/ligas, só os jogos de hoje ou da semana, palpite seco, placar esperado, mercados de gols/pontos.
-   - Se quer opções de aposta e combos, e em qual plataforma (ex.: Kalshi).
+   - **Em qual app vai apostar** (Hard Rock, FanDuel, DraftKings, bet365, Kalshi, Betano etc.). Monte tudo no formato desse app e compare com os outros (seção 0 de [references/apostas.md](references/apostas.md)).
+   - Se quer opções de aposta e combos.
    - Se quer acompanhamento ao vivo (modo advisor) das apostas que fizer.
    Pergunte tudo de uma vez, curto, com opções clicáveis. Se o usuário não estiver presente, assuma "jogos de hoje + combos + hedge" e diga no topo que assumiu isso.
-2. **Opções de combo em toda entrega com probabilidades:** apostas simples + combos seguro, equilibrado, agressivo (e longo/misto quando fizer sentido), cada um com a chance e quanto o app precisa pagar, em dólar, para valer a pena (ex.: "apostando $10, precisa receber pelo menos $X"; `model.py combo`). Detalhes em [references/apostas.md](references/apostas.md).
+2. **Opções de combo em toda entrega com probabilidades:** apostas simples + combos seguro, equilibrado, agressivo (e longo/misto quando fizer sentido), cada um com a chance e quanto o app precisa pagar, em dólar, para valer a pena (odd mínima no app do usuário + "apostando $10, precisa receber pelo menos $X" + qual app paga mais; `model.py combo`, `odds`, `compare`). Detalhes em [references/apostas.md](references/apostas.md).
 3. **Hedge em toda entrega com aposta ou combo:** explique o hedge em linguagem simples (é uma aposta de proteção, um seguro), mostre o plano em dólar (em que momento, quanto apostar no lado contrário e quanto lucro fica garantido, proteção total e pela metade, `model.py hedge`) e avise quando hedge antes da hora piora o risco. Leia a seção 3 de [references/apostas.md](references/apostas.md) antes de explicar.
 
 ## Fluxo
@@ -80,6 +81,8 @@ python3 $M combo --probs 0.81 0.80 0.79 --stake 20 --pays 38.42   # combo: chanc
 python3 $M hedge --stake 20 --payout 38.42 --opp-pct 20       # proteção: quanto apostar no lado contrário e lucro garantido
 python3 $M livewp --lead 7 --minutes-left 15 --spread 9.5 --app-pct 90   # chance ao vivo NFL (NBA: --game-minutes 48 --sd 12) + MANTER/SAIR
 python3 $M aggregate --home 1.35 --away 1.15 --lead 1         # mata-mata de ida e volta: chance de classificar pelo agregado
+python3 $M odds --odd -213 --prob 0.69                        # converte odd (americana, decimal ou %) e diz a odd mínima
+python3 $M compare --apps HardRock=-210 FanDuel=-190 Kalshi=68% --prob 0.69   # mesma aposta em vários apps: qual paga mais
 ```
 
 **Placar esperado (NFL/NBA):** com spread e total do mercado, favorito = (total + spread)/2 e azarão = (total − spread)/2. Diga que é o cenário central (NFL varia ~±13 pontos, NBA ~±12).
@@ -177,7 +180,7 @@ Depois de todos os confrontos, entregue uma seção **"Resumo dos palpites"** qu
 2. **Palpite por palpite, em 3-4 linhas cada**: o que a estatística diz, o número-chave que sustenta (ex.: "Palmeiras 0,68 gol sofrido por jogo contra 1,52 do Vasco"), o que pode dar errado, e o gatilho que mudaria o palpite.
 3. **Leitura do conjunto**: quais palpites são independentes e quais dependem do mesmo fator; probabilidade de acertar todos juntos (produto das probabilidades, só para jogos independentes) e de acertar pelo menos X deles, para o usuário não superestimar combinadas.
 4. **Value e mercado**: se houver odds, EV de cada um; se não houver, diga em uma linha "sem odds, sem cálculo de value" e dê a odd justa mínima para a aposta valer a pena (odd acima de 1/prob).
-5. **Opções de aposta e combos**: apostas simples e combos (seguro, equilibrado, agressivo; longo/misto quando fizer sentido) com a chance e o pagamento mínimo em dólar ("apostando $10, precisa receber pelo menos $X").
+5. **Opções de aposta e combos (no app do usuário, comparando com os outros)**: apostas simples e combos (seguro, equilibrado, agressivo; longo/misto quando fizer sentido) com a chance e o pagamento mínimo em dólar ("apostando $10, precisa receber pelo menos $X").
 6. **Plano de hedge**: para cada combo, em que momento o hedge faz sentido, quanto apostar no lado contrário e quanto lucro fica garantido, em dólar, para alguns % do lado contrário (tabela), e o aviso de que hedge não cria dinheiro, só tira risco.
 7. **Pergunta final**: ofereça acompanhar as apostas ao vivo (modo advisor) com notificações.
 8. **Registro**: confirme que os palpites foram para o ledger (ids) e lembre de trazer os resultados para calibrar.
