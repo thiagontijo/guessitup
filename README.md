@@ -9,7 +9,12 @@ Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com
 - desfalques e contexto;
 - probabilidades calculadas para os dois lados (Poisson/Dixon-Coles, Elo, distribuição normal para esportes de pontos), comparadas com o mercado sem margem;
 - palpite com nível de confiança, "odd justa", o que mudaria o palpite e lacunas de dados;
-- resumo final com todos os palpites ordenados por confiança.
+- resumo final com todos os palpites ordenados por confiança;
+- opções de aposta e combos (seguro, equilibrado, agressivo) com preço justo em centavos para Kalshi e outros mercados de previsão;
+- plano de hedge explicado com números (quantos contratos do lado contrário, custo e lucro travado);
+- modo advisor ao vivo: acompanha as apostas e avisa "manter" ou "considere sair" com base em estatística (a decisão é sempre sua).
+
+A skill sempre pergunta antes quais sugestões você quer (esportes, jogos de hoje ou da semana, combos, acompanhamento ao vivo).
 
 > São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
 
@@ -33,6 +38,7 @@ Abra o Claude Code e peça, por exemplo:
 guessitup/
 ├── SKILL.md                 instruções da skill (fluxo, regras, formato do relatório)
 ├── references/esportes.md   métricas, fontes e modelo indicado por esporte
+├── references/apostas.md    Kalshi, combos, hedge, modo advisor e lições aprendidas
 └── scripts/model.py         ferramentas numéricas (só biblioteca padrão)
 ```
 
@@ -50,6 +56,10 @@ guessitup/
 | `blend --probs --weights` | combina modelos e mede a divergência |
 | `value --prob --odds` | valor esperado e Kelly fracionado (0,25x, teto de 5%) |
 | `clv --taken --closing` | closing line value |
+| `combo --probs ... --price` | chance do combo, preço justo e teto em ¢, evolução perna a perna |
+| `hedge --stake --payout --opp-price` | hedge total e parcial: contratos do lado contrário, custo e lucro travado |
+| `livewp --lead --minutes-left --spread` | probabilidade ao vivo (NFL/NBA) e sinal MANTER / CONSIDERE SAIR |
+| `aggregate --home --away --lead` | mata-mata de ida e volta: chance de classificar pelo placar agregado |
 | `ledger add/result/report` | registro de palpites e calibração: Brier, log loss, RPS, acerto por faixa, ROI, CLV |
 
 O ledger fica em `ledger/predictions.jsonl` (fora do git). Registre os palpites, informe os resultados depois e rode `ledger report` para ver se as porcentagens se confirmam. Com menos de ~30 palpites, nada é conclusivo.

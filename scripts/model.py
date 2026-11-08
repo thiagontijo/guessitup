@@ -14,6 +14,10 @@ Subcomandos:
   normal --diff D --sd S [--line L]                  prob. de vencer / cobrir linha (basquete, NFL)
   value --prob P --odds O [--kelly-frac F --cap C]   EV e Kelly fracionado com teto
   clv --taken O --closing O                          closing line value de uma aposta
+  combo --probs P1 P2 ... [--price C]                chance do combo, preço justo/teto em ¢ e evolução perna a perna
+  hedge --stake S --payout P --opp-price C           quantos contratos do lado contrário comprar e lucro travado
+  livewp --lead L --minutes-left M --spread S        prob. ao vivo (NFL/NBA) e sinal MANTER/SAIR vs preço de venda
+  aggregate --home MU --away MU --lead N             mata-mata de ida e volta: chance de classificar
   ledger add|result|report                           registro de palpites e calibração (Brier, RPS, CLV, ROI)
 """
 import argparse
@@ -181,6 +185,59 @@ def cmd_clv(a):
     print(f"CLV: {clv:+.2%} ({'bateu' if clv > 0 else 'não bateu'} a linha de fechamento)")
 
 
+# ---------- mercados de previsão (Kalshi etc.), combos, hedge, ao vivo ----------
+def cmd_combo(a):
+    """Combo = todas as pernas precisam acertar. Só vale para pernas independentes."""
+    p = math.prod(a.probs)
+    print(f"Chance de acertar todas as {len(a.probs)} pernas: {p:.1%}")
+    print(f"Preço justo: {p*100:.0f}¢ | pague no máximo: {p*100 - a.margin:.0f}¢ (margem de segurança {a.margin:g}¢)")
+    if a.price is not None:
+        ev = p / (a.price / 100) - 1
+        print(f"Preço oferecido {a.price:g}¢ -> EV {ev:+.1%} ({'barato' if ev > 0.03 else 'caro' if ev < -0.03 else 'justo'})")
+    for k in range(1, len(a.probs)):
+        rest = math.prod(a.probs[k:])
+        print(f"  Se as {k} primeiras pernas acertarem, o combo passa a valer {rest:.0%}")
+
+
+def cmd_hedge(a):
+    """Trava lucro comprando o lado contrário da última perna (contratos pagam $1)."""
+    full = a.payout
+    for n in sorted({round(full), round(full / 2)}):
+        cost = n * a.opp_price / 100
+        win = a.payout - a.stake - cost          # sua perna ganha
+        lose = n - a.stake - cost                # lado contrário ganha
+        print(f"Comprar {n} contratos do lado contrário a {a.opp_price:g}¢ = ${cost:.2f}")
+        print(f"  Sua perna ganha: {win:+.2f} | lado contrário ganha: {lose:+.2f}")
+    p_now = 1 - a.opp_price / 100
+    print(f"Sem hedge: {p_now:.0%} de chance de {a.payout - a.stake:+.2f} e {1-p_now:.0%} de {-a.stake:+.2f}")
+    print("Lembrete: hedge não cria dinheiro (EV quase igual, menos taxa); ele troca lucro máximo por segurança.")
+
+
+def cmd_livewp(a):
+    """Prob. ao vivo (NFL/NBA): vantagem atual + spread pré-jogo proporcional ao tempo restante."""
+    cdf = lambda x: 0.5 * (1 + math.erf(x / math.sqrt(2)))
+    frac = max(a.minutes_left, 0.01) / a.game_minutes
+    mu = a.lead + a.spread * frac
+    sd = a.sd * math.sqrt(frac)
+    p = cdf(mu / sd)
+    print(f"Prob. ao vivo do time: {p:.1%} (vantagem {a.lead:+g}, {a.minutes_left:g} min restantes, spread pré {a.spread:+g})")
+    if a.price is not None:
+        d = p - a.price / 100
+        sig = "MANTER" if d > 0.03 else "CONSIDERE SAIR" if d < -0.03 else "NEUTRO"
+        print(f"Preço de venda {a.price:g}¢ -> diferença {d*100:+.0f} pp -> {sig}")
+
+
+def cmd_aggregate(a):
+    """Mata-mata de ida e volta: chance de classificar dado o placar agregado da ida."""
+    g = {(i, j): pois(i, a.home) * pois(j, a.away) for i in range(11) for j in range(11)}
+    # lead = vantagem do time VISITANTE (o que joga fora na volta) no agregado
+    out = sum(v for (i, j), v in g.items() if i - j > a.lead)
+    pens = sum(v for (i, j), v in g.items() if i - j == a.lead)
+    adv = 1 - out - pens * a.pen
+    print(f"Visitante classifica: {adv:.1%} (direto {1-out-pens:.1%} + pênaltis {pens*a.pen:.1%}) | mandante: {1-adv:.1%}")
+    print(f"Mandante precisa vencer por {a.lead+1}+ (prob. {out:.1%}); vencer por {a.lead} leva aos pênaltis ({pens:.1%})")
+
+
 # ---------- ledger ----------
 def _read():
     if not os.path.exists(LEDGER):
@@ -295,6 +352,10 @@ def main():
     s = add("normal", cmd_normal); s.add_argument("--diff", type=float, required=True); s.add_argument("--sd", type=float, required=True); s.add_argument("--line", type=float)
     s = add("value", cmd_value); s.add_argument("--prob", type=float, required=True); s.add_argument("--odds", type=float, required=True); s.add_argument("--kelly-frac", type=float, default=0.25); s.add_argument("--cap", type=float, default=0.05)
     s = add("clv", cmd_clv); s.add_argument("--taken", type=float, required=True); s.add_argument("--closing", type=float, required=True)
+    s = add("combo", cmd_combo); s.add_argument("--probs", type=float, nargs="+", required=True); s.add_argument("--price", type=float, help="preço do combo em ¢"); s.add_argument("--margin", type=float, default=1)
+    s = add("hedge", cmd_hedge); s.add_argument("--stake", type=float, required=True, help="quanto você pagou ($)"); s.add_argument("--payout", type=float, required=True, help="quanto recebe se ganhar ($)"); s.add_argument("--opp-price", type=float, required=True, help="preço do lado contrário em ¢")
+    s = add("livewp", cmd_livewp); s.add_argument("--lead", type=float, required=True); s.add_argument("--minutes-left", type=float, required=True); s.add_argument("--spread", type=float, required=True, help="pontos que o time era favorito antes do jogo (+ favorito, - azarão)"); s.add_argument("--game-minutes", type=float, default=60, help="60 NFL, 48 NBA"); s.add_argument("--sd", type=float, default=13.5, help="13.5 NFL, 12 NBA"); s.add_argument("--price", type=float, help="preço de venda em ¢")
+    s = add("aggregate", cmd_aggregate); s.add_argument("--home", type=float, required=True, help="gols esperados do mandante da volta"); s.add_argument("--away", type=float, required=True); s.add_argument("--lead", type=int, required=True, help="vantagem do visitante no agregado"); s.add_argument("--pen", type=float, default=0.5)
     s = add("ledger", cmd_ledger)
     s.add_argument("action", choices=["add", "result", "report"])
     s.add_argument("--id"); s.add_argument("--event"); s.add_argument("--sport"); s.add_argument("--date")
