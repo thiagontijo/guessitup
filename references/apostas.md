@@ -1,16 +1,35 @@
 # Apostas, combos, proteção (hedge) e modo advisor
 
-Guia para transformar probabilidades em opções de aposta (Kalshi e apps parecidos) e para acompanhar as apostas ao vivo.
+Guia para transformar probabilidades em opções de aposta em qualquer app (Hard Rock, FanDuel, DraftKings, BetMGM, Caesars, Fanatics, bet365, Kalshi, Polymarket, Betano etc.) e para acompanhar as apostas ao vivo.
 
 ## Como falar com o usuário (obrigatório)
 
 - **Linguagem simples e direta.** Frases curtas, sem jargão.
 - **Valores sempre em dólar**, no formato que o app mostra: "aposta $20, recebe $38,42". Nunca fale em centavos.
 - **Não use a palavra "contrato".** Fale "aposta", "aposta de proteção", "o lado contrário".
-- **Chance em %**, igual ao app ("o app mostra 75%").
+- **Use o formato de odd do app do usuário** (americana, decimal ou %), sempre com o valor em dólar ao lado ("aposta $10, recebe $12,50").
 - "Hedge" pode aparecer, mas sempre explicado como **proteção** ou **seguro**.
 
 Regra fixa: a decisão é sempre do usuário. A skill sugere, calcula e avisa; nunca faz a aposta, nunca entra na conta do usuário e não se apresenta como consultor financeiro licenciado.
+
+## 0. Qual app? (perguntar sempre)
+
+Antes das opções, pergunte em qual app o usuário vai apostar (se ele ainda não disse na conversa). Tudo é montado no formato desse app, e depois comparado com os outros.
+
+| Tipo de app | Exemplos | Como mostra a odd | Como explicar |
+|---|---|---|---|
+| Casa americana | Hard Rock, FanDuel, DraftKings, BetMGM, Caesars, Fanatics, ESPN Bet | americana: −400 / +150 | negativa: mais perto de zero paga mais; positiva: maior paga mais |
+| Casa com odd decimal | bet365, Betano, Superbet, Pinnacle | decimal: 1,25 / 2,50 | maior paga mais; aposta $10 × odd = quanto recebe |
+| App de previsão | Kalshi, Polymarket, Novig | % de chance (ou preço por $1) | % menor = paga mais; aposta $10 ÷ % = quanto recebe |
+
+Nomes: combo = "parlay" (casas americanas) = "múltipla" (casas brasileiras). Cash out existe na maioria dos apps.
+
+**Comparação obrigatória:** para cada aposta simples e combo, mostre
+1. a **odd mínima no app do usuário** (`model.py odds --prob 0.69`);
+2. **onde paga mais**, quando houver odds de outros apps (`model.py compare --apps HardRock=-210 FanDuel=-190 Kalshi=68% --prob 0.69`). Boas fontes de odds de vários apps juntos: VegasInsider (tabela por casa), Covers, Action Network, OddsShark, FanDuel Research; para futebol, sites de comparação de odds.
+3. Se outro app paga mais pela mesma aposta, diga em dólar quanto a mais ("na FanDuel a mesma aposta paga $0,50 a mais por $10").
+
+Avise que nem todo app existe em todo estado ou país e que os mercados (ex.: combos de esportes diferentes, classificação em mata-mata) variam de app para app.
 
 ## 1. Como saber se o preço do app está bom
 
@@ -21,20 +40,20 @@ Regra fixa: a decisão é sempre do usuário. A skill sugere, calcula e avisa; n
 - Sempre dê o exemplo com um valor redondo: "apostando $10, o app tem que pagar pelo menos $X".
 - Leia prints do app quando o usuário mandar: quanto apostou, quanto recebe, % de cada perna e o valor de cash out.
 
-Cálculo: `model.py combo --probs 0.81 0.80 0.79 --stake 20 --pays 38.42`.
+Cálculo: `model.py combo --probs 0.81 0.80 0.79 --stake 20 --pays 38.42`. Para converter qualquer odd (−213, 1,47 ou 68%) para dólar: `model.py odds --odd -213`.
 
 ## 2. Opções de aposta (sempre oferecer)
 
 Depois das probabilidades, entregue um cardápio, do mais seguro ao mais arriscado:
 
-1. **Apostas simples**: as 3 a 5 mais fortes, com "apostando $10, precisa receber pelo menos $X".
+1. **Apostas simples**: as 3 a 5 mais fortes, com a odd mínima no app do usuário e "apostando $10, precisa receber pelo menos $X".
 2. **Combo seguro**: 2 pernas fortes.
 3. **Combo equilibrado**: 3 pernas.
 4. **Combo arriscado**: 4 pernas.
 5. **Combo longo**: 5 pernas (opcional).
 6. **Combo misto**: esportes diferentes, quando o app tiver todos.
 
-Para cada combo: as pernas, a chance de acertar tudo, quanto o app precisa pagar para valer a pena e como a chance sobe conforme as pernas vão acertando. Use só jogos diferentes e que ainda não começaram. Deixe de fora jogos quase cara ou coroa, jogos com confiança baixa e jogos sem odds do dia.
+Para cada combo: as pernas, a chance de acertar tudo, a odd mínima no app do usuário, onde paga mais entre os apps, quanto o app precisa pagar para valer a pena e como a chance sobe conforme as pernas vão acertando. Use só jogos diferentes e que ainda não começaram. Deixe de fora jogos quase cara ou coroa, jogos com confiança baixa e jogos sem odds do dia.
 
 Avisos que sempre acompanham o cardápio:
 - Se as suas chances estão perto das do app, **não há vantagem**: na média você empata ou perde um pouco por causa da taxa. É diversão, não investimento.
@@ -72,7 +91,9 @@ Sempre mostre uma tabela simples:
 | 20% | $7,68 | ~$10,74 |
 | 40% | $15,37 | ~$3,05 |
 
-Cálculo: `model.py hedge --stake 20 --payout 38.42 --opp-pct 20` (mostra proteção total, pela metade e o cenário sem proteção).
+Cálculo: `model.py hedge --stake 20 --payout 38.42 --opp-pct 20` (mostra proteção total, pela metade e o cenário sem proteção). Em casa com odd americana ou decimal, converta a odd do lado contrário para % com `model.py odds --odd +400` (+400 = 20%), ou faça direto: **quanto apostar = quanto o seu combo paga ÷ odd decimal do lado contrário** (ex.: combo paga $14,70, Milwaukee +400 = 5,00 → aposte $2,94).
+
+A proteção pode ser feita **em outro app** que pague mais pelo lado contrário. Compare também com o **Cash Out** do app: diga em dólar qual das duas opções deixa mais dinheiro garantido.
 
 ## 4. Modo advisor ao vivo
 
