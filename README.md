@@ -10,8 +10,8 @@ Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com
 - probabilidades calculadas para os dois lados (Poisson/Dixon-Coles, Elo, distribuição normal para esportes de pontos), comparadas com o mercado sem margem;
 - palpite com nível de confiança, "odd justa", o que mudaria o palpite e lacunas de dados;
 - resumo final com todos os palpites ordenados por confiança;
-- opções de aposta e combos (seguro, equilibrado, agressivo) com preço justo em centavos para Kalshi e outros mercados de previsão;
-- plano de hedge explicado com números (quantos contratos do lado contrário, custo e lucro travado);
+- opções de aposta e combos (seguro, equilibrado, arriscado) dizendo em dólar quanto o app precisa pagar para valer a pena (Kalshi e apps parecidos);
+- plano de proteção (hedge) em dólar: quanto apostar no lado contrário e quanto lucro fica garantido;
 - modo advisor ao vivo: acompanha as apostas e avisa "manter" ou "considere sair" com base em estatística (a decisão é sempre sua).
 
 A skill sempre pergunta antes quais sugestões você quer (esportes, jogos de hoje ou da semana, combos, acompanhamento ao vivo).
@@ -56,9 +56,9 @@ guessitup/
 | `blend --probs --weights` | combina modelos e mede a divergência |
 | `value --prob --odds` | valor esperado e Kelly fracionado (0,25x, teto de 5%) |
 | `clv --taken --closing` | closing line value |
-| `combo --probs ... --price` | chance do combo, preço justo e teto em ¢, evolução perna a perna |
-| `hedge --stake --payout --opp-price` | hedge total e parcial: contratos do lado contrário, custo e lucro travado |
-| `livewp --lead --minutes-left --spread` | probabilidade ao vivo (NFL/NBA) e sinal MANTER / CONSIDERE SAIR |
+| `combo --probs ... --stake --pays` | chance do combo e pagamento mínimo em dólar para valer a pena |
+| `hedge --stake --payout --opp-pct` | proteção total e pela metade: quanto apostar no lado contrário e lucro garantido |
+| `livewp --lead --minutes-left --spread --app-pct` | chance ao vivo (NFL/NBA) e sinal MANTER / CONSIDERE SAIR |
 | `aggregate --home --away --lead` | mata-mata de ida e volta: chance de classificar pelo placar agregado |
 | `ledger add/result/report` | registro de palpites e calibração: Brier, log loss, RPS, acerto por faixa, ROI, CLV |
 
