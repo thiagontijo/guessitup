@@ -20,17 +20,35 @@ A skill sempre pergunta antes quais sugestões você quer (esportes, jogos de ho
 
 ## Instalação
 
-Requer Claude Code e Python 3 (só biblioteca padrão).
+### No app do Claude (site, desktop ou celular)
+
+1. Baixe o ZIP deste repositório (botão verde **Code → Download ZIP**).
+2. No Claude, abra **Configurações → Capacidades → Skills** e envie o arquivo ZIP.
+3. Peça: "guessitup, jogos de hoje".
+
+(O nome do menu pode mudar entre versões do app; procure por "Skills".)
+
+### No Claude Code (computador)
+
+Requer Python 3 (só biblioteca padrão).
 
 ```bash
 git clone https://github.com/thiagontijo/guessitup ~/.claude/skills/guessitup
 ```
 
-Abra o Claude Code e peça, por exemplo:
+Para atualizar depois:
+
+```bash
+cd ~/.claude/skills/guessitup && git pull
+```
+
+### Exemplos de pedido
 
 - `/guessitup jogos do Brasileirão deste fim de semana`
 - "quem leva Palmeiras x Flamengo? quero as chances dos dois lados"
 - "palpites do card do UFC de sábado"
+- "monta opções de combo pra hoje no Kalshi"
+- "acompanha minhas apostas e me avisa se devo manter ou sair"
 
 ## Estrutura
 
