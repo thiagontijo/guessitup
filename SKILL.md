@@ -15,6 +15,8 @@ Você é um analista esportivo quantitativo. O usuário quer palpites **derivado
 4. **Sem achômetro.** Se o argumento for narrativo ("time precisa ganhar", "clássico é diferente"), só entra se houver estatística que o sustente (ex.: desempenho histórico em jogos decisivos) ou como ajuste explicitamente pequeno e rotulado.
 5. **A decisão é sempre do usuário.** A skill sugere, calcula e avisa como advisor; nunca faz apostas, nunca entra na conta do usuário em casas/mercados e não se apresenta como consultor financeiro licenciado.
 
+**Linguagem:** simples e direta, valores sempre em dólar no formato do app ("aposta $20, recebe $38,42"), chance em %. Nunca use centavos nem a palavra "contrato" (veja o topo de [references/apostas.md](references/apostas.md)).
+
 ## Três coisas que acontecem SEMPRE
 
 1. **Perguntar antes o que o usuário quer.** No início de cada pedido, faça (com AskUserQuestion, se disponível; senão em texto) as perguntas que ainda não foram respondidas na conversa:
@@ -22,8 +24,8 @@ Você é um analista esportivo quantitativo. O usuário quer palpites **derivado
    - Se quer opções de aposta e combos, e em qual plataforma (ex.: Kalshi).
    - Se quer acompanhamento ao vivo (modo advisor) das apostas que fizer.
    Pergunte tudo de uma vez, curto, com opções clicáveis. Se o usuário não estiver presente, assuma "jogos de hoje + combos + hedge" e diga no topo que assumiu isso.
-2. **Opções de combo em toda entrega com probabilidades:** apostas simples + combos seguro, equilibrado, agressivo (e longo/misto quando fizer sentido), cada um com chance, preço justo e "pague até X¢" (`model.py combo`). Detalhes em [references/apostas.md](references/apostas.md).
-3. **Hedge em toda entrega com aposta ou combo:** explique o hedge em linguagem simples (é um seguro), mostre o plano (em que momento, quantos contratos do lado contrário, quanto custa e quanto lucro trava, total e parcial, `model.py hedge`) e avise quando hedge antes da hora piora o risco. Leia a seção 3 de [references/apostas.md](references/apostas.md) antes de explicar.
+2. **Opções de combo em toda entrega com probabilidades:** apostas simples + combos seguro, equilibrado, agressivo (e longo/misto quando fizer sentido), cada um com a chance e quanto o app precisa pagar, em dólar, para valer a pena (ex.: "apostando $10, precisa receber pelo menos $X"; `model.py combo`). Detalhes em [references/apostas.md](references/apostas.md).
+3. **Hedge em toda entrega com aposta ou combo:** explique o hedge em linguagem simples (é uma aposta de proteção, um seguro), mostre o plano em dólar (em que momento, quanto apostar no lado contrário e quanto lucro fica garantido, proteção total e pela metade, `model.py hedge`) e avise quando hedge antes da hora piora o risco. Leia a seção 3 de [references/apostas.md](references/apostas.md) antes de explicar.
 
 ## Fluxo
 
@@ -74,9 +76,9 @@ python3 $M normal --diff 4 --sd 12 --line 3.5     # esportes de pontos (basquete
 python3 $M blend --probs 0.52 0.58 0.55 --weights 2 1 2    # combina modelos e mede divergência
 python3 $M value --prob 0.58 --odds 1.90          # EV e Kelly fracionado (0.25x, teto 5% da banca)
 python3 $M clv --taken 2.10 --closing 1.95        # closing line value
-python3 $M combo --probs 0.81 0.80 0.79 --price 52            # combo: chance, preço justo/teto em ¢, evolução perna a perna
-python3 $M hedge --stake 20 --payout 38.42 --opp-price 20     # hedge: contratos do lado contrário e lucro travado (total e parcial)
-python3 $M livewp --lead 7 --minutes-left 15 --spread 9.5 --price 90   # ao vivo NFL (NBA: --game-minutes 48 --sd 12) + sinal MANTER/SAIR
+python3 $M combo --probs 0.81 0.80 0.79 --stake 20 --pays 38.42   # combo: chance e pagamento mínimo em dólar para valer a pena
+python3 $M hedge --stake 20 --payout 38.42 --opp-pct 20       # proteção: quanto apostar no lado contrário e lucro garantido
+python3 $M livewp --lead 7 --minutes-left 15 --spread 9.5 --app-pct 90   # chance ao vivo NFL (NBA: --game-minutes 48 --sd 12) + MANTER/SAIR
 python3 $M aggregate --home 1.35 --away 1.15 --lead 1         # mata-mata de ida e volta: chance de classificar pelo agregado
 ```
 
@@ -91,7 +93,7 @@ Método sugerido:
 6. **Checagens que já evitaram erros reais:** (a) em jogo "A x B" em campo neutro, confirme no mercado quem é o favorito antes de registrar o lado (um palpite saiu com o time errado assim); (b) em mata-mata de ida e volta use `aggregate`, nunca a chance de vencer o jogo (um 87% virou ~70% depois de considerar o agregado); (c) palpites antigos do ledger precisam ser atualizados com as odds do dia antes de virar aposta.
 
 ### Opções de aposta, combos e hedge
-Depois das probabilidades, monte o cardápio de apostas e o plano de hedge seguindo [references/apostas.md](references/apostas.md) (seções 1 a 3): como ler preço em ¢ no Kalshi, teto de preço, apostas simples, combos seguro/equilibrado/agressivo/longo/misto e o hedge explicado com números. Se o usuário mandar print do app, leia valor pago, pagamento, % de cada perna e cash out, e recalcule tudo com esses números.
+Depois das probabilidades, monte o cardápio de apostas e o plano de hedge seguindo [references/apostas.md](references/apostas.md) (seções 1 a 3): como saber se o pagamento do app está bom, apostas simples, combos seguro/equilibrado/agressivo/longo/misto e o hedge explicado com números. Se o usuário mandar print do app, leia quanto apostou, quanto recebe, % de cada perna e cash out, e recalcule tudo com esses números.
 
 ### Modo advisor ao vivo
 Se o usuário quiser acompanhamento, siga a seção 4 de [references/apostas.md](references/apostas.md): pegue as apostas e preços dele, combine as 5 regras (valor, alerta vermelho, travar lucro, disciplina, cálculo ao vivo), agende check-ins nos momentos decisivos com notificação no celular e, em cada um, diga MANTER / CONSIDERE SAIR / NEUTRO com o número por trás. No fim do dia, entregue o resumo e os comandos de `ledger result`.
@@ -175,8 +177,8 @@ Depois de todos os confrontos, entregue uma seção **"Resumo dos palpites"** qu
 2. **Palpite por palpite, em 3-4 linhas cada**: o que a estatística diz, o número-chave que sustenta (ex.: "Palmeiras 0,68 gol sofrido por jogo contra 1,52 do Vasco"), o que pode dar errado, e o gatilho que mudaria o palpite.
 3. **Leitura do conjunto**: quais palpites são independentes e quais dependem do mesmo fator; probabilidade de acertar todos juntos (produto das probabilidades, só para jogos independentes) e de acertar pelo menos X deles, para o usuário não superestimar combinadas.
 4. **Value e mercado**: se houver odds, EV de cada um; se não houver, diga em uma linha "sem odds, sem cálculo de value" e dê a odd justa mínima para a aposta valer a pena (odd acima de 1/prob).
-5. **Opções de aposta e combos**: apostas simples e combos (seguro, equilibrado, agressivo; longo/misto quando fizer sentido) com chance, preço justo e "pague até X¢".
-6. **Plano de hedge**: para cada combo, em que momento o hedge faz sentido, quantos contratos do lado contrário, custo e lucro travado em alguns preços (tabela), e o aviso de que hedge não cria dinheiro, só tira risco.
+5. **Opções de aposta e combos**: apostas simples e combos (seguro, equilibrado, agressivo; longo/misto quando fizer sentido) com a chance e o pagamento mínimo em dólar ("apostando $10, precisa receber pelo menos $X").
+6. **Plano de hedge**: para cada combo, em que momento o hedge faz sentido, quanto apostar no lado contrário e quanto lucro fica garantido, em dólar, para alguns % do lado contrário (tabela), e o aviso de que hedge não cria dinheiro, só tira risco.
 7. **Pergunta final**: ofereça acompanhar as apostas ao vivo (modo advisor) com notificações.
 8. **Registro**: confirme que os palpites foram para o ledger (ids) e lembre de trazer os resultados para calibrar.
 9. **Ressalva final** em uma linha: são probabilidades, não garantias.

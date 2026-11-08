@@ -14,9 +14,9 @@ Subcomandos:
   normal --diff D --sd S [--line L]                  prob. de vencer / cobrir linha (basquete, NFL)
   value --prob P --odds O [--kelly-frac F --cap C]   EV e Kelly fracionado com teto
   clv --taken O --closing O                          closing line value de uma aposta
-  combo --probs P1 P2 ... [--price C]                chance do combo, preço justo/teto em ¢ e evolução perna a perna
-  hedge --stake S --payout P --opp-price C           quantos contratos do lado contrário comprar e lucro travado
-  livewp --lead L --minutes-left M --spread S        prob. ao vivo (NFL/NBA) e sinal MANTER/SAIR vs preço de venda
+  combo --probs P1 P2 ... [--stake 10 --pays Y]      chance do combo e o pagamento mínimo em dólar para valer a pena
+  hedge --stake S --payout P --opp-pct C             aposta de proteção (hedge): quanto apostar no lado contrário e lucro garantido
+  livewp --lead L --minutes-left M --spread S        chance ao vivo (NFL/NBA) e sinal MANTER/SAIR contra o % do app
   aggregate --home MU --away MU --lead N             mata-mata de ida e volta: chance de classificar
   ledger add|result|report                           registro de palpites e calibração (Brier, RPS, CLV, ROI)
 """
@@ -189,42 +189,42 @@ def cmd_clv(a):
 def cmd_combo(a):
     """Combo = todas as pernas precisam acertar. Só vale para pernas independentes."""
     p = math.prod(a.probs)
-    print(f"Chance de acertar todas as {len(a.probs)} pernas: {p:.1%}")
-    print(f"Preço justo: {p*100:.0f}¢ | pague no máximo: {p*100 - a.margin:.0f}¢ (margem de segurança {a.margin:g}¢)")
-    if a.price is not None:
-        ev = p / (a.price / 100) - 1
-        print(f"Preço oferecido {a.price:g}¢ -> EV {ev:+.1%} ({'barato' if ev > 0.03 else 'caro' if ev < -0.03 else 'justo'})")
+    fair = a.stake / p
+    minpay = a.stake / max(p - a.margin, 0.01)
+    print(f"Chance de acertar todas as {len(a.probs)} pernas: {p:.0%}")
+    print(f"Apostando ${a.stake:.2f}, só vale se o app pagar pelo menos ${minpay:.2f} (pagamento justo: ${fair:.2f})")
+    if a.pays is not None:
+        ev = p * a.pays / a.stake - 1
+        print(f"O app paga ${a.pays:.2f} -> {'bom preço' if ev > 0.03 else 'caro' if ev < -0.03 else 'preço justo'} (ganho médio {ev:+.0%})")
     for k in range(1, len(a.probs)):
-        rest = math.prod(a.probs[k:])
-        print(f"  Se as {k} primeiras pernas acertarem, o combo passa a valer {rest:.0%}")
+        print(f"  Se as {k} primeiras pernas acertarem, a chance do combo sobe para {math.prod(a.probs[k:]):.0%}")
 
 
 def cmd_hedge(a):
-    """Trava lucro comprando o lado contrário da última perna (contratos pagam $1)."""
-    full = a.payout
-    for n in sorted({round(full), round(full / 2)}):
-        cost = n * a.opp_price / 100
-        win = a.payout - a.stake - cost          # sua perna ganha
-        lose = n - a.stake - cost                # lado contrário ganha
-        print(f"Comprar {n} contratos do lado contrário a {a.opp_price:g}¢ = ${cost:.2f}")
-        print(f"  Sua perna ganha: {win:+.2f} | lado contrário ganha: {lose:+.2f}")
-    p_now = 1 - a.opp_price / 100
-    print(f"Sem hedge: {p_now:.0%} de chance de {a.payout - a.stake:+.2f} e {1-p_now:.0%} de {-a.stake:+.2f}")
-    print("Lembrete: hedge não cria dinheiro (EV quase igual, menos taxa); ele troca lucro máximo por segurança.")
+    """Aposta de proteção no lado contrário da última perna para garantir lucro."""
+    opp = a.opp_pct / 100
+    for share in (1.0, 0.5):
+        cover = a.payout * share               # quanto a proteção paga se o lado contrário ganhar
+        cost = cover * opp                     # quanto apostar na proteção
+        win = a.payout - a.stake - cost
+        lose = cover - a.stake - cost
+        nome = "Proteção total" if share == 1 else "Proteção pela metade"
+        print(f"{nome}: aposte ${cost:.2f} no lado contrário (ela paga ${cover:.2f} se ele ganhar)")
+        print(f"  Se a sua aposta ganhar: {win:+.2f} | se o lado contrário ganhar: {lose:+.2f}")
+    print(f"Sem proteção: {1-opp:.0%} de chance de {a.payout - a.stake:+.2f} e {opp:.0%} de chance de {-a.stake:+.2f}")
+    print("Lembrete: a proteção não cria dinheiro; ela troca o lucro máximo por segurança.")
 
 
 def cmd_livewp(a):
-    """Prob. ao vivo (NFL/NBA): vantagem atual + spread pré-jogo proporcional ao tempo restante."""
+    """Chance ao vivo (NFL/NBA): vantagem atual + favoritismo de antes do jogo proporcional ao tempo restante."""
     cdf = lambda x: 0.5 * (1 + math.erf(x / math.sqrt(2)))
     frac = max(a.minutes_left, 0.01) / a.game_minutes
-    mu = a.lead + a.spread * frac
-    sd = a.sd * math.sqrt(frac)
-    p = cdf(mu / sd)
-    print(f"Prob. ao vivo do time: {p:.1%} (vantagem {a.lead:+g}, {a.minutes_left:g} min restantes, spread pré {a.spread:+g})")
-    if a.price is not None:
-        d = p - a.price / 100
-        sig = "MANTER" if d > 0.03 else "CONSIDERE SAIR" if d < -0.03 else "NEUTRO"
-        print(f"Preço de venda {a.price:g}¢ -> diferença {d*100:+.0f} pp -> {sig}")
+    p = cdf((a.lead + a.spread * frac) / (a.sd * math.sqrt(frac)))
+    print(f"Chance ao vivo: {p:.0%} (vantagem {a.lead:+g}, {a.minutes_left:g} min restantes, favoritismo antes do jogo {a.spread:+g})")
+    if a.app_pct is not None:
+        d = p * 100 - a.app_pct
+        sig = "MANTER" if d > 3 else "CONSIDERE SAIR" if d < -3 else "TANTO FAZ (sua escolha)"
+        print(f"O app mostra {a.app_pct:g}% -> diferença {d:+.0f} pontos -> {sig}")
 
 
 def cmd_aggregate(a):
@@ -352,9 +352,9 @@ def main():
     s = add("normal", cmd_normal); s.add_argument("--diff", type=float, required=True); s.add_argument("--sd", type=float, required=True); s.add_argument("--line", type=float)
     s = add("value", cmd_value); s.add_argument("--prob", type=float, required=True); s.add_argument("--odds", type=float, required=True); s.add_argument("--kelly-frac", type=float, default=0.25); s.add_argument("--cap", type=float, default=0.05)
     s = add("clv", cmd_clv); s.add_argument("--taken", type=float, required=True); s.add_argument("--closing", type=float, required=True)
-    s = add("combo", cmd_combo); s.add_argument("--probs", type=float, nargs="+", required=True); s.add_argument("--price", type=float, help="preço do combo em ¢"); s.add_argument("--margin", type=float, default=1)
-    s = add("hedge", cmd_hedge); s.add_argument("--stake", type=float, required=True, help="quanto você pagou ($)"); s.add_argument("--payout", type=float, required=True, help="quanto recebe se ganhar ($)"); s.add_argument("--opp-price", type=float, required=True, help="preço do lado contrário em ¢")
-    s = add("livewp", cmd_livewp); s.add_argument("--lead", type=float, required=True); s.add_argument("--minutes-left", type=float, required=True); s.add_argument("--spread", type=float, required=True, help="pontos que o time era favorito antes do jogo (+ favorito, - azarão)"); s.add_argument("--game-minutes", type=float, default=60, help="60 NFL, 48 NBA"); s.add_argument("--sd", type=float, default=13.5, help="13.5 NFL, 12 NBA"); s.add_argument("--price", type=float, help="preço de venda em ¢")
+    s = add("combo", cmd_combo); s.add_argument("--probs", type=float, nargs="+", required=True); s.add_argument("--stake", type=float, default=10, help="quanto vai apostar ($)"); s.add_argument("--pays", type=float, help="quanto o app paga se ganhar ($)"); s.add_argument("--margin", type=float, default=0.01)
+    s = add("hedge", cmd_hedge); s.add_argument("--stake", type=float, required=True, help="quanto você apostou ($)"); s.add_argument("--payout", type=float, required=True, help="quanto recebe se ganhar ($)"); s.add_argument("--opp-pct", type=float, required=True, help="chance do lado contrário que o app mostra (%%)")
+    s = add("livewp", cmd_livewp); s.add_argument("--lead", type=float, required=True); s.add_argument("--minutes-left", type=float, required=True); s.add_argument("--spread", type=float, required=True, help="pontos que o time era favorito antes do jogo (+ favorito, - azarão)"); s.add_argument("--game-minutes", type=float, default=60, help="60 NFL, 48 NBA"); s.add_argument("--sd", type=float, default=13.5, help="13.5 NFL, 12 NBA"); s.add_argument("--app-pct", type=float, help="chance que o app mostra agora (%%)")
     s = add("aggregate", cmd_aggregate); s.add_argument("--home", type=float, required=True, help="gols esperados do mandante da volta"); s.add_argument("--away", type=float, required=True); s.add_argument("--lead", type=int, required=True, help="vantagem do visitante no agregado"); s.add_argument("--pen", type=float, default=0.5)
     s = add("ledger", cmd_ledger)
     s.add_argument("action", choices=["add", "result", "report"])
