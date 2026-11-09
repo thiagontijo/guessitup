@@ -14,7 +14,7 @@ Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com
 - plano de proteção (hedge) em dólar: quanto apostar no lado contrário e quanto lucro fica garantido;
 - modo advisor ao vivo: acompanha as apostas e avisa "manter" ou "considere sair" com base em estatística (a decisão é sempre sua).
 
-A skill sempre pergunta antes quais sugestões você quer (esportes, jogos de hoje ou da semana, combos, acompanhamento ao vivo).
+A skill sempre abre um menu de botões: **App** (Kalshi, Hard Rock, FanDuel, DraftKings ou outro), **Tipo de aposta** (palpite simples, combo ou os dois) e **Proteção hedge** (ativar ou não). Com a proteção ativada, ela monta o plano de hedge e te avisa ao vivo no celular.
 
 > São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
 

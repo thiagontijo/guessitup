@@ -12,6 +12,22 @@ Guia para transformar probabilidades em opções de aposta em qualquer app (Hard
 
 Regra fixa: a decisão é sempre do usuário. A skill sugere, calcula e avisa; nunca faz a aposta, nunca entra na conta do usuário e não se apresenta como consultor financeiro licenciado.
 
+
+## Menu de botões (sempre no início)
+
+Chame AskUserQuestion uma vez, com as 3 perguntas abaixo (pule a que já foi respondida na conversa):
+
+| # | header | Pergunta | Opções (label · description) |
+|---|--------|----------|------------------------------|
+| 1 | App | Em qual app você vai apostar? | Kalshi · chance em % ("Sim a 72%") / Hard Rock · odds americanas e parlay / FanDuel · odds americanas / DraftKings · odds americanas |
+| 2 | Aposta | Que tipo de aposta você quer? | Palpite simples · um jogo por aposta / Combo · vários jogos juntos, paga mais / Os dois · simples + combos |
+| 3 | Hedge | Quer ativar a proteção (hedge)? | Ativar proteção · plano de seguro em dólar + aviso ao vivo no celular / Sem proteção · só os palpites |
+
+Regras:
+- A opção recomendada vem primeiro e com "(Recomendado)" no fim: no App, o app que o usuário usou da última vez; no Hedge, "Ativar proteção" quando houver combo.
+- Cada pergunta deve fazer sentido sozinha (o usuário pode ver só o diálogo).
+- Entregue só o que foi escolhido. Com hedge ativado, agende check-ins ao vivo (send_later) e mande notificação no celular em cada alerta.
+
 ## 0. Qual app? (perguntar sempre)
 
 Antes das opções, pergunte em qual app o usuário vai apostar (se ele ainda não disse na conversa). Tudo é montado no formato desse app, e depois comparado com os outros.
