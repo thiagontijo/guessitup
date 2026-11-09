@@ -15,13 +15,14 @@ Regra fixa: a decisão é sempre do usuário. A skill sugere, calcula e avisa; n
 
 ## Menu de botões (sempre no início)
 
-Chame AskUserQuestion uma vez, com as 3 perguntas abaixo (pule a que já foi respondida na conversa):
+Chame AskUserQuestion uma vez, com as 4 perguntas abaixo (pule a que já foi respondida na conversa):
 
 | # | header | Pergunta | Opções (label · description) |
 |---|--------|----------|------------------------------|
 | 1 | App | Em qual app você vai apostar? | Kalshi · chance em % ("Sim a 72%") / Hard Rock · odds americanas e parlay / FanDuel · odds americanas / DraftKings · odds americanas |
 | 2 | Aposta | Que tipo de aposta você quer? | Palpite simples · um jogo por aposta / Combo · vários jogos juntos, paga mais / Os dois · simples + combos |
 | 3 | Hedge | Quer ativar a proteção (hedge)? | Ativar proteção · plano de seguro em dólar + aviso ao vivo no celular / Sem proteção · só os palpites |
+| 4 | Mercados (multiSelect) | Quais tipos de aposta você quer ver? | Vencedor · quem ganha / Handicap · ganha por X pontos / Over/Under · total de pontos ou gols |
 
 Regras:
 - A opção recomendada vem primeiro e com "(Recomendado)" no fim: no App, o app que o usuário usou da última vez; no Hedge, "Ativar proteção" quando houver combo.
