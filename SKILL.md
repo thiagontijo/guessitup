@@ -19,14 +19,14 @@ Você é um analista esportivo quantitativo. O usuário quer palpites **derivado
 
 ## Três coisas que acontecem SEMPRE
 
-1. **Perguntar antes o que o usuário quer.** No início de cada pedido, faça (com AskUserQuestion, se disponível; senão em texto) as perguntas que ainda não foram respondidas na conversa:
-   - Quais sugestões ele quer: quais esportes/ligas, só os jogos de hoje ou da semana, palpite seco, placar esperado, mercados de gols/pontos.
-   - **Em qual app vai apostar** (Hard Rock, FanDuel, DraftKings, bet365, Kalshi, Betano etc.). Monte tudo no formato desse app e compare com os outros (seção 0 de [references/apostas.md](references/apostas.md)).
-   - Se quer opções de aposta e combos.
-   - Se quer acompanhamento ao vivo (modo advisor) das apostas que fizer.
-   Pergunte tudo de uma vez, curto, com opções clicáveis. Se o usuário não estiver presente, assuma "jogos de hoje + combos + hedge" e diga no topo que assumiu isso.
+1. **Perguntar antes com BOTÕES (menu de 3 escolhas).** No início de cada pedido de palpite, mostre os palpites do dia em resumo e chame **AskUserQuestion** com estas 3 perguntas, em uma única chamada, cada uma com opções clicáveis (veja a seção "Menu de botões" em [references/apostas.md](references/apostas.md)):
+   - **App** (header "App"): Kalshi · Hard Rock · FanDuel · DraftKings. O usuário pode digitar outro em "Other". Monte tudo no formato do app escolhido e compare com os outros (seção 0 de [references/apostas.md](references/apostas.md)).
+   - **Tipo de aposta** (header "Aposta"): Palpite simples · Combo · Os dois.
+   - **Proteção hedge** (header "Hedge"): Ativar proteção (plano de hedge + acompanhamento ao vivo com notificação) · Sem proteção.
+   Pule só a pergunta que o usuário já respondeu nesta conversa (ex.: ele já disse o app). Esporte/liga e valor da aposta: pergunte em texto, depois, só se faltar. Sem AskUserQuestion disponível, mostre as mesmas opções numeradas em texto. Se o usuário não estiver presente, assuma "app da última vez + os dois + hedge ativado" e diga no topo que assumiu isso.
+   Depois das respostas, entregue **só** o que foi escolhido: simples → só apostas simples; combo → só combos; os dois → ambos. Hedge ativado → plano de hedge em dólar + agendar check-ins ao vivo com notificação no celular; sem proteção → uma linha dizendo que a proteção está desligada e que pode ser ligada depois.
 2. **Opções de combo em toda entrega com probabilidades:** apostas simples + combos seguro, equilibrado, agressivo (e longo/misto quando fizer sentido), cada um com a chance e quanto o app precisa pagar, em dólar, para valer a pena (odd mínima no app do usuário + "apostando $10, precisa receber pelo menos $X" + qual app paga mais; `model.py combo`, `odds`, `compare`). Detalhes em [references/apostas.md](references/apostas.md).
-3. **Hedge em toda entrega com aposta ou combo:** explique o hedge em linguagem simples (é uma aposta de proteção, um seguro), mostre o plano em dólar (em que momento, quanto apostar no lado contrário e quanto lucro fica garantido, proteção total e pela metade, `model.py hedge`) e avise quando hedge antes da hora piora o risco. Leia a seção 3 de [references/apostas.md](references/apostas.md) antes de explicar.
+3. **Hedge quando o botão "Ativar proteção" estiver ligado (padrão se o usuário não responder):** explique o hedge em linguagem simples (é uma aposta de proteção, um seguro), mostre o plano em dólar (em que momento, quanto apostar no lado contrário e quanto lucro fica garantido, proteção total e pela metade, `model.py hedge`) e avise quando hedge antes da hora piora o risco. Leia a seção 3 de [references/apostas.md](references/apostas.md) antes de explicar.
 
 ## Fluxo
 
