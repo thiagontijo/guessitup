@@ -14,7 +14,7 @@ Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com
 - plano de proteção (hedge) em dólar: quanto apostar no lado contrário e quanto lucro fica garantido;
 - modo advisor ao vivo: acompanha as apostas e avisa "manter" ou "considere sair" com base em estatística (a decisão é sempre sua).
 
-A skill sempre abre um menu de botões: **App** (Kalshi, Hard Rock, FanDuel, DraftKings ou outro), **Tipo de aposta** (palpite simples, combo ou os dois) e **Proteção hedge** (ativar ou não) e **Mercados** (vencedor, handicap, over/under, com simulação de 10.000 jogos). Com a proteção ativada, ela monta o plano de hedge e te avisa ao vivo no celular.
+A skill sempre abre um menu de botões: **App** (Kalshi, Hard Rock, FanDuel, DraftKings ou outro), **Tipo de aposta** (palpite simples, combo ou os dois), **Proteção hedge** (ativar ou não) e **Mercados** (vencedor, handicap, over/under, com simulação de 10.000 jogos). Cada jogo sai numa **ficha completa**: números da temporada, contexto, simulação e nota de confiança A-D. Com a proteção ativada, ela monta o plano de hedge e te avisa ao vivo no celular.
 
 > São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
 
@@ -77,6 +77,8 @@ guessitup/
 | `combo --probs ... --stake --pays` | chance do combo e pagamento mínimo em dólar para valer a pena |
 | `hedge --stake --payout --opp-pct` | proteção total e pela metade: quanto apostar no lado contrário e lucro garantido |
 | `sim --sport --market-spread --market-total [--home --away] --spread --total` | simula 10.000 jogos: vencedor, handicap, over/under, margem e preço justo |
+| `expected --sport nba ou nfl ...` | placar esperado pelas estatísticas da temporada (ritmo, ataque, defesa, descanso, desfalques) |
+| `grade --prob --app-pct --divergence --data --games` | nota de confiança A-D com os motivos |
 | `livewp --lead --minutes-left --spread --app-pct` | chance ao vivo (NFL/NBA) e sinal MANTER / CONSIDERE SAIR |
 | `odds --odd --prob` | converte odd americana, decimal ou % para dólar e diz a odd mínima |
 | `compare --apps App=odd ... --prob` | mesma aposta em vários apps: qual paga mais |
