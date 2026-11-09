@@ -99,6 +99,8 @@ Método sugerido:
 ### Opções de aposta, combos e hedge
 Depois das probabilidades, monte o cardápio de apostas e o plano de hedge seguindo [references/apostas.md](references/apostas.md) (seções 1 a 3): como saber se o pagamento do app está bom, apostas simples, combos seguro/equilibrado/agressivo/longo/misto e o hedge explicado com números. Se o usuário mandar print do app, leia quanto apostou, quanto recebe, % de cada perna e cash out, e recalcule tudo com esses números.
 
+**Ficha completa do jogo (padrão de entrega):** quando o usuário liga a Guessitup e pede os palpites, cada jogo analisado sai no formato de [references/ficha-jogo.md](references/ficha-jogo.md): mercado, modelo x mercado, números da temporada (tabela por esporte), contexto (descanso, desfalques, confronto direto), simulação de 10.000 jogos, a favor/contra, nota A-D (`model.py grade`) e veredito com melhor aposta, alternativa, "evitar" e hedge. Com 4 ou mais jogos: Quadro do dia + ficha completa só dos jogos de nota A/B, e oferta de ficha de qualquer outro. Placar esperado: `model.py expected` (NBA/NFL). Só entregue quando o usuário pedir.
+
 **Handicap e Over/Under** (quando marcados no menu): siga [references/handicap-total.md](references/handicap-total.md). Pegue as linhas do dia no app/site de odds, monte o placar esperado do modelo e rode `model.py sim` com a linha principal e 1 ou 2 alternativas. Entregue tabela com chance, preço justo no app do usuário e "só vale se", mais 1 ou 2 linhas da distribuição da margem. Nunca multiplique chances de vencedor e handicap do mesmo jogo num combo.
 
 ### Modo advisor ao vivo

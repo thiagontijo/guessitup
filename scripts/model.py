@@ -344,6 +344,68 @@ def cmd_sim(a):
     print("Regra: só aposte se o app pagar MAIS que o justo (no Kalshi, preço ABAIXO da chance).")
 
 
+# ---------- ficha do jogo: placar esperado e nota de confiança ----------
+def cmd_expected(a):
+    """Placar esperado a partir de estatísticas da temporada (entra no `sim` como --home/--away)."""
+    sport = a.sport.lower()
+    if sport in ("nba", "ncaab"):
+        pace = (a.pace_home + a.pace_away) / 2
+        lg = a.league_rating
+        ph = pace * (a.ortg_home * a.drtg_away / lg) / 100
+        pa = pace * (a.ortg_away * a.drtg_home / lg) / 100
+        notes = [f"ritmo esperado {pace:.1f} posses"]
+    elif sport in ("nfl", "ncaafb"):
+        lg = a.league_points
+        ph = a.pf_home * a.pa_away / lg
+        pa = a.pf_away * a.pa_home / lg
+        notes = [f"média da liga {lg:g} pontos por time"]
+    else:
+        sys.exit("expected: use nba/ncaab (pace, ortg, drtg) ou nfl/ncaafb (pf, pa). Futebol/NHL: strength + poisson.")
+    adj = a.home_adv if a.home_adv is not None else (2.0 if sport in ("nba", "ncaab") else 1.5)
+    a.home_adv = adj
+    if a.rest_home is not None and a.rest_away is not None:
+        r = 0
+        if a.rest_home == 0: r -= a.b2b
+        if a.rest_away == 0: r += a.b2b
+        if r:
+            notes.append(f"descanso: {r:+g} na margem do mandante (jogo em dias seguidos)")
+        adj += r
+    adj += a.injury_home * -1 + a.injury_away
+    if a.injury_home or a.injury_away:
+        notes.append(f"desfalques: mandante -{a.injury_home:g}, visitante -{a.injury_away:g} pontos")
+    ph, pa = ph + adj / 2, pa - adj / 2
+    print(f"Placar esperado: {a.home_name} {ph:.1f} x {pa:.1f} {a.away_name}")
+    print(f"Margem do modelo: {a.home_name} {ph - pa:+.1f} | Total do modelo: {ph + pa:.1f}")
+    print("Ajustes: mando " + f"{a.home_adv:+g}; " + "; ".join(notes))
+    print(f"Use no sim: --home {ph:.1f} --away {pa:.1f}")
+
+
+def cmd_grade(a):
+    """Nota de confiança A-D: vantagem sobre o preço, concordância modelo x mercado, dados completos, amostra."""
+    pts, why = 0, []
+    edge = round((a.prob - a.app_pct / 100) * 100, 1)
+    if edge >= 6: pts += 3; why.append(f"vantagem forte ({edge:+.0f} pontos sobre o preço)")
+    elif edge >= 3: pts += 2; why.append(f"vantagem boa ({edge:+.0f} pontos)")
+    elif edge >= 1: pts += 1; why.append(f"vantagem pequena ({edge:+.0f} pontos)")
+    else: why.append(f"sem vantagem ({edge:+.0f} pontos)")
+    if a.divergence is not None:
+        if a.divergence <= 5: pts += 2; why.append("modelo e mercado concordam")
+        elif a.divergence <= 10: pts += 1; why.append("modelo e mercado divergem um pouco")
+        else: pts -= 1; why.append(f"modelo e mercado divergem {a.divergence:g} pontos (cuidado)")
+    if a.data >= 0.9: pts += 2; why.append("dados completos")
+    elif a.data >= 0.7: pts += 1; why.append("alguns dados faltando")
+    else: pts -= 1; why.append("muitos dados faltando")
+    if a.games >= 10: pts += 1; why.append(f"amostra boa ({a.games} jogos)")
+    elif a.games < 5: pts -= 1; why.append(f"amostra pequena ({a.games} jogos)")
+    if a.key_injury_doubt: pts -= 2; why.append("jogador importante com status incerto")
+    nota = "A" if pts >= 7 else "B" if pts >= 5 else "C" if pts >= 3 else "D"
+    rot = {"A": "aposta forte", "B": "boa aposta", "C": "aposta leve ou só em combo", "D": "evitar"}[nota]
+    print(f"Nota {nota} ({rot}) — {pts} pontos")
+    print("Motivos: " + "; ".join(why))
+    if edge < 3:
+        print("Lembrete: vantagem abaixo de 3 pontos fica dentro do erro do modelo.")
+
+
 # ---------- apps de apostas: formatos de odd e comparação ----------
 def _to_dec(x):
     """Aceita odd americana (-150, +130), decimal (1.80) ou % de app de previsão (55%)."""
@@ -530,6 +592,24 @@ def main():
     s.add_argument("--home-name", default="Mandante"); s.add_argument("--away-name", default="Visitante")
     s.add_argument("--sd-margin", type=float); s.add_argument("--sd-total", type=float)
     s.add_argument("--n", type=int, default=10000); s.add_argument("--seed", type=int, default=7)
+    s = add("expected", cmd_expected)
+    s.add_argument("--sport", required=True); s.add_argument("--home-name", default="Mandante"); s.add_argument("--away-name", default="Visitante")
+    for k in ("pace-home", "pace-away", "ortg-home", "drtg-home", "ortg-away", "drtg-away", "pf-home", "pa-home", "pf-away", "pa-away"):
+        s.add_argument(f"--{k}", type=float)
+    s.add_argument("--league-rating", type=float, default=115.0, help="pontos por 100 posses da liga (NBA)")
+    s.add_argument("--league-points", type=float, default=22.5, help="pontos por time por jogo da liga (NFL)")
+    s.add_argument("--home-adv", type=float, default=None, help="vantagem de mando na margem (padrão NBA 2, NFL 1.5)")
+    s.add_argument("--rest-home", type=int, help="dias de descanso (0 = jogou ontem)"); s.add_argument("--rest-away", type=int)
+    s.add_argument("--b2b", type=float, default=2.5, help="pontos perdidos em jogo de dias seguidos")
+    s.add_argument("--injury-home", type=float, default=0, help="pontos de margem perdidos por desfalques do mandante")
+    s.add_argument("--injury-away", type=float, default=0)
+    s = add("grade", cmd_grade)
+    s.add_argument("--prob", type=float, required=True, help="chance do modelo (0-1)")
+    s.add_argument("--app-pct", type=float, required=True, help="preço/chance no app (%%)")
+    s.add_argument("--divergence", type=float, help="diferença modelo x mercado (pontos %%)")
+    s.add_argument("--data", type=float, default=1.0, help="fração dos campos da ficha encontrados (0-1)")
+    s.add_argument("--games", type=int, default=10, help="jogos na amostra da temporada")
+    s.add_argument("--key-injury-doubt", action="store_true")
     s = add("ledger", cmd_ledger)
     s.add_argument("action", choices=["add", "result", "report"])
     s.add_argument("--id"); s.add_argument("--event"); s.add_argument("--sport"); s.add_argument("--date")
