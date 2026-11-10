@@ -1,119 +1,134 @@
 # guessitup
 
-**[⬇️ Baixar a skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)**
+**English** · [Português](README.pt-BR.md)
 
-> *English:* a Claude skill for statistics-based sports picks (NBA, NFL, soccer, NHL, tennis, MMA), with combo and hedge math and three paper-trading bots (Chico, Arnaldo, Herman). Answers in Portuguese by default; ask Claude to reply in English.
+**[⬇️ Download the skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)**
 
-Skill para o Claude ([app](https://claude.ai) e [Claude Code](https://claude.com/claude-code)) que gera **palpites esportivos baseados em estatística**, em qualquer esporte: futebol, NBA, NFL, MLB, NHL, tênis, MMA/UFC, F1, vôlei, eSports e outros.
+A skill for Claude ([app](https://claude.ai) and [Claude Code](https://claude.com/claude-code)) that makes **sports picks from statistics, not hunches**, for any sport: soccer, NBA, NFL, MLB, NHL, tennis, MMA/UFC, F1, volleyball, esports and more.
 
-Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com:
+For each game or fight, the skill pulls current data from the web and builds a report with:
 
-- campanha em cinco janelas: carreira, temporada, último mês, últimos 5 jogos e situação do jogo (mando, superfície, descanso);
-- confronto direto, com peso proporcional à amostra;
-- desfalques e contexto;
-- probabilidades calculadas para os dois lados (Poisson/Dixon-Coles, Elo, distribuição normal para esportes de pontos), comparadas com o mercado sem margem;
-- palpite com nível de confiança, "odd justa", o que mudaria o palpite e lacunas de dados;
-- resumo final com todos os palpites ordenados por confiança;
-- opções de aposta e combos (seguro, equilibrado, arriscado) no app que você escolher (Hard Rock, FanDuel, DraftKings, bet365, Kalshi, Betano...), com a odd mínima em dólar e a comparação de qual app paga mais;
-- plano de proteção (hedge) em dólar: quanto apostar no lado contrário e quanto lucro fica garantido;
-- modo advisor ao vivo: acompanha as apostas e avisa "manter" ou "considere sair" com base em estatística (a decisão é sempre sua).
+- form across five windows: career, season, last month, last 5 games and game context (home/away, surface, rest);
+- head-to-head record, weighted by sample size;
+- injuries and context;
+- calculated probabilities for both sides (Poisson/Dixon-Coles, Elo, normal distribution for points sports), compared with the no-vig market price;
+- a pick with a confidence level, the fair price, what would change the pick, and data gaps;
+- a final summary of every pick, sorted by confidence;
+- bet options and parlays (safe, balanced, risky) for the app you choose (Hard Rock, FanDuel, DraftKings, bet365, Kalshi, Betano...), with the minimum payout that makes each bet worth it and which app pays more;
+- a hedge plan in dollars: how much to bet on the other side and how much profit is locked in;
+- live advisor mode: follows your bets and says "hold" or "consider cashing out" based on live win probability (the decision is always yours).
 
-A skill sempre abre um menu de botões: **App** (Kalshi, Hard Rock, FanDuel, DraftKings ou outro), **Tipo de aposta** (palpite simples, combo ou os dois), **Proteção hedge** (ativar ou não) e **Mercados** (vencedor, handicap, over/under, com simulação de 10.000 jogos). Cada jogo sai numa **ficha completa**: números da temporada, contexto, simulação e nota de confiança A-D. Com a proteção ativada, ela monta o plano de hedge e te avisa ao vivo no celular.
+Every request opens a button menu: **App** (Kalshi, Hard Rock, FanDuel, DraftKings or other), **Bet type** (single, parlay or both), **Hedge protection** (on or off) and **Markets** (moneyline, spread, over/under, with a 10,000-game simulation). Each game comes as a **full game card**: season numbers, context, simulation and an A–D confidence grade.
 
-### Bots de teste (opcional)
+### Test bots (optional): Chico, Arnaldo and Herman
 
-Quer testar antes de apostar de verdade? Ligue os três bots, que apostam com **dinheiro de mentira** usando os palpites da skill:
+Want to test before you bet real money? Turn on three bots that bet **play money** using the skill's picks:
 
-- **Chico** (seguro): só vencedor com 70% ou mais, combo de até 2 jogos, 2% da banca.
-- **Arnaldo** (moderado): vencedor com 60% ou mais, combos de 2 a 3 jogos, handicap e over/under com vantagem, 3% da banca.
-- **Herman** (agressivo): combos de 4 a 6 jogos que pagam 3x ou mais e zebras com valor, 1% da banca.
+- **Chico** (safe): moneylines at 70% or more, parlays of up to 2 legs, 2% of bankroll per bet.
+- **Arnaldo** (moderate): moneylines at 60% or more, 2–3 leg parlays, spreads and totals only with an edge, 3% of bankroll.
+- **Herman** (aggressive): 4–6 leg parlays that pay 3x or more and value underdogs, 1% of bankroll.
 
-Peça "liga os bots" e escolha **quanto dinheiro cada bot recebe**, o **limite de apostas por dia de cada um** (e, se quiser, um teto em dólar) e se eles rodam todo dia sozinhos ou só quando você pedir.
+Say "turn on the bots" and choose **how much money each bot gets**, **each bot's daily limit** (number of bets and, if you want, a dollar cap) and whether they run every day on their own or only when you ask.
 
-Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo e, quando nada compensa, passa o dia e diz por quê ("hoje não tem jogo seguro, vou guardar a banca"). Eles são modelos: todo dia cada bot apresenta as propostas que faria, e **você escolhe** se segue o Chico, o Arnaldo, o Herman, só algumas apostas, ou se hoje não vai jogar. **Quanto colocar em cada aposta é você que decide.** O placar mostra os três bots e uma linha "Você" com o resultado do que você escolheu seguir. Todo dia você vê o placar dos três: banca, % de retorno, acertos e dias que passaram. O registro fica só no seu computador (`bots/ledger.csv`). Detalhes em [references/bots.md](references/bots.md).
+The bots have **a mind of their own**: each one picks bets within its style, and when nothing is worth it, it sits the day out and tells you why ("no safe game today, I'm keeping the bankroll"). They are models to follow: every day each bot shows the bets it would make, and **you choose** whether to follow Chico, Arnaldo, Herman, just a few bets, or skip the day. **You decide how much to put on each bet.** The scoreboard shows the three bots plus a "You" line with the result of what you chose to follow: bankroll, % return, hit rate and days skipped. Everything stays on your computer (`bots/ledger.csv`). Details in [references/bots.md](references/bots.md).
 
-> São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
+> These are probabilities, not guarantees. No model guarantees a result, and betting involves risk. The skill never places bets and never logs into your betting accounts.
 
-## Instalação
+## Install
 
-### No app do Claude (site, desktop ou celular)
+### In the Claude app (web, desktop or mobile)
 
-1. Baixe o **[ZIP da skill](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)** (é o mesmo que o botão verde **Code → Download ZIP**).
-2. No Claude, abra **Configurações → Capacidades → Skills** e envie o arquivo ZIP.
-3. Peça: "guessitup, jogos de hoje".
+1. Download the **[skill ZIP](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)** (same as the green **Code → Download ZIP** button).
+2. In Claude, open **Settings → Capabilities → Skills** (or **Customize → Skills**) and upload the ZIP.
+3. Ask: "guessitup, today's games".
 
-(O nome do menu pode mudar entre versões do app; procure por "Skills".)
+### In Claude Code
 
-### No Claude Code (computador)
-
-Requer Python 3 (só biblioteca padrão).
+Needs Python 3 (standard library only).
 
 ```bash
 git clone https://github.com/thiagontijo/guessitup ~/.claude/skills/guessitup
 ```
 
-Para atualizar depois:
+To update later:
 
 ```bash
 cd ~/.claude/skills/guessitup && git pull
 ```
 
-### Exemplos de pedido
+### Language
 
-- `/guessitup jogos do Brasileirão deste fim de semana`
-- "quem leva Palmeiras x Flamengo? quero as chances dos dois lados"
-- "palpites do card do UFC de sábado"
-- "monta opções de combo pra hoje na Hard Rock e compara com os outros apps"
-- "acompanha minhas apostas e me avisa se devo manter ou sair"
+The skill answers in **Portuguese** by default (dollar amounts in betting-app format). To get English, just say so: "guessitup, today's NBA games, answer in English".
 
-## Estrutura
+### Example requests
+
+- `/guessitup this weekend's Premier League games`
+- "who wins Lakers vs Celtics? give me both sides' chances"
+- "picks for Saturday's UFC card"
+- "build parlay options for tonight on Hard Rock and compare with other apps"
+- "follow my bets and tell me if I should hold or cash out"
+- "turn on the bots with $500 each, Herman max 2 bets a day"
+
+## Structure
 
 ```
 guessitup/
-├── SKILL.md                 instruções da skill (fluxo, regras, formato do relatório)
-├── references/esportes.md   métricas, fontes e modelo indicado por esporte
-├── references/apostas.md    Kalshi, combos, hedge, modo advisor e lições aprendidas
-├── references/bots.md       bots de teste Chico, Arnaldo e Herman (dinheiro de mentira)
-├── scripts/model.py         ferramentas numéricas (só biblioteca padrão)
-└── scripts/bots.py          bots de teste: regras, registro e placar
+├── SKILL.md                 skill instructions (flow, rules, report format)
+├── references/esportes.md   metrics, sources and model per sport
+├── references/apostas.md    Kalshi, parlays, hedge, live advisor and lessons learned
+├── references/ficha-jogo.md full game card format
+├── references/handicap-total.md  spreads and totals with the 10,000-game simulation
+├── references/bots.md       test bots Chico, Arnaldo and Herman (play money)
+├── scripts/model.py         numeric tools (standard library only)
+└── scripts/bots.py          test bots: rules, limits, proposals, follow mode, scoreboard
 ```
 
 ### `scripts/model.py`
 
-| Comando | O que faz |
+| Command | What it does |
 |---|---|
-| `poisson --home 1.6 --away 1.1` | gols esperados → 1X2, dupla chance, empate anula, over/under, ambos marcam, placares (com correção Dixon-Coles) |
-| `decay --values ... --half-life 5` | média com decaimento temporal (jogo recente pesa mais) |
-| `strength --gf --ga --league-gf` | forças de ataque e defesa relativas à liga |
-| `elo --a --b --adv --draw` | probabilidades por Elo (com conversão para 1X2) |
-| `elo-update` | atualiza Elo após um resultado, com multiplicador por margem |
-| `devig --odds ...` | remove a margem da casa: proporcional, potência e Shin |
-| `normal --diff --sd --line` | esportes de pontos: chance de vencer e de cobrir spread |
-| `tennis --pa --pb --best-of` | tênis: % de pontos no saque → hold, set, partida e placar em sets (cadeia de Markov) |
-| `log5 --a --b --home` | baseball e afins: win% de cada lado → chance no confronto, com mando |
-| `blend --probs --weights` | combina modelos e mede a divergência |
-| `value --prob --odds` | valor esperado e Kelly fracionado (0,25x, teto de 5%) |
+| `poisson --home 1.6 --away 1.1` | expected goals → 1X2, double chance, draw no bet, over/under, both teams score, scorelines (Dixon-Coles correction) |
+| `decay --values ... --half-life 5` | time-decayed average (recent games weigh more) |
+| `strength --gf --ga --league-gf` | attack and defense strength relative to the league |
+| `elo --a --b --adv --draw` | Elo probabilities (with 1X2 conversion) |
+| `elo-update` | updates Elo after a result, with margin multiplier |
+| `devig --odds ...` | removes the bookmaker margin: proportional, power and Shin |
+| `normal --diff --sd --line` | points sports: chance to win and to cover the spread |
+| `tennis --pa --pb --best-of` | tennis: serve points won → hold, set, match and set scores (Markov chain) |
+| `log5 --a --b --home` | baseball and similar: each side's win% → head-to-head chance, with home edge |
+| `blend --probs --weights` | combines models and measures disagreement |
+| `value --prob --odds` | expected value and fractional Kelly (0.25x, 5% cap) |
 | `clv --taken --closing` | closing line value |
-| `combo --probs ... --stake --pays` | chance do combo e pagamento mínimo em dólar para valer a pena |
-| `hedge --stake --payout --opp-pct` | proteção total e pela metade: quanto apostar no lado contrário e lucro garantido |
-| `sim --sport --market-spread --market-total [--home --away] --spread --total` | simula 10.000 jogos: vencedor, handicap, over/under, margem e preço justo |
-| `expected --sport nba ou nfl ...` | placar esperado pelas estatísticas da temporada (ritmo, ataque, defesa, descanso, desfalques) |
-| `grade --prob --app-pct --divergence --data --games` | nota de confiança A-D com os motivos |
-| `livewp --lead --minutes-left --spread --app-pct` | chance ao vivo (NFL/NBA) e sinal MANTER / CONSIDERE SAIR |
-| `odds --odd --prob` | converte odd americana, decimal ou % para dólar e diz a odd mínima |
-| `compare --apps App=odd ... --prob` | mesma aposta em vários apps: qual paga mais |
-| `aggregate --home --away --lead` | mata-mata de ida e volta: chance de classificar pelo placar agregado |
-| `temper --probs --k` | recalibra probabilidades com a "temperatura" aprendida nos resultados anteriores |
-| `ledger add/result/void/pending/report/calibrate` | registro de palpites e calibração: Brier, skill score, comparação com o mercado, acertos esperados x reais, por esporte/confiança/força, ROI, CLV |
+| `combo --probs ... --stake --pays` | parlay chance and minimum payout to be worth it |
+| `hedge --stake --payout --opp-pct` | full and half hedge: how much to bet on the other side and the locked profit |
+| `sim --sport --market-spread --market-total ...` | simulates 10,000 games: winner, spread, over/under, margin and fair price |
+| `expected --sport nba or nfl ...` | expected score from season stats (pace, offense, defense, rest, injuries) |
+| `grade --prob --app-pct --divergence --data --games` | A–D confidence grade with reasons |
+| `livewp --lead --minutes-left --spread --app-pct` | live win probability (NFL/NBA) and HOLD / CONSIDER CASHING OUT signal |
+| `odds --odd --prob` | converts American, decimal or % odds to dollars and gives the minimum price |
+| `compare --apps App=odd ... --prob` | same bet across apps: which pays more |
+| `aggregate --home --away --lead` | two-leg knockout ties: chance to advance on aggregate |
+| `temper --probs --k` | recalibrates probabilities with the "temperature" learned from past results |
+| `ledger add/result/void/pending/report/calibrate` | pick log and calibration: Brier, skill score, vs market, expected vs actual hits, by sport/confidence, ROI, CLV |
 
-O ledger fica em `ledger/predictions.jsonl` (fora do git). A skill registra os palpites sozinha. Depois dos jogos, peça "compare os resultados": ela busca os placares, registra e mostra se as porcentagens se confirmaram. Com menos de ~30 palpites, nada é conclusivo.
+### `scripts/bots.py`
 
-A skill aprende com o próprio histórico: `ledger calibrate` mede se ela anda tímida ou confiante demais em cada esporte, e o SKILL.md guarda as lições de cada conferência (seção "Lições da calibração"). O histórico de palpites de cada pessoa fica só no computador dela.
+| Command | What it does |
+|---|---|
+| `init --bank 1000` | turns on the three bots with the same bankroll |
+| `config --bot herman --bank 200 --max-bets 2 --max-dollars 30` | each bot's own bankroll and daily limits |
+| `check` / `add` | checks a bet against the bot's rules and logs it (stake calculated automatically) |
+| `skip --bot chico --reason "..."` | the bot sits the day out and says why |
+| `offers` | today's proposals from each bot |
+| `follow --id 3 --amount 15` / `follow --pass-day` | you follow a proposal with your own amount, or skip the day |
+| `settle` / `pending` / `report` | settles results (including the bets you followed) and shows the scoreboard |
 
-## Fontes e inspiração
+The pick log lives in `ledger/predictions.jsonl` and the bots in `bots/` (both outside git). After the games, ask "compare the results": the skill finds the scores, logs them and shows whether the percentages held up. With fewer than ~30 picks, nothing is conclusive.
 
-Técnicas reescritas do zero, inspiradas em projetos abertos: [penaltyblog](https://github.com/martineastwood/penaltyblog) (modelos de gols, ratings, métricas), [Kairos](https://github.com/m1r4g3-code/kairos) (ledger, CLV, Kelly com teto, ancoragem no mercado) e [GoallineIQ](https://github.com/gmalbert/world-cup) (Elo + Poisson).
+## Sources and inspiration
 
-## Licença
+Techniques rewritten from scratch, inspired by open projects: [penaltyblog](https://github.com/martineastwood/penaltyblog) (goal models, ratings, metrics), [Kairos](https://github.com/m1r4g3-code/kairos) (ledger, CLV, capped Kelly, market anchoring) and [GoallineIQ](https://github.com/gmalbert/world-cup) (Elo + Poisson).
+
+## License
 
 MIT
