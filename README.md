@@ -1,6 +1,6 @@
 # guessitup
 
-**[⬇️ Baixar a última versão (guessitup.zip)](https://github.com/thiagontijo/guessitup/releases/latest/download/guessitup.zip)** · [Todas as versões](https://github.com/thiagontijo/guessitup/releases)
+**[⬇️ Baixar a skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)**
 
 > *English:* a Claude skill for statistics-based sports picks (NBA, NFL, soccer, NHL, tennis, MMA), with combo and hedge math and three paper-trading bots (Chico, Arnaldo, Herman). Answers in Portuguese by default; ask Claude to reply in English.
 
@@ -38,7 +38,7 @@ Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo 
 
 ### No app do Claude (site, desktop ou celular)
 
-1. Baixe o arquivo **[guessitup.zip](https://github.com/thiagontijo/guessitup/releases/latest/download/guessitup.zip)** (ou o botão verde **Code → Download ZIP**).
+1. Baixe o **[ZIP da skill](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)** (é o mesmo que o botão verde **Code → Download ZIP**).
 2. No Claude, abra **Configurações → Capacidades → Skills** e envie o arquivo ZIP.
 3. Peça: "guessitup, jogos de hoje".
 
