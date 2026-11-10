@@ -12,6 +12,9 @@ Só biblioteca padrão. O registro fica em bots/ledger.csv (fora do git).
   python3 bots.py check --bot herman --type combo --legs 0.8,0.75,0.7,0.65
   python3 bots.py add --bot chico --date 2026-11-10 --sport nba --game "Knicks x Nets" \
       --bet "Knicks vencem" --type winner --legs 0.82 --price 0.78 [--grade B] [--edge 0]
+  python3 bots.py offers [--date D]            # propostas do dia de cada bot
+  python3 bots.py follow --id 3 --amount 15    # o usuário segue a aposta #3 com $15
+  python3 bots.py follow --pass-day            # "hoje não vou jogar"
   python3 bots.py pending
   python3 bots.py settle --id 3 --result win|loss|void
   python3 bots.py report
@@ -26,7 +29,7 @@ DIR = os.environ.get("GUESSITUP_BOTS") or os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "bots")
 LEDGER = os.path.join(DIR, "ledger.csv")
 CONFIG = os.path.join(DIR, "config.csv")
-FIELDS = ["id", "bot", "date", "sport", "game", "bet", "type", "legs", "prob",
+FIELDS = ["id", "bot", "follows", "date", "sport", "game", "bet", "type", "legs", "prob",
           "price", "edge", "grade", "stake", "payout", "result", "profit", "reason"]
 
 BOTS = {
@@ -50,6 +53,7 @@ BOTS = {
                   "(chance do modelo > preço do app + 5 pontos). Aposta 1% da banca, até 5 por dia.",
     },
 }
+USER = "voce"  # apostas que o próprio usuário decidiu seguir, com o valor que ele escolheu
 TYPES = ("winner", "combo", "handicap", "over", "under", "underdog")
 
 
@@ -249,21 +253,81 @@ def cmd_pending(a):
     if not rows:
         print("Nenhuma aposta pendente.")
     for r in rows:
-        print(f"#{r['id']} {r['date']} {BOTS[r['bot']]['nome']}: {r['game']} — {r['bet']} "
+        print(f"#{r['id']} {r['date']} {name(r['bot'])}: {r['game']} — {r['bet']} "
               f"(aposta {money(float(r['stake']))}, recebe {money(float(r['payout']))})")
+
+
+def name(bot):
+    return "Você" if bot == USER else BOTS[bot]["nome"]
 
 
 def cmd_settle(a):
     rows = load()
+    found = False
     for r in rows:
-        if r["id"] == str(a.id):
+        if r["id"] == str(a.id) or (r.get("follows") == str(a.id) and r["result"] == "pendente"):
             st, po = float(r["stake"]), float(r["payout"])
             r["result"] = a.result
             r["profit"] = {"win": round(po - st, 2), "loss": -st, "void": 0}[a.result]
-            save(rows)
-            print(f"#{a.id} {BOTS[r['bot']]['nome']}: {a.result}, lucro {money(float(r['profit']))}")
-            return
-    sys.exit(f"Aposta #{a.id} não encontrada.")
+            print(f"#{r['id']} {name(r['bot'])}: {a.result}, lucro {money(float(r['profit']))}")
+            found = True
+    if not found:
+        sys.exit(f"Aposta #{a.id} não encontrada.")
+    save(rows)
+
+
+def cmd_offers(a):
+    d = a.date or date.today().isoformat()
+    rows = load()
+    for k, b in BOTS.items():
+        mine = [r for r in rows if r["bot"] == k and r["date"] == d]
+        print(f"\n{b['nome']} ({b['estilo']}):")
+        if not mine:
+            print("  (ainda sem proposta hoje)")
+        for r in mine:
+            if r["result"] == "passou":
+                print(f"  Passo hoje: {r.get('reason', '')}")
+                continue
+            mult = float(r["payout"]) / float(r["stake"])
+            print(f"  #{r['id']} {r['game']} — {r['bet']} | chance {float(r['prob']):.0%} | "
+                  f"paga {mult:.2f}x | eu aposto {money(float(r['stake']))}, recebo {money(float(r['payout']))}")
+    mine = [r for r in rows if r["bot"] == USER and r["date"] == d]
+    if mine:
+        print("\nVocê hoje:")
+        for r in mine:
+            print(f"  {r['bet'] or r.get('reason', '')}" if r["result"] == "passou" else
+                  f"  segue #{r['follows']}: {r['bet']} — aposta {money(float(r['stake']))}, "
+                  f"recebe {money(float(r['payout']))}")
+    print("\nVocê escolhe: seguir um bot, escolher apostas soltas, ou não jogar hoje. "
+          "O valor de cada aposta é seu.")
+
+
+def cmd_follow(a):
+    rows = load()
+    d = date.today().isoformat()
+    nid = max([int(r["id"]) for r in rows] or [0]) + 1
+    if a.pass_day:
+        rows.append({"id": nid, "bot": USER, "date": a.date or d, "type": "passou",
+                     "stake": 0, "payout": 0, "result": "passou", "profit": 0,
+                     "reason": a.reason or "Hoje não vou jogar."})
+        save(rows)
+        print(f"Anotado: você não joga em {a.date or d}. Os bots continuam no dinheiro de mentira.")
+        return
+    if a.id is None or a.amount is None:
+        sys.exit("Use --id N --amount X, ou --pass-day.")
+    src = next((r for r in rows if r["id"] == str(a.id)), None)
+    if not src or src["bot"] == USER or src["result"] == "passou":
+        sys.exit(f"Proposta #{a.id} não encontrada.")
+    mult = float(src["payout"]) / float(src["stake"])
+    payout = round(a.amount * mult, 2)
+    row = dict(src)
+    row.update({"id": nid, "bot": USER, "follows": src["id"], "stake": a.amount,
+                "payout": payout, "result": src["result"] if src["result"] != "pendente" else "pendente",
+                "profit": "", "reason": f"seguindo {BOTS[src['bot']]['nome']}"})
+    save(rows + [row])
+    print(f"Você segue #{src['id']} do {BOTS[src['bot']]['nome']}: {src['bet']} — "
+          f"aposta {money(a.amount)}, recebe {money(payout)}. "
+          "Lembrete: quem faz a aposta no app é você.")
 
 
 def cmd_report(a):
@@ -280,7 +344,18 @@ def cmd_report(a):
         hit = f"{wins}/{len(done)}" + (f" {wins / len(done):.0%}" if done else "")
         pend = sum(r["result"] == "pendente" for r in mine)
         print(f"{b['nome']:<10}{money(bk):>10}{(bk - start) / start:>+10.1%}{hit:>11}{pend:>7}{passes:>8}")
-    print("Dinheiro de mentira. Com menos de ~30 apostas conferidas por bot, nada é conclusivo.")
+    me = [r for r in rows if r["bot"] == USER]
+    if me:
+        done = [r for r in me if r["result"] in ("win", "loss")]
+        wins = sum(r["result"] == "win" for r in done)
+        staked = sum(float(r["stake"]) for r in done)
+        prof = sum(float(r["profit"] or 0) for r in me)
+        roi = f"{prof / staked:+.1%}" if staked else "—"
+        print(f"{'Você':<10}{money(prof):>10}{roi:>10}{f'{wins}/{len(done)}':>11}"
+              f"{sum(r['result'] == 'pendente' for r in me):>7}{sum(r['result'] == 'passou' for r in me):>8}")
+        print("  (Você: lucro total e retorno sobre o que apostou nas apostas que escolheu seguir)")
+    print("Bots: dinheiro de mentira. Você: só o registro do que você escolheu seguir. "
+          "Com menos de ~30 apostas conferidas, nada é conclusivo.")
 
 
 def main():
@@ -306,12 +381,17 @@ def main():
             c.add_argument("--date"); c.add_argument("--sport", default="")
             c.add_argument("--game", required=True); c.add_argument("--bet", required=True)
             c.add_argument("--grade")
+    of = s.add_parser("offers"); of.add_argument("--date")
+    fo = s.add_parser("follow"); fo.add_argument("--id", type=int)
+    fo.add_argument("--amount", type=float, help="quanto você quer apostar nessa proposta")
+    fo.add_argument("--pass-day", action="store_true", help="hoje não vou jogar")
+    fo.add_argument("--reason"); fo.add_argument("--date")
     s.add_parser("pending")
     st = s.add_parser("settle"); st.add_argument("--id", required=True, type=int)
     st.add_argument("--result", required=True, choices=("win", "loss", "void"))
     s.add_parser("report")
     a = p.parse_args()
-    {"init": cmd_init, "config": cmd_config, "show": cmd_show, "skip": cmd_skip, "rules": cmd_rules, "check": cmd_check, "add": cmd_add,
+    {"init": cmd_init, "config": cmd_config, "show": cmd_show, "skip": cmd_skip, "offers": cmd_offers, "follow": cmd_follow, "rules": cmd_rules, "check": cmd_check, "add": cmd_add,
      "pending": cmd_pending, "settle": cmd_settle, "report": cmd_report}[a.cmd](a)
 
 
