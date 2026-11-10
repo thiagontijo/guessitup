@@ -1,6 +1,6 @@
 # Ficha completa do jogo (padrão profissional)
 
-A ficha é o coração da entrega. Ela sai **só quando o usuário liga a Guessitup e pede** (no chat, nunca por conta própria). Tudo em português simples, dinheiro em dólar no formato do app, chance em %. O usuário lê no celular: blocos curtos, tabelas pequenas (3 a 4 colunas), sem parágrafo longo.
+A ficha é o coração da entrega. Ela sai **só quando o usuário liga a Guessitup e pede** (no chat, nunca por conta própria). Tudo em linguagem simples, no idioma da resposta (inglês por padrão; títulos da ficha traduzidos), dinheiro em dólar no formato do app, chance em %. O usuário lê no celular: blocos curtos, tabelas pequenas (3 a 4 colunas), sem parágrafo longo.
 
 ## Quantas fichas por pedido
 
