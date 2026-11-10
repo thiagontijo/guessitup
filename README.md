@@ -1,6 +1,6 @@
 # guessitup
 
-**English** · [Português](README.pt-BR.md)
+**English** · [Português](README.pt-BR.md) · [Español](README.es.md)
 
 **[⬇️ Download the skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)**
 
@@ -58,7 +58,7 @@ cd ~/.claude/skills/guessitup && git pull
 
 ### Language
 
-The skill answers in **English** by default (dollar amounts in betting-app format: "bet $20, get back $38"). Want Portuguese? Just ask ("responde em português") or write to it in Portuguese, and it stays in Portuguese until you ask otherwise. Other languages work the same way.
+The skill answers in **English** by default (dollar amounts in betting-app format: "bet $20, get back $38"). Want **Portuguese** or **Spanish**? Just ask ("responde em português", "responde en español") or write to it in that language, and it stays there until you ask otherwise. Money comes in each language's app format: "aposta $20, recebe $38" / "apuesta $20, cobras $38".
 
 ### Example requests
 
