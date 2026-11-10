@@ -15,6 +15,7 @@ Só biblioteca padrão. O registro fica em bots/ledger.csv (fora do git).
   python3 bots.py offers [--date D]            # propostas do dia de cada bot
   python3 bots.py follow --id 3 --amount 15    # o usuário segue a aposta #3 com $15
   python3 bots.py follow --pass-day            # "hoje não vou jogar"
+  python3 bots.py watch --amount 100 [--bot all]  # acompanhar todos sem gastar (simulado)
   python3 bots.py pending
   python3 bots.py settle --id 3 --result win|loss|void
   python3 bots.py report
@@ -28,9 +29,10 @@ from datetime import date
 DIR = os.environ.get("GUESSITUP_BOTS") or os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "bots")
 LEDGER = os.path.join(DIR, "ledger.csv")
+WATCH = os.path.join(DIR, "watch.txt")  # valor-base do modo acompanhar
 CONFIG = os.path.join(DIR, "config.csv")
 FIELDS = ["id", "bot", "follows", "date", "sport", "game", "bet", "type", "legs", "prob",
-          "price", "edge", "grade", "stake", "payout", "result", "profit", "reason"]
+          "price", "edge", "grade", "stake", "payout", "result", "profit", "reason", "mode"]
 
 BOTS = {
     "chico": {
@@ -296,38 +298,83 @@ def cmd_offers(a):
         print("\nVocê hoje:")
         for r in mine:
             print(f"  {r['bet'] or r.get('reason', '')}" if r["result"] == "passou" else
-                  f"  segue #{r['follows']}: {r['bet']} — aposta {money(float(r['stake']))}, "
-                  f"recebe {money(float(r['payout']))}")
+                  f"  segue #{r['follows']}{' (simulado)' if r.get('mode') == 'simulado' else ''}: "
+                  f"{r['bet']} — aposta {money(float(r['stake']))}, recebe {money(float(r['payout']))}")
     print("\nVocê escolhe: seguir um bot, escolher apostas soltas, ou não jogar hoje. "
           "O valor de cada aposta é seu.")
 
 
+def follow_row(rows, src, amount, mode, nid):
+    mult = float(src["payout"]) / float(src["stake"])
+    row = dict(src)
+    row.update({"id": nid, "bot": USER, "follows": src["id"], "stake": amount,
+                "payout": round(amount * mult, 2), "result": src["result"],
+                "profit": "", "reason": f"seguindo {BOTS[src['bot']]['nome']}", "mode": mode})
+    if src["result"] in ("win", "loss", "void"):
+        row["profit"] = {"win": round(row["payout"] - amount, 2), "loss": -amount, "void": 0}[src["result"]]
+    return row
+
+
+def already_followed(rows, src_id, mode):
+    return any(r["bot"] == USER and r.get("follows") == str(src_id) and r.get("mode", "real") == mode
+               for r in rows)
+
+
 def cmd_follow(a):
     rows = load()
-    d = date.today().isoformat()
+    d = a.date or date.today().isoformat()
     nid = max([int(r["id"]) for r in rows] or [0]) + 1
+    mode = "simulado" if a.watch else "real"
     if a.pass_day:
-        rows.append({"id": nid, "bot": USER, "date": a.date or d, "type": "passou",
+        rows.append({"id": nid, "bot": USER, "date": d, "type": "passou",
                      "stake": 0, "payout": 0, "result": "passou", "profit": 0,
-                     "reason": a.reason or "Hoje não vou jogar."})
+                     "reason": a.reason or "Hoje não vou jogar.", "mode": mode})
         save(rows)
-        print(f"Anotado: você não joga em {a.date or d}. Os bots continuam no dinheiro de mentira.")
+        print(f"Anotado: você não joga em {d}. Os bots continuam no dinheiro de mentira.")
         return
     if a.id is None or a.amount is None:
         sys.exit("Use --id N --amount X, ou --pass-day.")
     src = next((r for r in rows if r["id"] == str(a.id)), None)
     if not src or src["bot"] == USER or src["result"] == "passou":
         sys.exit(f"Proposta #{a.id} não encontrada.")
-    mult = float(src["payout"]) / float(src["stake"])
-    payout = round(a.amount * mult, 2)
-    row = dict(src)
-    row.update({"id": nid, "bot": USER, "follows": src["id"], "stake": a.amount,
-                "payout": payout, "result": src["result"] if src["result"] != "pendente" else "pendente",
-                "profit": "", "reason": f"seguindo {BOTS[src['bot']]['nome']}"})
+    if already_followed(rows, a.id, mode):
+        sys.exit(f"Você já segue a #{a.id} ({mode}).")
+    row = follow_row(rows, src, a.amount, mode, nid)
     save(rows + [row])
+    tail = ("Só acompanhando: nenhum dinheiro de verdade." if a.watch
+            else "Lembrete: quem faz a aposta no app é você.")
     print(f"Você segue #{src['id']} do {BOTS[src['bot']]['nome']}: {src['bet']} — "
-          f"aposta {money(a.amount)}, recebe {money(payout)}. "
-          "Lembrete: quem faz a aposta no app é você.")
+          f"aposta {money(a.amount)}, recebe {money(row['payout'])}. {tail}")
+
+
+def cmd_watch(a):
+    """Acompanhar sem gastar: segue todas as propostas abertas (de um bot ou de todos) em modo simulado."""
+    os.makedirs(DIR, exist_ok=True)
+    amount = a.amount
+    if amount is None and os.path.exists(WATCH):
+        amount = float(open(WATCH).read().strip() or 0) or None
+    if amount is None:
+        sys.exit("Diga o valor-base: watch --amount 100")
+    with open(WATCH, "w") as f:
+        f.write(str(amount))
+    rows = load()
+    d = a.date or date.today().isoformat()
+    bots = list(BOTS) if a.bot == "all" else [a.bot]
+    srcs = [r for r in rows if r["bot"] in bots and r["date"] == d and r["result"] != "passou"]
+    added = 0
+    nid = max([int(r["id"]) for r in rows] or [0]) + 1
+    for src in srcs:
+        if already_followed(rows, src["id"], "simulado"):
+            continue
+        rows.append(follow_row(rows, src, amount, "simulado", nid))
+        nid += 1
+        added += 1
+        print(f"  #{src['id']} {BOTS[src['bot']]['nome']}: {src['bet']} — "
+              f"aposta {money(amount)}, recebe {money(rows[-1]['payout'])}")
+    save(rows)
+    who = "todos os bots" if a.bot == "all" else BOTS[a.bot]["nome"]
+    print(f"Acompanhando {who} em {d}: {added} apostas simuladas de {money(amount)}. "
+          "Nenhum dinheiro de verdade. O valor-base fica salvo para os próximos dias.")
 
 
 def cmd_report(a):
@@ -344,16 +391,20 @@ def cmd_report(a):
         hit = f"{wins}/{len(done)}" + (f" {wins / len(done):.0%}" if done else "")
         pend = sum(r["result"] == "pendente" for r in mine)
         print(f"{b['nome']:<10}{money(bk):>10}{(bk - start) / start:>+10.1%}{hit:>11}{pend:>7}{passes:>8}")
-    me = [r for r in rows if r["bot"] == USER]
-    if me:
+    for mode, label in (("real", "Você"), ("simulado", "Você sim.")):
+        me = [r for r in rows if r["bot"] == USER and (r.get("mode") or "real") == mode]
+        if not me:
+            continue
         done = [r for r in me if r["result"] in ("win", "loss")]
         wins = sum(r["result"] == "win" for r in done)
         staked = sum(float(r["stake"]) for r in done)
         prof = sum(float(r["profit"] or 0) for r in me)
         roi = f"{prof / staked:+.1%}" if staked else "—"
-        print(f"{'Você':<10}{money(prof):>10}{roi:>10}{f'{wins}/{len(done)}':>11}"
+        print(f"{label:<10}{money(prof):>10}{roi:>10}{f'{wins}/{len(done)}':>11}"
               f"{sum(r['result'] == 'pendente' for r in me):>7}{sum(r['result'] == 'passou' for r in me):>8}")
-        print("  (Você: lucro total e retorno sobre o que apostou nas apostas que escolheu seguir)")
+    if any(r["bot"] == USER for r in rows):
+        print("  (Você: lucro total e retorno sobre o que apostou nas apostas que seguiu; "
+              ""sim." = só acompanhando, sem dinheiro de verdade)")
     print("Bots: dinheiro de mentira. Você: só o registro do que você escolheu seguir. "
           "Com menos de ~30 apostas conferidas, nada é conclusivo.")
 
@@ -386,12 +437,15 @@ def main():
     fo.add_argument("--amount", type=float, help="quanto você quer apostar nessa proposta")
     fo.add_argument("--pass-day", action="store_true", help="hoje não vou jogar")
     fo.add_argument("--reason"); fo.add_argument("--date")
+    fo.add_argument("--watch", action="store_true", help="só acompanhar, sem dinheiro de verdade")
+    w = s.add_parser("watch"); w.add_argument("--amount", type=float, help="valor-base por aposta (fica salvo)")
+    w.add_argument("--bot", default="all", choices=list(BOTS) + ["all"]); w.add_argument("--date")
     s.add_parser("pending")
     st = s.add_parser("settle"); st.add_argument("--id", required=True, type=int)
     st.add_argument("--result", required=True, choices=("win", "loss", "void"))
     s.add_parser("report")
     a = p.parse_args()
-    {"init": cmd_init, "config": cmd_config, "show": cmd_show, "skip": cmd_skip, "offers": cmd_offers, "follow": cmd_follow, "rules": cmd_rules, "check": cmd_check, "add": cmd_add,
+    {"init": cmd_init, "config": cmd_config, "show": cmd_show, "skip": cmd_skip, "offers": cmd_offers, "follow": cmd_follow, "watch": cmd_watch, "rules": cmd_rules, "check": cmd_check, "add": cmd_add,
      "pending": cmd_pending, "settle": cmd_settle, "report": cmd_report}[a.cmd](a)
 
 
