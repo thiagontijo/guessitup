@@ -136,3 +136,15 @@ Nunca use a chance de vencer o jogo como chance de classificar. Use o placar som
 - **Lado do palpite:** em jogos "A x B" em campo neutro, confirme no mercado quem é favorito antes de registrar. Um "A" lido como o segundo time deu Indiana 69% quando o mercado tinha Denver favorito por 7,5 pontos.
 - **Chance velha:** palpites do ledger de dias antes precisam ser atualizados com as odds do dia antes de virar aposta.
 - **Diferença grande para o mercado** (mais de 10 pontos): investigue antes de confiar no modelo; quase sempre o modelo esqueceu algo (placar da ida, lesão, time reserva).
+- **Taxa do app entra no "só vale se"** (09/11): o Under 45,5 a 50% no Kalshi pagava $18,95 e não $20. Calcule o preço mínimo já com a taxa: a vantagem de 3 pontos tem que sobrar depois dela.
+
+### Autocrítica do fim de semana 7-9/11 (regras novas)
+
+Resultado: vencedores muito bons (favoritos de 50%+ no futebol europeu 6/6; NBA segunda 5/6; NFL domingo favoritos quase todos), mas handicap e Over erraram.
+
+1. **Handicap: siga o mercado, não o azarão.** Errei os 3 contra o favorito (Bills -3,5 venceu por 17; Warriors -9 venceu por 51; Vikings +3,5 perdeu). O modelo de pontos puxava para o azarão. Regra: no handicap use mistura **3:1 mercado:modelo** (não 2:1) e nunca marque nota acima de C contra o favorito quando o azarão tem contexto ruim (jogo em dias seguidos, quarterback reserva, 3+ desfalques) — esse contexto aumenta a chance de lavada, não de jogo apertado.
+2. **NFL: não use só pontos feitos/sofridos.** O placar esperado por pontos deu os Vikings favoritos e errou. Use EPA por jogada/SRS (ajusta força do adversário) e só use pontos como conferência.
+3. **Over está superestimado.** Overs 3/8, Unders 4/4. Antes de recomendar Over: reduza o total esperado do modelo em ~5% (futebol: λ × 0,95) e exija vantagem de **5 pontos** (Under continua com 3). NBA: se um time pode abrir lavada (favorito de 9+ contra time cansado/desfalcado), rebaixe o Over um nível — os titulares saem cedo e o ritmo cai.
+4. **Empate no futebol.** 4 de 22 jogos empataram e o modelo nunca escolhe empate. Quando as chances de mandante e visitante estão a menos de 6 pontos uma da outra, não dê palpite seco: ofereça **dupla chance** ou "sem aposta".
+5. **Excesso de confiança em mata-mata.** Palmeiras saiu a 87% antes de usar o placar somado (real ~70%; passou nos pênaltis). Mata-mata sempre por `aggregate`.
+6. **Dados faltando = nota cai, e diga quais.** Warriors x Pelicans saiu com ratings estimados por pontos por jogo; o Over 232,5 perdeu (225).
