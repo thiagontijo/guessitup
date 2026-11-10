@@ -404,7 +404,7 @@ def cmd_report(a):
               f"{sum(r['result'] == 'pendente' for r in me):>7}{sum(r['result'] == 'passou' for r in me):>8}")
     if any(r["bot"] == USER for r in rows):
         print("  (Você: lucro total e retorno sobre o que apostou nas apostas que seguiu; "
-              ""sim." = só acompanhando, sem dinheiro de verdade)")
+              "sim. = só acompanhando, sem dinheiro de verdade)")
     print("Bots: dinheiro de mentira. Você: só o registro do que você escolheu seguir. "
           "Com menos de ~30 apostas conferidas, nada é conclusivo.")
 
