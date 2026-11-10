@@ -32,6 +32,8 @@ Peça "liga os bots" e escolha **quanto dinheiro cada bot recebe**, o **limite d
 
 Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo e, quando nada compensa, passa o dia e diz por quê ("hoje não tem jogo seguro, vou guardar a banca"). Eles são modelos: todo dia cada bot apresenta as propostas que faria, e **você escolhe** se segue o Chico, o Arnaldo, o Herman, só algumas apostas, ou se hoje não vai jogar. **Quanto colocar em cada aposta é você que decide.** O placar mostra os três bots e uma linha "Você" com o resultado do que você escolheu seguir. Todo dia você vê o placar dos três: banca, % de retorno, acertos e dias que passaram. O registro fica só no seu computador (`bots/ledger.csv`). Detalhes em [references/bots.md](references/bots.md).
 
+> **Brasil:** as apostas esportivas estão proibidas no Brasil desde 25/09/2026 (MP 1.394/2026, ainda em análise no Congresso). Para quem está no Brasil, a skill entrega a análise e os bots de dinheiro de mentira, mas não monta apostas em casas brasileiras.
+
 > São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
 
 ## Instalação
