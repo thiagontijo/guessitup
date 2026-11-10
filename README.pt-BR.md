@@ -58,6 +58,10 @@ Para atualizar depois:
 cd ~/.claude/skills/guessitup && git pull
 ```
 
+### Idioma
+
+A skill responde em **inglês** por padrão. Para português, é só pedir ("responde em português") ou escrever para ela em português: ela continua em português até você pedir outro idioma.
+
 ### Exemplos de pedido
 
 - `/guessitup jogos do Brasileirão deste fim de semana`

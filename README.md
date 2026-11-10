@@ -58,7 +58,7 @@ cd ~/.claude/skills/guessitup && git pull
 
 ### Language
 
-The skill answers in **Portuguese** by default (dollar amounts in betting-app format). To get English, just say so: "guessitup, today's NBA games, answer in English".
+The skill answers in **English** by default (dollar amounts in betting-app format: "bet $20, get back $38"). Want Portuguese? Just ask ("responde em português") or write to it in Portuguese, and it stays in Portuguese until you ask otherwise. Other languages work the same way.
 
 ### Example requests
 

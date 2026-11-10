@@ -100,6 +100,8 @@ Se a sessão tiver ferramenta de tarefa agendada, crie uma tarefa diária (de ma
 
 ## Mensagem do dia
 
+No idioma da resposta (inglês por padrão, regra "Idioma" do SKILL.md). As falas dos bots acima são exemplos; traduza-as mantendo o jeito de cada um.
+
 1. Resultado de ontem por bot (ganhou/perdeu, em dólar no formato do app: "aposta $20, recebe $26").
 2. Placar dos três e do usuário ("Você"): banca, % de retorno, acertos e dias que passou (saída de `report`).
 3. Cada bot fala em primeira pessoa: as propostas de hoje e o porquê, ou por que passou.
