@@ -5,7 +5,9 @@ Apostam com DINHEIRO DE MENTIRA para medir, com o tempo, qual estilo de
 aposta funciona melhor. Nunca fazem aposta real e nunca entram em conta de app.
 Só biblioteca padrão. O registro fica em bots/ledger.csv (fora do git).
 
-  python3 bots.py init [--bank 1000]
+  python3 bots.py init [--bank 1000]           # mesma banca para os três
+  python3 bots.py config --bot chico --bank 500 --max-bets 3 --max-dollars 40
+  python3 bots.py skip --bot chico --reason "nenhum jogo com 70% hoje"
   python3 bots.py rules [--bot chico]
   python3 bots.py check --bot herman --type combo --legs 0.8,0.75,0.7,0.65
   python3 bots.py add --bot chico --date 2026-11-10 --sport nba --game "Knicks x Nets" \
@@ -25,22 +27,25 @@ DIR = os.environ.get("GUESSITUP_BOTS") or os.path.join(
 LEDGER = os.path.join(DIR, "ledger.csv")
 CONFIG = os.path.join(DIR, "config.csv")
 FIELDS = ["id", "bot", "date", "sport", "game", "bet", "type", "legs", "prob",
-          "price", "edge", "grade", "stake", "payout", "result", "profit"]
+          "price", "edge", "grade", "stake", "payout", "result", "profit", "reason"]
 
 BOTS = {
     "chico": {
         "nome": "Chico", "estilo": "Seguro", "stake": 0.02, "max_dia": 5,
+        "voz": "Calmo e paciente. Prefere não apostar a apostar mal: \"Hoje não tem jogo seguro, vou guardar a banca.\"",
         "regras": "Vencedor com chance >= 70%, ou combo de até 2 pernas com cada "
                   "perna >= 70%. Nunca aposta em Over. Aposta 2% da banca, até 5 por dia.",
     },
     "arnaldo": {
         "nome": "Arnaldo", "estilo": "Moderado", "stake": 0.03, "max_dia": 6,
+        "voz": "Equilibrado e analítico. Explica a conta: \"O app paga mais do que o jogo vale, então eu entro.\"",
         "regras": "Vencedor com chance >= 60%, combo de 2 a 3 pernas (cada uma >= 60%). "
                   "Handicap/Under só com vantagem >= 3 pontos; Over só com >= 5. "
                   "Aposta 3% da banca, até 6 por dia.",
     },
     "herman": {
         "nome": "Herman", "estilo": "Agressivo", "stake": 0.01, "max_dia": 5,
+        "voz": "Ousado, mas não burro. Caça o prêmio grande e assume que vai perder muitas: \"Combo de 5 pagando 8x, vale o risco de $10.\"",
         "regras": "Combo de 4 a 6 pernas que pague 3x ou mais, ou zebra com valor "
                   "(chance do modelo > preço do app + 5 pontos). Aposta 1% da banca, até 5 por dia.",
     },
@@ -104,22 +109,40 @@ def load():
 def save(rows):
     os.makedirs(DIR, exist_ok=True)
     with open(LEDGER, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=FIELDS)
+        w = csv.DictWriter(f, fieldnames=FIELDS, restval="")
         w.writeheader()
         w.writerows(rows)
 
 
-def bank_start():
+def load_cfg():
+    """config.csv: bot,bank,max_bets,max_dollars (vazio = padrão do bot / sem teto)."""
+    cfg = {k: {"bank": 1000.0, "max_bets": b["max_dia"], "max_dollars": None}
+           for k, b in BOTS.items()}
     if os.path.exists(CONFIG):
-        with open(CONFIG) as f:
-            for line in f:
-                if line.startswith("bank,"):
-                    return float(line.split(",")[1])
-    return 1000.0
+        with open(CONFIG, newline="") as f:
+            for r in csv.DictReader(f):
+                if r.get("bot") in cfg:
+                    c = cfg[r["bot"]]
+                    if r.get("bank"):
+                        c["bank"] = float(r["bank"])
+                    if r.get("max_bets"):
+                        c["max_bets"] = int(float(r["max_bets"]))
+                    if r.get("max_dollars"):
+                        c["max_dollars"] = float(r["max_dollars"])
+    return cfg
+
+
+def save_cfg(cfg):
+    os.makedirs(DIR, exist_ok=True)
+    with open(CONFIG, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["bot", "bank", "max_bets", "max_dollars"])
+        for k, c in cfg.items():
+            w.writerow([k, c["bank"], c["max_bets"], c["max_dollars"] or ""])
 
 
 def bankroll(rows, bot):
-    return bank_start() + sum(float(r["profit"] or 0) for r in rows if r["bot"] == bot)
+    return load_cfg()[bot]["bank"] + sum(float(r["profit"] or 0) for r in rows if r["bot"] == bot)
 
 
 def money(x):
@@ -127,20 +150,56 @@ def money(x):
 
 
 def cmd_init(a):
-    os.makedirs(DIR, exist_ok=True)
-    with open(CONFIG, "w") as f:
-        f.write(f"bank,{a.bank}\n")
+    cfg = load_cfg()
+    for c in cfg.values():
+        c["bank"] = a.bank
+    save_cfg(cfg)
     if not os.path.exists(LEDGER):
         save([])
     print(f"Bots ligados: Chico, Arnaldo e Herman, cada um com {money(a.bank)} de mentira.")
+    print("Mude a banca ou o limite de cada um com: bots.py config --bot NOME ...")
     print(f"Registro: {os.path.abspath(LEDGER)}")
+    cmd_show(a)
+
+
+def cmd_config(a):
+    cfg = load_cfg()
+    c = cfg[a.bot]
+    if a.bank is not None:
+        c["bank"] = a.bank
+    if a.max_bets is not None:
+        c["max_bets"] = a.max_bets
+    if a.max_dollars is not None:
+        c["max_dollars"] = a.max_dollars or None
+    save_cfg(cfg)
+    cmd_show(a)
+
+
+def cmd_show(a):
+    cfg = load_cfg()
+    for k, b in BOTS.items():
+        c = cfg[k]
+        teto = money(c["max_dollars"]) + " por dia" if c["max_dollars"] else "sem teto em dólar"
+        print(f"{b['nome']}: banca inicial {money(c['bank'])}, até {c['max_bets']} apostas por dia, {teto}")
+
+
+def cmd_skip(a):
+    rows = load()
+    d = a.date or date.today().isoformat()
+    nid = max([int(r["id"]) for r in rows] or [0]) + 1
+    rows.append({"id": nid, "bot": a.bot, "date": d, "sport": "", "game": "", "bet": "",
+                 "type": "passou", "legs": "", "prob": "", "price": "", "edge": "",
+                 "grade": "", "stake": 0, "payout": 0, "result": "passou",
+                 "profit": 0, "reason": a.reason})
+    save(rows)
+    print(f"{BOTS[a.bot]['nome']} passou o dia {d}: {a.reason}")
 
 
 def cmd_rules(a):
     for k, b in BOTS.items():
         if a.bot and a.bot != k:
             continue
-        print(f"{b['nome']} ({b['estilo']}): {b['regras']}")
+        print(f"{b['nome']} ({b['estilo']}): {b['regras']}\n  Jeito de falar: {b['voz']}")
 
 
 def parse_legs(s):
@@ -160,12 +219,20 @@ def cmd_add(a):
         sys.exit(f"Recusada: {why}")
     rows = load()
     d = a.date or date.today().isoformat()
-    today = [r for r in rows if r["bot"] == a.bot and r["date"] == d]
-    if len(today) >= BOTS[a.bot]["max_dia"]:
-        sys.exit(f"Recusada: {BOTS[a.bot]['nome']} já fez {len(today)} apostas em {d}.")
+    cfg = load_cfg()[a.bot]
+    today = [r for r in rows if r["bot"] == a.bot and r["date"] == d and r["result"] != "passou"]
+    if len(today) >= cfg["max_bets"]:
+        sys.exit(f"Recusada: {BOTS[a.bot]['nome']} já fez {len(today)} apostas em {d} "
+                 f"(limite {cfg['max_bets']}).")
     prob = prod(legs)
     price = a.price if a.price else prob
     stake = round(bankroll(rows, a.bot) * BOTS[a.bot]["stake"], 2)
+    if cfg["max_dollars"]:
+        used = sum(float(r["stake"]) for r in today)
+        stake = min(stake, round(cfg["max_dollars"] - used, 2))
+        if stake <= 0:
+            sys.exit(f"Recusada: {BOTS[a.bot]['nome']} já usou o limite de "
+                     f"{money(cfg['max_dollars'])} em {d}.")
     payout = round(stake / price, 2)
     nid = max([int(r["id"]) for r in rows] or [0]) + 1
     rows.append({"id": nid, "bot": a.bot, "date": d, "sport": a.sport, "game": a.game,
@@ -201,16 +268,18 @@ def cmd_settle(a):
 
 def cmd_report(a):
     rows = load()
-    start = bank_start()
-    print(f"{'Bot':<10}{'Banca':>10}{'Retorno':>10}{'Acertos':>11}{'Pend.':>7}")
+    cfg = load_cfg()
+    print(f"{'Bot':<10}{'Banca':>10}{'Retorno':>10}{'Acertos':>11}{'Pend.':>7}{'Passou':>8}")
     for k, b in BOTS.items():
         mine = [r for r in rows if r["bot"] == k]
         done = [r for r in mine if r["result"] in ("win", "loss")]
         wins = sum(r["result"] == "win" for r in done)
         bk = bankroll(rows, k)
+        start = cfg[k]["bank"]
+        passes = sum(r["result"] == "passou" for r in mine)
         hit = f"{wins}/{len(done)}" + (f" {wins / len(done):.0%}" if done else "")
         pend = sum(r["result"] == "pendente" for r in mine)
-        print(f"{b['nome']:<10}{money(bk):>10}{(bk - start) / start:>+10.1%}{hit:>11}{pend:>7}")
+        print(f"{b['nome']:<10}{money(bk):>10}{(bk - start) / start:>+10.1%}{hit:>11}{pend:>7}{passes:>8}")
     print("Dinheiro de mentira. Com menos de ~30 apostas conferidas por bot, nada é conclusivo.")
 
 
@@ -219,6 +288,13 @@ def main():
     s = p.add_subparsers(dest="cmd", required=True)
     i = s.add_parser("init"); i.add_argument("--bank", type=float, default=1000.0)
     r = s.add_parser("rules"); r.add_argument("--bot", choices=BOTS)
+    cf = s.add_parser("config"); cf.add_argument("--bot", required=True, choices=BOTS)
+    cf.add_argument("--bank", type=float, help="banca inicial deste bot")
+    cf.add_argument("--max-bets", type=int, help="máximo de apostas por dia")
+    cf.add_argument("--max-dollars", type=float, help="máximo em dólar por dia (0 = sem teto)")
+    s.add_parser("show")
+    sk = s.add_parser("skip"); sk.add_argument("--bot", required=True, choices=BOTS)
+    sk.add_argument("--reason", required=True); sk.add_argument("--date")
     for name in ("check", "add"):
         c = s.add_parser(name)
         c.add_argument("--bot", required=True, choices=BOTS)
@@ -235,7 +311,7 @@ def main():
     st.add_argument("--result", required=True, choices=("win", "loss", "void"))
     s.add_parser("report")
     a = p.parse_args()
-    {"init": cmd_init, "rules": cmd_rules, "check": cmd_check, "add": cmd_add,
+    {"init": cmd_init, "config": cmd_config, "show": cmd_show, "skip": cmd_skip, "rules": cmd_rules, "check": cmd_check, "add": cmd_add,
      "pending": cmd_pending, "settle": cmd_settle, "report": cmd_report}[a.cmd](a)
 
 
