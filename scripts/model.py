@@ -16,8 +16,14 @@ Subcomandos:
   log5 --a WA --b WB [--home H]                      log5 de Bill James (MLB e afins) com mando opcional
   value --prob P --odds O [--kelly-frac F --cap C]   EV e Kelly fracionado com teto
   clv --taken O --closing O                          closing line value de uma aposta
+  combo --probs P1 P2 ... [--stake 10 --pays Y]      chance do combo e o pagamento mínimo em dólar para valer a pena
+  hedge --stake S --payout P --opp-pct C             aposta de proteção (hedge): quanto apostar no lado contrário e lucro garantido
+  livewp --lead L --minutes-left M --spread S        chance ao vivo (NFL/NBA) e sinal MANTER/SAIR contra o % do app
+  odds --odd X [--prob P]                            converte odd (americana, decimal ou %) e diz a odd mínima para a chance P
+  compare --apps App=odd ... [--prob P]              compara a mesma aposta em vários apps e diz qual paga mais
+  aggregate --home MU --away MU --lead N             mata-mata de ida e volta: chance de classificar
   temper --probs H:P,D:P,A:P --k K                   recalibra probabilidades com a temperatura aprendida no ledger
-  ledger add|result|void|pending|report|calibrate             registro de palpites e calibração (Brier, RPS, CLV, ROI, vs mercado)
+  ledger add|result|void|pending|report|calibrate    registro de palpites e calibração (Brier, RPS, CLV, ROI, vs mercado)
 """
 import argparse
 import json
@@ -266,6 +272,280 @@ def cmd_clv(a):
     print(f"CLV: {clv:+.2%} ({'bateu' if clv > 0 else 'não bateu'} a linha de fechamento)")
 
 
+# ---------- mercados de previsão (Kalshi etc.), combos, hedge, ao vivo ----------
+def cmd_combo(a):
+    """Combo = todas as pernas precisam acertar. Só vale para pernas independentes."""
+    p = math.prod(a.probs)
+    fair = a.stake / p
+    minpay = a.stake / max(p - a.margin, 0.01)
+    print(f"Chance de acertar todas as {len(a.probs)} pernas: {p:.0%}")
+    print(f"Apostando ${a.stake:.2f}, só vale se o app pagar pelo menos ${minpay:.2f} (pagamento justo: ${fair:.2f})")
+    if a.pays is not None:
+        ev = p * a.pays / a.stake - 1
+        print(f"O app paga ${a.pays:.2f} -> {'bom preço' if ev > 0.03 else 'caro' if ev < -0.03 else 'preço justo'} (ganho médio {ev:+.0%})")
+    for k in range(1, len(a.probs)):
+        print(f"  Se as {k} primeiras pernas acertarem, a chance do combo sobe para {math.prod(a.probs[k:]):.0%}")
+
+
+def cmd_hedge(a):
+    """Aposta de proteção no lado contrário da última perna para garantir lucro."""
+    opp = a.opp_pct / 100
+    for share in (1.0, 0.5):
+        cover = a.payout * share               # quanto a proteção paga se o lado contrário ganhar
+        cost = cover * opp                     # quanto apostar na proteção
+        win = a.payout - a.stake - cost
+        lose = cover - a.stake - cost
+        nome = "Proteção total" if share == 1 else "Proteção pela metade"
+        print(f"{nome}: aposte ${cost:.2f} no lado contrário (ela paga ${cover:.2f} se ele ganhar)")
+        print(f"  Se a sua aposta ganhar: {win:+.2f} | se o lado contrário ganhar: {lose:+.2f}")
+    print(f"Sem proteção: {1-opp:.0%} de chance de {a.payout - a.stake:+.2f} e {opp:.0%} de chance de {-a.stake:+.2f}")
+    print("Lembrete: a proteção não cria dinheiro; ela troca o lucro máximo por segurança.")
+
+
+def cmd_livewp(a):
+    """Chance ao vivo (NFL/NBA): vantagem atual + favoritismo de antes do jogo proporcional ao tempo restante."""
+    cdf = lambda x: 0.5 * (1 + math.erf(x / math.sqrt(2)))
+    frac = max(a.minutes_left, 0.01) / a.game_minutes
+    p = cdf((a.lead + a.spread * frac) / (a.sd * math.sqrt(frac)))
+    print(f"Chance ao vivo: {p:.0%} (vantagem {a.lead:+g}, {a.minutes_left:g} min restantes, favoritismo antes do jogo {a.spread:+g})")
+    if a.app_pct is not None:
+        d = p * 100 - a.app_pct
+        sig = "MANTER" if d > 3 else "CONSIDERE SAIR" if d < -3 else "TANTO FAZ (sua escolha)"
+        print(f"O app mostra {a.app_pct:g}% -> diferença {d:+.0f} pontos -> {sig}")
+
+
+# ---------- simulação de 10.000 jogos: handicap (spread) e over/under ----------
+SIM_SD = {"nba": (12.0, 18.0), "nfl": (13.5, 10.0), "ncaab": (11.0, 16.0), "ncaafb": (16.0, 14.0)}  # (sd margem, sd total)
+POISSON_SPORTS = {"soccer", "futebol", "nhl", "mlb"}
+
+
+def _poisson_draw(rng, lam):
+    L, k, p = math.exp(-lam), 0, 1.0
+    while True:
+        p *= rng.random()
+        if p <= L:
+            return k
+        k += 1
+
+
+def _side(p, label):
+    p = min(max(p, 0.001), 0.999)
+    d = 1 / p
+    am = f"+{(d-1)*100:.0f}" if d >= 2 else f"-{100/(d-1):.0f}"
+    return f"{label}: {p:.0%}  (justo: Kalshi {p*100:.0f}% | americana {am} | aposta $10 recebe ${10*d:.2f})"
+
+
+def cmd_sim(a):
+    """Simula N jogos e devolve vencedor, handicap (spread), over/under e a distribuição da margem."""
+    import random
+    rng = random.Random(a.seed)
+    sport = a.sport.lower()
+    H, A = a.home_name, a.away_name
+    poisson = sport in POISSON_SPORTS
+
+    if poisson:
+        if a.home is None or a.away is None:
+            sys.exit("Para futebol/NHL/MLB use --home e --away (gols/corridas esperados de cada time).")
+        mu_h, mu_a = a.home, a.away
+    else:
+        sd_m, sd_t = SIM_SD.get(sport, SIM_SD["nba"])
+        if a.sd_margin: sd_m = a.sd_margin
+        if a.sd_total: sd_t = a.sd_total
+        if a.market_spread is not None and a.market_total is not None:
+            mkt_m, mkt_t = -a.market_spread, a.market_total     # spread do mandante: -7.5 = mandante favorito por 7,5
+            if a.home is not None and a.away is not None:     # mistura 2:1 mercado:modelo (regra da skill)
+                mu_m = (2 * mkt_m + (a.home - a.away)) / 3
+                mu_t = (2 * mkt_t + (a.home + a.away)) / 3
+            else:
+                mu_m, mu_t = mkt_m, mkt_t
+        elif a.home is not None and a.away is not None:
+            mu_m, mu_t = a.home - a.away, a.home + a.away
+        else:
+            sys.exit("Use --market-spread e --market-total (linhas do app) e/ou --home e --away (pontos esperados).")
+        mu_h, mu_a = (mu_t + mu_m) / 2, (mu_t - mu_m) / 2
+
+    margins, totals = [], []
+    for _ in range(a.n):
+        if poisson:
+            h, w = _poisson_draw(rng, mu_h), _poisson_draw(rng, mu_a)
+            if sport == "nhl" and h == w:          # prorrogação/pênaltis: decide 1 gol
+                if rng.random() < mu_h / (mu_h + mu_a): h += 1
+                else: w += 1
+        else:
+            m = rng.gauss(mu_m, sd_m); t = rng.gauss(mu_t, sd_t)
+            h, w = round((t + m) / 2), round((t - m) / 2)
+            if h == w:                             # NBA/NFL quase nunca empata: prorrogação
+                if rng.random() < 0.5 + mu_m / 40: h += 1
+                else: w += 1
+            if sport in ("nfl", "ncaafb"):         # números-chave da NFL: muitos jogos terminam por 3 ou 7
+                d = h - w; s_ = 1 if d > 0 else -1
+                if abs(d) in (1, 2, 4, 5) and rng.random() < 0.35: w = h - 3 * s_
+                elif abs(d) in (6, 8) and rng.random() < 0.30: w = h - 7 * s_
+        margins.append(h - w); totals.append(h + w)
+
+    n = a.n
+    ph = sum(m > 0 for m in margins) / n
+    pd = sum(m == 0 for m in margins) / n
+    print(f"Simulação de {n:,} jogos ({sport.upper()}) — placar médio: {H} {mu_h:.1f} x {mu_a:.1f} {A}".replace(",", "."))
+    print("\nVENCEDOR")
+    print("  " + _side(ph, f"{H} vence"))
+    if pd > 0.005:
+        print("  " + _side(pd, "Empate"))
+    print("  " + _side(1 - ph - pd, f"{A} vence"))
+
+    for line in a.spread or []:
+        cover = sum(m + line > 0 for m in margins) / n
+        push = sum(m + line == 0 for m in margins) / n
+        print(f"\nHANDICAP {H} {line:+g}  (= {A} {-line:+g})")
+        print("  " + _side(cover, f"{H} cobre {line:+g}"))
+        print("  " + _side(1 - cover - push, f"{A} cobre {-line:+g}"))
+        if push > 0.005:
+            print(f"  Empate na linha (devolve o dinheiro): {push:.0%}")
+
+    for line in a.total or []:
+        over = sum(t > line for t in totals) / n
+        push = sum(t == line for t in totals) / n
+        print(f"\nOVER/UNDER {line:g}")
+        print("  " + _side(over, f"Mais de {line:g}"))
+        print("  " + _side(1 - over - push, f"Menos de {line:g}"))
+        if push > 0.005:
+            print(f"  Exatamente {line:g} (devolve): {push:.0%}")
+
+    print("\nCOMO O JOGO TERMINA (margem)")
+    if poisson:
+        from collections import Counter
+        for (h, w), c in Counter(zip([(m + t) // 2 for m, t in zip(margins, totals)],
+                                     [(t - m) // 2 for m, t in zip(margins, totals)])).most_common(6):
+            print(f"  Placar {H} {h} x {w} {A}: {c/n:.0%}")
+    else:
+        cuts = [(1, 5), (6, 10), (11, 15), (16, 999)] if sport in ("nba", "ncaab") else [(1, 3), (4, 7), (8, 14), (15, 999)]
+        for team, sign in ((H, 1), (A, -1)):
+            for lo, hi in cuts:
+                pr = sum(lo <= sign * m <= hi for m in margins) / n
+                faixa = f"{lo}+" if hi == 999 else f"{lo} a {hi}"
+                print(f"  {team} vence por {faixa} pontos: {pr:.0%}")
+    st = sorted(totals)
+    print(f"\nTOTAL: metade dos jogos entre {st[n//4]} e {st[3*n//4]} pontos/gols (mediana {st[n//2]})")
+    print("Regra: só aposte se o app pagar MAIS que o justo (no Kalshi, preço ABAIXO da chance).")
+
+
+# ---------- ficha do jogo: placar esperado e nota de confiança ----------
+def cmd_expected(a):
+    """Placar esperado a partir de estatísticas da temporada (entra no `sim` como --home/--away)."""
+    sport = a.sport.lower()
+    if sport in ("nba", "ncaab"):
+        pace = (a.pace_home + a.pace_away) / 2
+        lg = a.league_rating
+        ph = pace * (a.ortg_home * a.drtg_away / lg) / 100
+        pa = pace * (a.ortg_away * a.drtg_home / lg) / 100
+        notes = [f"ritmo esperado {pace:.1f} posses"]
+    elif sport in ("nfl", "ncaafb"):
+        lg = a.league_points
+        ph = a.pf_home * a.pa_away / lg
+        pa = a.pf_away * a.pa_home / lg
+        notes = [f"média da liga {lg:g} pontos por time"]
+    else:
+        sys.exit("expected: use nba/ncaab (pace, ortg, drtg) ou nfl/ncaafb (pf, pa). Futebol/NHL: strength + poisson.")
+    adj = a.home_adv if a.home_adv is not None else (2.0 if sport in ("nba", "ncaab") else 1.5)
+    a.home_adv = adj
+    if a.rest_home is not None and a.rest_away is not None:
+        r = 0
+        if a.rest_home == 0: r -= a.b2b
+        if a.rest_away == 0: r += a.b2b
+        if r:
+            notes.append(f"descanso: {r:+g} na margem do mandante (jogo em dias seguidos)")
+        adj += r
+    adj += a.injury_home * -1 + a.injury_away
+    if a.injury_home or a.injury_away:
+        notes.append(f"desfalques: mandante -{a.injury_home:g}, visitante -{a.injury_away:g} pontos")
+    ph, pa = ph + adj / 2, pa - adj / 2
+    print(f"Placar esperado: {a.home_name} {ph:.1f} x {pa:.1f} {a.away_name}")
+    print(f"Margem do modelo: {a.home_name} {ph - pa:+.1f} | Total do modelo: {ph + pa:.1f}")
+    print("Ajustes: mando " + f"{a.home_adv:+g}; " + "; ".join(notes))
+    print(f"Use no sim: --home {ph:.1f} --away {pa:.1f}")
+
+
+def cmd_grade(a):
+    """Nota de confiança A-D: vantagem sobre o preço, concordância modelo x mercado, dados completos, amostra."""
+    pts, why = 0, []
+    edge = round((a.prob - a.app_pct / 100) * 100, 1)
+    if edge >= 6: pts += 3; why.append(f"vantagem forte ({edge:+.0f} pontos sobre o preço)")
+    elif edge >= 3: pts += 2; why.append(f"vantagem boa ({edge:+.0f} pontos)")
+    elif edge >= 1: pts += 1; why.append(f"vantagem pequena ({edge:+.0f} pontos)")
+    else: why.append(f"sem vantagem ({edge:+.0f} pontos)")
+    if a.divergence is not None:
+        if a.divergence <= 5: pts += 2; why.append("modelo e mercado concordam")
+        elif a.divergence <= 10: pts += 1; why.append("modelo e mercado divergem um pouco")
+        else: pts -= 1; why.append(f"modelo e mercado divergem {a.divergence:g} pontos (cuidado)")
+    if a.data >= 0.9: pts += 2; why.append("dados completos")
+    elif a.data >= 0.7: pts += 1; why.append("alguns dados faltando")
+    else: pts -= 1; why.append("muitos dados faltando")
+    if a.games >= 10: pts += 1; why.append(f"amostra boa ({a.games} jogos)")
+    elif a.games < 5: pts -= 1; why.append(f"amostra pequena ({a.games} jogos)")
+    if a.key_injury_doubt: pts -= 2; why.append("jogador importante com status incerto")
+    nota = "A" if pts >= 7 else "B" if pts >= 5 else "C" if pts >= 3 else "D"
+    rot = {"A": "aposta forte", "B": "boa aposta", "C": "aposta leve ou só em combo", "D": "evitar"}[nota]
+    print(f"Nota {nota} ({rot}) — {pts} pontos")
+    print("Motivos: " + "; ".join(why))
+    if edge < 3:
+        print("Lembrete: vantagem abaixo de 3 pontos fica dentro do erro do modelo.")
+
+
+# ---------- apps de apostas: formatos de odd e comparação ----------
+def _to_dec(x):
+    """Aceita odd americana (-150, +130), decimal (1.80) ou % de app de previsão (55%)."""
+    x = str(x).strip().replace(",", ".")
+    if x.endswith("%"):
+        return 100 / float(x[:-1])
+    v = float(x)
+    if x.startswith("+") or v >= 100:
+        return 1 + v / 100
+    if v <= -100:
+        return 1 + 100 / abs(v)
+    return v
+
+
+def _fmt(d):
+    am = f"+{(d-1)*100:.0f}" if d >= 2 else f"-{100/(d-1):.0f}"
+    return f"americana {am} | decimal {d:.2f} | app de previsão {100/d:.0f}% | aposta $10 recebe ${10*d:.2f}"
+
+
+def cmd_odds(a):
+    """Converte uma odd para todos os formatos e, com --prob, diz a odd mínima para valer a pena."""
+    if a.odd:
+        print("Essa odd em todos os formatos: " + _fmt(_to_dec(a.odd)))
+    if a.prob:
+        d = 1 / max(a.prob - a.margin, 0.01)
+        print(f"Chance {a.prob:.0%} -> odd mínima: " + _fmt(d))
+        print("Regra: só aposte se o app pagar igual ou mais que isso.")
+
+
+def cmd_compare(a):
+    """Compara a mesma aposta em vários apps (formato app=odd) e ordena por quanto paga."""
+    rows = []
+    for item in a.apps:
+        app, odd = item.split("=", 1)
+        d = _to_dec(odd)
+        rows.append((d, app))
+    rows.sort(reverse=True)
+    for d, app in rows:
+        ev = a.prob * d - 1 if a.prob else None
+        tag = "" if ev is None else f" | ganho médio {ev:+.0%} ({'vale' if ev > 0.03 else 'caro' if ev < -0.03 else 'justo'})"
+        print(f"{app:<14} aposta $10 recebe ${10*d:.2f}{tag}")
+    print(f"Melhor: {rows[0][1]} (paga ${10*rows[0][0]:.2f} por $10). Se o seu app pagar menos, considere apostar no melhor.")
+
+
+def cmd_aggregate(a):
+    """Mata-mata de ida e volta: chance de classificar dado o placar agregado da ida."""
+    g = {(i, j): pois(i, a.home) * pois(j, a.away) for i in range(11) for j in range(11)}
+    # lead = vantagem do time VISITANTE (o que joga fora na volta) no agregado
+    out = sum(v for (i, j), v in g.items() if i - j > a.lead)
+    pens = sum(v for (i, j), v in g.items() if i - j == a.lead)
+    adv = 1 - out - pens * a.pen
+    print(f"Visitante classifica: {adv:.1%} (direto {1-out-pens:.1%} + pênaltis {pens*a.pen:.1%}) | mandante: {1-adv:.1%}")
+    print(f"Mandante precisa vencer por {a.lead+1}+ (prob. {out:.1%}); vencer por {a.lead} leva aos pênaltis ({pens:.1%})")
+
+
 # ---------- ledger ----------
 def _read():
     if not os.path.exists(LEDGER):
@@ -484,6 +764,41 @@ def main():
     s = add("tennis", cmd_tennis); s.add_argument("--pa", type=float, required=True, help="prob. de A vencer ponto no saque"); s.add_argument("--pb", type=float, required=True, help="prob. de B vencer ponto no saque"); s.add_argument("--best-of", type=int, default=3, choices=[3, 5])
     s = add("log5", cmd_log5); s.add_argument("--a", type=float, required=True, help="win%% de A"); s.add_argument("--b", type=float, required=True, help="win%% de B"); s.add_argument("--home", type=float, help="win%% histórico do mandante na liga (MLB ~0.54)")
     s = add("temper", cmd_temper); s.add_argument("--probs", required=True); s.add_argument("--k", type=float, required=True)
+    s = add("combo", cmd_combo); s.add_argument("--probs", type=float, nargs="+", required=True); s.add_argument("--stake", type=float, default=10, help="quanto vai apostar ($)"); s.add_argument("--pays", type=float, help="quanto o app paga se ganhar ($)"); s.add_argument("--margin", type=float, default=0.01)
+    s = add("hedge", cmd_hedge); s.add_argument("--stake", type=float, required=True, help="quanto você apostou ($)"); s.add_argument("--payout", type=float, required=True, help="quanto recebe se ganhar ($)"); s.add_argument("--opp-pct", type=float, required=True, help="chance do lado contrário que o app mostra (%%)")
+    s = add("livewp", cmd_livewp); s.add_argument("--lead", type=float, required=True); s.add_argument("--minutes-left", type=float, required=True); s.add_argument("--spread", type=float, required=True, help="pontos que o time era favorito antes do jogo (+ favorito, - azarão)"); s.add_argument("--game-minutes", type=float, default=60, help="60 NFL, 48 NBA"); s.add_argument("--sd", type=float, default=13.5, help="13.5 NFL, 12 NBA"); s.add_argument("--app-pct", type=float, help="chance que o app mostra agora (%%)")
+    s = add("odds", cmd_odds); s.add_argument("--odd", help="-150, +130, 1.80 ou 55%%"); s.add_argument("--prob", type=float); s.add_argument("--margin", type=float, default=0.01)
+    s = add("compare", cmd_compare); s.add_argument("--apps", nargs="+", required=True, help="ex.: HardRock=-210 Kalshi=68%% Bet365=1.47"); s.add_argument("--prob", type=float)
+    s = add("aggregate", cmd_aggregate); s.add_argument("--home", type=float, required=True, help="gols esperados do mandante da volta"); s.add_argument("--away", type=float, required=True); s.add_argument("--lead", type=int, required=True, help="vantagem do visitante no agregado"); s.add_argument("--pen", type=float, default=0.5)
+    s = add("sim", cmd_sim)
+    s.add_argument("--sport", required=True, help="nba, nfl, ncaab, ncaafb, nhl, mlb, soccer")
+    s.add_argument("--market-spread", type=float, help="linha do mandante no app (ex.: -7.5 = mandante favorito por 7,5)")
+    s.add_argument("--market-total", type=float, help="linha de total do app (ex.: 228.5)")
+    s.add_argument("--home", type=float, help="pontos/gols esperados do mandante pelo modelo")
+    s.add_argument("--away", type=float, help="pontos/gols esperados do visitante pelo modelo")
+    s.add_argument("--spread", type=float, nargs="*", help="linhas de handicap do mandante para avaliar (ex.: -7.5 -9.5)")
+    s.add_argument("--total", type=float, nargs="*", help="linhas de over/under para avaliar (ex.: 224.5 228.5)")
+    s.add_argument("--home-name", default="Mandante"); s.add_argument("--away-name", default="Visitante")
+    s.add_argument("--sd-margin", type=float); s.add_argument("--sd-total", type=float)
+    s.add_argument("--n", type=int, default=10000); s.add_argument("--seed", type=int, default=7)
+    s = add("expected", cmd_expected)
+    s.add_argument("--sport", required=True); s.add_argument("--home-name", default="Mandante"); s.add_argument("--away-name", default="Visitante")
+    for k in ("pace-home", "pace-away", "ortg-home", "drtg-home", "ortg-away", "drtg-away", "pf-home", "pa-home", "pf-away", "pa-away"):
+        s.add_argument(f"--{k}", type=float)
+    s.add_argument("--league-rating", type=float, default=115.0, help="pontos por 100 posses da liga (NBA)")
+    s.add_argument("--league-points", type=float, default=22.5, help="pontos por time por jogo da liga (NFL)")
+    s.add_argument("--home-adv", type=float, default=None, help="vantagem de mando na margem (padrão NBA 2, NFL 1.5)")
+    s.add_argument("--rest-home", type=int, help="dias de descanso (0 = jogou ontem)"); s.add_argument("--rest-away", type=int)
+    s.add_argument("--b2b", type=float, default=2.5, help="pontos perdidos em jogo de dias seguidos")
+    s.add_argument("--injury-home", type=float, default=0, help="pontos de margem perdidos por desfalques do mandante")
+    s.add_argument("--injury-away", type=float, default=0)
+    s = add("grade", cmd_grade)
+    s.add_argument("--prob", type=float, required=True, help="chance do modelo (0-1)")
+    s.add_argument("--app-pct", type=float, required=True, help="preço/chance no app (%%)")
+    s.add_argument("--divergence", type=float, help="diferença modelo x mercado (pontos %%)")
+    s.add_argument("--data", type=float, default=1.0, help="fração dos campos da ficha encontrados (0-1)")
+    s.add_argument("--games", type=int, default=10, help="jogos na amostra da temporada")
+    s.add_argument("--key-injury-doubt", action="store_true")
     s = add("ledger", cmd_ledger)
     s.add_argument("action", choices=["add", "result", "void", "pending", "report", "calibrate"])
     s.add_argument("--id"); s.add_argument("--event"); s.add_argument("--sport"); s.add_argument("--date")
