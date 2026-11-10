@@ -1,6 +1,10 @@
 # guessitup
 
-Skill para o [Claude Code](https://claude.com/claude-code) que gera **palpites esportivos baseados em estatística**, em qualquer esporte: futebol, NBA, NFL, MLB, NHL, tênis, MMA/UFC, F1, vôlei, eSports e outros.
+**[⬇️ Baixar a última versão (guessitup.zip)](https://github.com/thiagontijo/guessitup/releases/latest/download/guessitup.zip)** · [Todas as versões](https://github.com/thiagontijo/guessitup/releases)
+
+> *English:* a Claude skill for statistics-based sports picks (NBA, NFL, soccer, NHL, tennis, MMA), with combo and hedge math and three paper-trading bots (Chico, Arnaldo, Herman). Answers in Portuguese by default; ask Claude to reply in English.
+
+Skill para o Claude ([app](https://claude.ai) e [Claude Code](https://claude.com/claude-code)) que gera **palpites esportivos baseados em estatística**, em qualquer esporte: futebol, NBA, NFL, MLB, NHL, tênis, MMA/UFC, F1, vôlei, eSports e outros.
 
 Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com:
 
@@ -34,7 +38,7 @@ Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo 
 
 ### No app do Claude (site, desktop ou celular)
 
-1. Baixe o ZIP deste repositório (botão verde **Code → Download ZIP**).
+1. Baixe o arquivo **[guessitup.zip](https://github.com/thiagontijo/guessitup/releases/latest/download/guessitup.zip)** (ou o botão verde **Code → Download ZIP**).
 2. No Claude, abra **Configurações → Capacidades → Skills** e envie o arquivo ZIP.
 3. Peça: "guessitup, jogos de hoje".
 
