@@ -21,10 +21,19 @@ Para cada aposta que escolher, **o usuário decide quanto quer colocar**. O paga
 
 Fluxo do dia (perguntar com botões, AskUserQuestion; sem a ferramenta, opções numeradas):
 1. Mostre as propostas de cada bot (`bots.py offers`), cada bot falando em primeira pessoa.
-2. Pergunte **"Hoje você quer:"** (multiSelect): Seguir o Chico · Seguir o Arnaldo · Seguir o Herman · Hoje não vou jogar. Em "Other" ele pode citar apostas soltas pelo número (#1, #3).
+2. Pergunte **"Hoje você quer:"** (multiSelect): Seguir o Chico · Seguir o Arnaldo · Seguir o Herman · Só acompanhar todos, sem gastar · Hoje não vou jogar. Em "Other" ele pode citar apostas soltas pelo número (#1, #3).
 3. Para cada aposta escolhida, pergunte o valor: **"Quanto em cada aposta?"**: Mesmo valor do bot · $10 · $20 · Outro valor. Ele pode dar um valor diferente para cada aposta.
 4. Registre com `bots.py follow --id N --amount X` (ou `--pass-day`) e confirme em uma linha por aposta: "Você segue #1 do Chico: Knicks vencem, aposta $50, recebe $64."
 5. Se o usuário não estiver presente (tarefa agendada), só apresente as propostas e termine com: "Me diga qual bot quer seguir hoje e quanto em cada aposta, ou 'hoje não vou jogar'."
+
+## Acompanhar sem gastar (modo simulado)
+
+O usuário pode **seguir todos os bots (ou só alguns) sem colocar dinheiro**, só para acompanhar. Ele escolhe um **valor-base por aposta** (ex.: $100) e cada proposta do dia vira uma aposta simulada desse valor, com o mesmo multiplicador da proposta. O placar ganha a linha **"Você sim."**, separada da linha "Você" (apostas reais que ele disse que fez), para ele ver quanto teria ganhado ou perdido seguindo os bots.
+
+- Ligar: `bots.py watch --amount 100` (todos os bots) ou `--bot chico` (só um). O valor-base fica salvo; nos dias seguintes basta `bots.py watch`.
+- Uma aposta solta em modo simulado: `bots.py follow --id 3 --amount 50 --watch`.
+- `settle` confere também as apostas simuladas.
+- Com o modo ligado e frequência "todo dia sozinho", a tarefa diária roda `watch` depois das propostas e mostra a linha "Você sim." na mensagem.
 
 ## O usuário escolhe a banca e o limite de cada bot
 
@@ -85,6 +94,7 @@ python3 $B skip --bot arnaldo --reason "Favoritos caros hoje"  #    ou passar o 
 python3 $B offers                                              # 4. propostas de cada bot
 python3 $B follow --id 3 --amount 15                           # 5. o usuário segue a #3 com $15
 python3 $B follow --pass-day                                   #    ou "hoje não vou jogar"
+python3 $B watch --amount 100                                  #    ou acompanhar todos sem gastar (simulado)
 python3 $B report                                              # 6. placar dos três + Você
 ```
 

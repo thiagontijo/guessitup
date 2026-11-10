@@ -30,7 +30,7 @@ Want to test before you bet real money? Turn on three bots that bet **play money
 
 Say "turn on the bots" and choose **how much money each bot gets**, **each bot's daily limit** (number of bets and, if you want, a dollar cap) and whether they run every day on their own or only when you ask.
 
-The bots have **a mind of their own**: each one picks bets within its style, and when nothing is worth it, it sits the day out and tells you why ("no safe game today, I'm keeping the bankroll"). They are models to follow: every day each bot shows the bets it would make, and **you choose** whether to follow Chico, Arnaldo, Herman, just a few bets, or skip the day. **You decide how much to put on each bet.** The scoreboard shows the three bots plus a "You" line with the result of what you chose to follow: bankroll, % return, hit rate and days skipped. Everything stays on your computer (`bots/ledger.csv`). Details in [references/bots.md](references/bots.md).
+The bots have **a mind of their own**: each one picks bets within its style, and when nothing is worth it, it sits the day out and tells you why ("no safe game today, I'm keeping the bankroll"). They are models to follow: every day each bot shows the bets it would make, and **you choose** whether to follow Chico, Arnaldo, Herman, just a few bets, or skip the day. **You decide how much to put on each bet.** Or just **watch without spending**: follow every bot with a simulated base stake (say $100 per bet) and see what you would have won or lost. The scoreboard shows the three bots plus a "You" line with the result of what you chose to follow: bankroll, % return, hit rate and days skipped. Everything stays on your computer (`bots/ledger.csv`). Details in [references/bots.md](references/bots.md).
 
 > **Brazil:** sports betting has been banned in Brazil since Sept 25, 2026 (Provisional Measure 1.394/2026, still under review by Congress). For users in Brazil the skill gives the analysis and the play-money bots, but does not build bets on Brazilian betting sites.
 
@@ -123,6 +123,7 @@ guessitup/
 | `skip --bot chico --reason "..."` | the bot sits the day out and says why |
 | `offers` | today's proposals from each bot |
 | `follow --id 3 --amount 15` / `follow --pass-day` | you follow a proposal with your own amount, or skip the day |
+| `watch --amount 100` | watch every bot without spending: simulated follows at your base stake |
 | `settle` / `pending` / `report` | settles results (including the bets you followed) and shows the scoreboard |
 
 The pick log lives in `ledger/predictions.jsonl` and the bots in `bots/` (both outside git). After the games, ask "compare the results": the skill finds the scores, logs them and shows whether the percentages held up. With fewer than ~30 picks, nothing is conclusive.
