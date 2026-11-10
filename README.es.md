@@ -32,6 +32,8 @@ Di "activa los bots" y elige **cuánto dinero recibe cada bot**, **el límite di
 
 Los bots tienen **vida propia**: cada uno elige apuestas dentro de su estilo y, cuando nada vale la pena, se toma el día libre y explica por qué ("hoy no hay partido seguro, guardo la banca"). Son modelos para seguir: cada día cada bot muestra las apuestas que haría y **tú eliges** si sigues a Chico, a Arnaldo, a Herman, solo algunas apuestas o si hoy no juegas. **Tú decides cuánto poner en cada apuesta.** El marcador muestra los tres bots y una línea "Tú" con el resultado de lo que elegiste seguir: banca, % de retorno, aciertos y días sin jugar. Todo queda en tu computadora (`bots/ledger.csv`). Detalles en [references/bots.md](references/bots.md).
 
+> **Brasil:** las apuestas deportivas están prohibidas en Brasil desde el 25/09/2026 (Medida Provisoria 1.394/2026, aún en análisis en el Congreso). Para usuarios en Brasil, la skill entrega el análisis y los bots de dinero ficticio, pero no arma apuestas en casas brasileñas.
+
 > Son probabilidades, no garantías. Ningún modelo garantiza un resultado y apostar implica riesgo. La skill nunca hace apuestas ni entra en tus cuentas de apuestas.
 
 ## Instalación
