@@ -10,6 +10,22 @@ Três bots que apostam com **dinheiro de mentira** usando os palpites da guessit
 
 As regras da seção "Autocrítica" de [apostas.md](apostas.md) valem para os três (handicap contra favorito, Over com desconto, dupla chance, `aggregate` no mata-mata, dado faltando baixa a nota).
 
+## Os bots propõem, o usuário decide (modo seguir)
+
+Todo dia cada bot apresenta as **propostas** que ele faria: jogo, aposta, chance, quanto paga e quanto ele mesmo apostaria. A partir daí o usuário escolhe, sem obrigação:
+- **Seguir um bot** (ou mais de um) no dia: copia as propostas dele.
+- **Escolher apostas soltas** de bots diferentes.
+- **Não jogar hoje**: "hoje não vou jogar". Os bots continuam apostando no dinheiro de mentira, e o placar segue.
+
+Para cada aposta que escolher, **o usuário decide quanto quer colocar**. O pagamento é recalculado com o mesmo multiplicador da proposta (proposta paga 1,28x → apostando $50, recebe $64). Quem faz a aposta no app é sempre o usuário; a skill só registra o que ele disse que seguiu, para mostrar no placar a linha "Você" ao lado dos três bots.
+
+Fluxo do dia (perguntar com botões, AskUserQuestion; sem a ferramenta, opções numeradas):
+1. Mostre as propostas de cada bot (`bots.py offers`), cada bot falando em primeira pessoa.
+2. Pergunte **"Hoje você quer:"** (multiSelect): Seguir o Chico · Seguir o Arnaldo · Seguir o Herman · Hoje não vou jogar. Em "Other" ele pode citar apostas soltas pelo número (#1, #3).
+3. Para cada aposta escolhida, pergunte o valor: **"Quanto em cada aposta?"**: Mesmo valor do bot · $10 · $20 · Outro valor. Ele pode dar um valor diferente para cada aposta.
+4. Registre com `bots.py follow --id N --amount X` (ou `--pass-day`) e confirme em uma linha por aposta: "Você segue #1 do Chico: Knicks vencem, aposta $50, recebe $64."
+5. Se o usuário não estiver presente (tarefa agendada), só apresente as propostas e termine com: "Me diga qual bot quer seguir hoje e quanto em cada aposta, ou 'hoje não vou jogar'."
+
 ## O usuário escolhe a banca e o limite de cada bot
 
 Cada bot tem a sua própria banca inicial e o seu próprio limite diário, definidos pelo usuário:
@@ -66,12 +82,16 @@ python3 $B check --bot herman --type combo --legs 0.8,0.75,0.7,0.7   # 2. cabe n
 python3 $B add --bot chico --sport nba --game "Knicks x Nets" --bet "Knicks vencem" \
     --type winner --legs 0.82 --price 0.78 --grade B           # 3. registrar
 python3 $B skip --bot arnaldo --reason "Favoritos caros hoje"  #    ou passar o dia
-python3 $B report                                              # 4. placar dos três
+python3 $B offers                                              # 4. propostas de cada bot
+python3 $B follow --id 3 --amount 15                           # 5. o usuário segue a #3 com $15
+python3 $B follow --pass-day                                   #    ou "hoje não vou jogar"
+python3 $B report                                              # 6. placar dos três + Você
 ```
 
 - `--legs`: chances do modelo de cada perna (fração). `--price`: preço no app (0.78 = 78%); sem ele, usa a chance do modelo. Combo: preço = produto das pernas.
 - `--type`: winner, combo, handicap, over, under ou underdog. `--edge`: vantagem em pontos para handicap/total.
 - O script recusa apostas fora das regras do bot e acima dos limites do usuário. Combo só ganha se todas as pernas ganharem.
+- `settle` de uma proposta também confere as cópias que o usuário seguiu.
 - Tudo fica em `bots/` (fora do git, só no computador do usuário).
 
 ## Frequência "todo dia sozinho"
@@ -81,7 +101,8 @@ Se a sessão tiver ferramenta de tarefa agendada, crie uma tarefa diária (de ma
 ## Mensagem do dia
 
 1. Resultado de ontem por bot (ganhou/perdeu, em dólar no formato do app: "aposta $20, recebe $26").
-2. Placar dos três: banca, % de retorno, acertos e dias que passou (saída de `report`).
-3. Cada bot fala em primeira pessoa: as apostas de hoje e o porquê, ou por que passou.
-4. Às segundas: autocrítica da semana (o que funcionou, o que falhou, regra que vale mudar).
-5. Lembrete: é dinheiro de mentira, e com menos de ~30 apostas por bot nada é conclusivo. Seguir um bot de verdade é decisão sempre do usuário.
+2. Placar dos três e do usuário ("Você"): banca, % de retorno, acertos e dias que passou (saída de `report`).
+3. Cada bot fala em primeira pessoa: as propostas de hoje e o porquê, ou por que passou.
+4. Pergunta final: qual bot seguir hoje, quanto em cada aposta, ou "hoje não vou jogar".
+5. Às segundas: autocrítica da semana (o que funcionou, o que falhou, regra que vale mudar).
+6. Lembrete: é dinheiro de mentira, e com menos de ~30 apostas por bot nada é conclusivo. Seguir um bot de verdade é decisão sempre do usuário.

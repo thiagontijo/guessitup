@@ -26,7 +26,7 @@ Quer testar antes de apostar de verdade? Ligue os três bots, que apostam com **
 
 Peça "liga os bots" e escolha **quanto dinheiro cada bot recebe**, o **limite de apostas por dia de cada um** (e, se quiser, um teto em dólar) e se eles rodam todo dia sozinhos ou só quando você pedir.
 
-Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo e, quando nada compensa, passa o dia e diz por quê ("hoje não tem jogo seguro, vou guardar a banca"). Eles são modelos: acompanhe, compare e, se quiser, siga o estilo que der mais certo. Todo dia você vê o placar dos três: banca, % de retorno, acertos e dias que passaram. O registro fica só no seu computador (`bots/ledger.csv`). Detalhes em [references/bots.md](references/bots.md).
+Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo e, quando nada compensa, passa o dia e diz por quê ("hoje não tem jogo seguro, vou guardar a banca"). Eles são modelos: todo dia cada bot apresenta as propostas que faria, e **você escolhe** se segue o Chico, o Arnaldo, o Herman, só algumas apostas, ou se hoje não vai jogar. **Quanto colocar em cada aposta é você que decide.** O placar mostra os três bots e uma linha "Você" com o resultado do que você escolheu seguir. Todo dia você vê o placar dos três: banca, % de retorno, acertos e dias que passaram. O registro fica só no seu computador (`bots/ledger.csv`). Detalhes em [references/bots.md](references/bots.md).
 
 > São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
 
