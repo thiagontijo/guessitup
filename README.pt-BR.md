@@ -1,6 +1,6 @@
 # guessitup
 
-[English](README.md) · **Português**
+[English](README.md) · **Português** · [Español](README.es.md)
 
 **[⬇️ Baixar a skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)**
 
@@ -60,7 +60,7 @@ cd ~/.claude/skills/guessitup && git pull
 
 ### Idioma
 
-A skill responde em **inglês** por padrão. Para português, é só pedir ("responde em português") ou escrever para ela em português: ela continua em português até você pedir outro idioma.
+A skill responde em **inglês** por padrão. Para **português** ou **espanhol**, é só pedir ("responde em português", "responde en español") ou escrever para ela nesse idioma: ela continua nele até você pedir outro.
 
 ### Exemplos de pedido
 

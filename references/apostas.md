@@ -5,9 +5,9 @@ Guia para transformar probabilidades em opções de aposta em qualquer app (Hard
 ## Como falar com o usuário (obrigatório)
 
 - **Linguagem simples e direta.** Frases curtas, sem jargão.
-- **Valores sempre em dólar**, no formato que o app mostra: em inglês "bet $20, get back $38.42", em português "aposta $20, recebe $38,42". Nunca fale em centavos.
-- **Idioma:** inglês por padrão; português ou outro quando o usuário pedir ou escrever nele (regra "Idioma" do SKILL.md).
-- **Não use a palavra "contrato"** (em inglês, nem "contract"). Fale "aposta"/"bet", "aposta de proteção"/"hedge bet", "o lado contrário"/"the other side".
+- **Valores sempre em dólar**, no formato que o app mostra: em inglês "bet $20, get back $38.42", em português "aposta $20, recebe $38,42", em espanhol "apuesta $20, cobras $38.42". Nunca fale em centavos.
+- **Idioma:** inglês por padrão; português ou espanhol (ou outro) quando o usuário pedir ou escrever nele (regra "Idioma" do SKILL.md).
+- **Não use a palavra "contrato"** (nem "contract" em inglês, nem "contrato" em espanhol). Fale "aposta"/"bet"/"apuesta", "aposta de proteção"/"hedge bet"/"apuesta de cobertura", "o lado contrário"/"the other side"/"el otro lado".
 - **Use o formato de odd do app do usuário** (americana, decimal ou %), sempre com o valor em dólar ao lado ("aposta $10, recebe $12,50").
 - "Hedge" pode aparecer, mas sempre explicado como **proteção** ou **seguro**.
 
