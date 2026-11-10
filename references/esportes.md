@@ -24,7 +24,7 @@ Leia só a seção do esporte pedido. Sempre busque a versão atual na web; as f
 ## Baseball (MLB)
 - **Métricas**: starter (ERA, FIP, xERA, K%, BB%, últimos 5 starts), bullpen (uso recente), wRC+ do lineup vs. canhoto/destro, park factor, Pythagorean W-L.
 - **Contexto**: lineup confirmado, clima/vento, descanso do bullpen.
-- **Modelo**: log5 (Bill James) a partir de win% ajustado + ajuste do arremessador titular e mando (~54%); totais por runs esperados (Poisson/negativa binomial).
+- **Modelo**: log5 (Bill James, comando `log5`) a partir de win% ajustado (prefira o Pythagorean W-L ao real) + ajuste do arremessador titular e mando (~54%); totais por runs esperados (Poisson/negativa binomial).
 - **Fontes**: Baseball Savant, FanGraphs, Baseball-Reference.
 
 ## Hóquei (NHL)
@@ -36,7 +36,7 @@ Leia só a seção do esporte pedido. Sempre busque a versão atual na web; as f
 ## Tênis (ATP/WTA)
 - **Métricas**: Elo geral e **por superfície** (tennisabstract), % pontos no saque/devolução, hold/break %, aces/duplas faltas, desempenho em tiebreaks e 3º set, rendimento nas últimas 52 semanas e últimos 10 jogos.
 - **Contexto**: H2H **na mesma superfície**, fadiga (minutos jogados na semana), lesões, altitude, melhor de 3 vs. 5.
-- **Modelo**: Elo de superfície → prob. de vencer; derivar sets/games via probabilidade de ponto no saque (Markov: ponto → game → set → partida).
+- **Modelo**: Elo de superfície → prob. de vencer; derivar sets/games via probabilidade de ponto no saque (Markov: ponto → game → set → partida, comando `tennis`). Referências do circuito ATP: ~64% de pontos vencidos no saque, ~80% de holds; WTA: ~57% e ~63%. Masters 1000 e WTA Finals têm muitos jogos parelhos entre top 20: abaixo de 55% trate como moeda.
 - **Fontes**: Tennis Abstract, ATP/WTA, Ultimate Tennis Statistics, Sofascore.
 
 ## MMA / UFC / boxe

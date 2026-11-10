@@ -47,12 +47,17 @@ guessitup/
 | `elo-update` | atualiza Elo após um resultado, com multiplicador por margem |
 | `devig --odds ...` | remove a margem da casa: proporcional, potência e Shin |
 | `normal --diff --sd --line` | esportes de pontos: chance de vencer e de cobrir spread |
+| `tennis --pa --pb --best-of` | tênis: % de pontos no saque → hold, set, partida e placar em sets (cadeia de Markov) |
+| `log5 --a --b --home` | baseball e afins: win% de cada lado → chance no confronto, com mando |
 | `blend --probs --weights` | combina modelos e mede a divergência |
 | `value --prob --odds` | valor esperado e Kelly fracionado (0,25x, teto de 5%) |
 | `clv --taken --closing` | closing line value |
-| `ledger add/result/report` | registro de palpites e calibração: Brier, log loss, RPS, acerto por faixa, ROI, CLV |
+| `temper --probs --k` | recalibra probabilidades com a "temperatura" aprendida nos resultados anteriores |
+| `ledger add/result/void/pending/report/calibrate` | registro de palpites e calibração: Brier, skill score, comparação com o mercado, acertos esperados x reais, por esporte/confiança/força, ROI, CLV |
 
-O ledger fica em `ledger/predictions.jsonl` (fora do git). Registre os palpites, informe os resultados depois e rode `ledger report` para ver se as porcentagens se confirmam. Com menos de ~30 palpites, nada é conclusivo.
+O ledger fica em `ledger/predictions.jsonl` (fora do git). A skill registra os palpites sozinha. Depois dos jogos, peça "compare os resultados": ela busca os placares, registra e mostra se as porcentagens se confirmaram. Com menos de ~30 palpites, nada é conclusivo.
+
+A skill aprende com o próprio histórico: `ledger calibrate` mede se ela anda tímida ou confiante demais em cada esporte, e o SKILL.md guarda as lições de cada conferência (seção "Lições da calibração"). O histórico de palpites de cada pessoa fica só no computador dela.
 
 ## Fontes e inspiração
 
