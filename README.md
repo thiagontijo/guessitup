@@ -16,6 +16,16 @@ Para cada jogo ou luta, a skill busca dados atuais na web e monta um dossiê com
 
 A skill sempre abre um menu de botões: **App** (Kalshi, Hard Rock, FanDuel, DraftKings ou outro), **Tipo de aposta** (palpite simples, combo ou os dois), **Proteção hedge** (ativar ou não) e **Mercados** (vencedor, handicap, over/under, com simulação de 10.000 jogos). Cada jogo sai numa **ficha completa**: números da temporada, contexto, simulação e nota de confiança A-D. Com a proteção ativada, ela monta o plano de hedge e te avisa ao vivo no celular.
 
+### Bots de teste (opcional)
+
+Quer testar antes de apostar de verdade? Ligue os três bots, que apostam com **dinheiro de mentira** usando os palpites da skill:
+
+- **Chico** (seguro): só vencedor com 70% ou mais, combo de até 2 jogos, 2% da banca.
+- **Arnaldo** (moderado): vencedor com 60% ou mais, combos de 2 a 3 jogos, handicap e over/under com vantagem, 3% da banca.
+- **Herman** (agressivo): combos de 4 a 6 jogos que pagam 3x ou mais e zebras com valor, 1% da banca.
+
+Peça "liga os bots" e escolha a banca inicial e se eles rodam todo dia sozinhos ou só quando você pedir. Todo dia você vê o placar dos três: banca, % de retorno e acertos. O registro fica só no seu computador (`bots/ledger.csv`). Detalhes em [references/bots.md](references/bots.md).
+
 > São probabilidades, não garantias. Nenhum modelo garante resultado, e apostar envolve risco.
 
 ## Instalação
@@ -57,7 +67,9 @@ guessitup/
 ├── SKILL.md                 instruções da skill (fluxo, regras, formato do relatório)
 ├── references/esportes.md   métricas, fontes e modelo indicado por esporte
 ├── references/apostas.md    Kalshi, combos, hedge, modo advisor e lições aprendidas
-└── scripts/model.py         ferramentas numéricas (só biblioteca padrão)
+├── references/bots.md       bots de teste Chico, Arnaldo e Herman (dinheiro de mentira)
+├── scripts/model.py         ferramentas numéricas (só biblioteca padrão)
+└── scripts/bots.py          bots de teste: regras, registro e placar
 ```
 
 ### `scripts/model.py`
