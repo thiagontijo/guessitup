@@ -8,7 +8,9 @@ would have won or lost by following them with your own amount per bet.
 
 - **Install on iPhone:** open the link in Safari, tap Share, then "Add to Home Screen".
 - **Install on Android:** open the link in Chrome and tap "Install the app".
-- Portuguese, English and Spanish. Your settings stay on your device.
+- **Race the bots:** you are the 4th runner with $1,000 in play money. Bet on any game of the day (winner,
+  spread, total or parlays) at the market price of the moment, or copy a bot's bet with one tap.
+- Portuguese, English and Spanish. Your balance and settings stay on your device.
 
 Play money only. The bots place no real bets, the app is not a sportsbook and it does not point to one.
 Probabilities, not guarantees. For adults 18 and over.

@@ -1,5 +1,5 @@
 // Guessitup Arena: keeps the app shell available offline. Network first, cache as fallback.
-const CACHE = 'arena-v1';
+const CACHE = 'arena-v2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './fonts/bsd-800.woff2', './icons/icon-192.png', './icons/icon-180.png'];
 
 self.addEventListener('install', (e) => {
