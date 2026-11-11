@@ -213,7 +213,7 @@ bank:['Banca','Bankroll','Banca'],ret:['Retorno','Return','Retorno'],hits:['Acer
 numbers:['Números dos bots','Bot numbers','Números de los bots'],liveNow:['ao vivo','live','en vivo'],games:['Jogos da rodada','Games this round','Partidos de la ronda'],
 you:['Você','You','Tú'],youMode:['Só acompanhando, sem dinheiro de verdade','Just watching, no real money','Solo mirando, sin dinero real'],
 perBet:['{a} por aposta','{a} per bet','{a} por apuesta'],following:['Seguindo','Following','Siguiendo'],nobody:['Você não segue nenhum bot','You follow no bots','No sigues a ningún bot'],
-youLive:['hoje, se os jogos terminarem como estão','today, if the games end as they stand','hoy, si los partidos terminan así'],youLocked:['resultado de hoje','result today','resultado de hoy'],
+youLive:['hoje, valendo agora (estimativa)','today, worth now (estimate)','hoy, valor ahora (estimación)'],youLocked:['resultado de hoje','result today','resultado de hoy'],
 youTotal:['total desde {d}','total since {d}','total desde {d}'],youCount:['Apostas: {n}. Certas: {w}. Erradas: {l}. Em jogo: {p}.','Bets: {n}. Won: {w}. Lost: {l}. Open: {p}.','Apuestas: {n}. Ganadas: {w}. Perdidas: {l}. En juego: {p}.'],
 adjust:['Ajustar','Adjust','Ajustar'],combo:['Combo de {n}','{n}-leg parlay','Combinada de {n}'],wins:['{x} vence','{x} to win','Gana {x}'],over:['Mais de {x} pontos','Over {x}','Más de {x}'],under:['Menos de {x} pontos','Under {x}','Menos de {x}'],dc:['{x} ou empate','{x} or draw','{x} o empate'],
 stake:['aposta','bet','apuesta'],pays:['recebe','gets back','cobra'],chNow:['chance agora','chance now','chance ahora'],chPre:['chance','chance','chance'],result:['resultado','result','resultado'],
@@ -232,7 +232,7 @@ howT:['Como funciona','How it works','Cómo funciona'],
 how1:['Todo dia cada bot escolhe as apostas dele com dinheiro de mentira.','Every day each bot picks its own play-money bets.','Cada día cada bot elige sus apuestas con dinero ficticio.'],
 how2:['O placar vem dos jogos reais e atualiza sozinho.','Scores come from the real games and update on their own.','El marcador viene de los partidos reales y se actualiza solo.'],
 how3:['Em Ajustes, escolha quem seguir e o valor por aposta para ver quanto você teria ganhado.','In Settings, choose who to follow and the amount per bet to see what you would have won.','En Ajustes, elige a quién seguir y el monto por apuesta para ver cuánto habrías ganado.'],
-how4:['A "chance agora" é uma estimativa feita com o placar e o tempo que falta.','"Chance now" is an estimate from the score and the time left.','La "chance ahora" es una estimación con el marcador y el tiempo restante.'],
+how4:['Durante os jogos, a banca e a "chance agora" mostram quanto as apostas valem naquele momento, como o cash out de um app. É uma estimativa feita com o placar e o tempo que falta.','During the games, the bankroll and "chance now" show what the bets are worth at that moment, like an app\'s cash out. It is an estimate from the score and the time left.','Durante los partidos, la banca y la "chance ahora" muestran cuánto valen las apuestas en ese momento, como el cash out de una app. Es una estimación con el marcador y el tiempo restante.'],
 f1:['Dinheiro de mentira. Os bots não fazem apostas de verdade e este app não é uma casa de apostas.','Play money. The bots place no real bets and this app is not a sportsbook.','Dinero ficticio. Los bots no hacen apuestas reales y esta app no es una casa de apuestas.'],
 f2:['São probabilidades, não garantias. Para maiores de 18 anos.','Probabilities, not guarantees. For adults 18 and over.','Son probabilidades, no garantías. Para mayores de 18 años.'],
 f3:['Os bots usam a skill Guessitup para o Claude.','The bots run on the Guessitup skill for Claude.','Los bots usan la skill Guessitup para Claude.'],
@@ -310,7 +310,7 @@ const lastDay=()=>{const d=days();return d[d.length-1]};
 function actor(id){const o={id,bank:0,won:0,lost:0,pend:0,today:0,proj:0,liveN:0,best:0,streak:0,n:0,todayN:0,todayOpen:0},last=lastDay(),p=S.pref;
 for(const d of days())for(const b of d.bets){if(id==='you'){if(!p.follow[b.bot])continue;if(!p.all&&p.since&&d.date<p.since)continue}else if(b.bot!==id)continue;
 const k=id==='you'?p.base/b.stake:1,st=b.stake*k,pay=b.payout*k,n=betNow(b);let pf=0;o.n++;if(d===last)o.todayN++;
-if(n.st==='won'){pf=pay-st;o.won++;o.streak++;o.best=Math.max(o.best,pf)}else if(n.st==='lost'){pf=-st;o.lost++;o.streak=0}else if(n.st!=='void'){o.pend++;if(d===last)o.todayOpen++;if(n.live)o.liveN++;if(n.st==='losing')o.proj-=st;else if(n.st==='winning'&&!n.open)o.proj+=pay-st}
+if(n.st==='won'){pf=pay-st;o.won++;o.streak++;o.best=Math.max(o.best,pf)}else if(n.st==='lost'){pf=-st;o.lost++;o.streak=0}else if(n.st!=='void'){o.pend++;if(d===last)o.todayOpen++;if(n.st!=='pre'){const q=betProb(b,n);if(q!=null){o.liveN++;o.proj+=q*pay-st}}}
 o.bank+=pf;if(d===last)o.today+=pf}
 return o}
 const mood=a=>{const v=a.liveN?a.proj:a.today;return v>0?'up':v<0?'down':'flat'};
