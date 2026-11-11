@@ -648,7 +648,7 @@ renderNav();const ok=await loadData();if(!ok){$('#view').innerHTML='<div class="
 if(!S.pref.since&&lastDay()){S.pref.since=lastDay().date;save()}
 render();S.busy=true;try{await refreshLive(true)}catch(e){}S.busy=false;results(true);render();plan();
 if('serviceWorker'in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{})}
-window.ARENA={mine,S,actor,betNow,legNow,betProb,tick,debug:()=>({net:S.net,tab:S.tab,lang,bots:IDS.map(actor),you:actor('you'),live:[...S.live].map(([k,v])=>[k,v.state,v.ps,v.os,v.per,v.clock,v.final])})};
+window.ARENA={mine,S,loadMk,wantStats,optModel,okBet,ymdOf,clockLabel,ST,actor,betNow,legNow,betProb,tick,debug:()=>({net:S.net,tab:S.tab,lang,bots:IDS.map(actor),you:actor('you'),live:[...S.live].map(([k,v])=>[k,v.state,v.ps,v.os,v.per,v.clock,v.final])})};
 boot();
 })();
 </script>
