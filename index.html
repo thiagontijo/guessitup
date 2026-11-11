@@ -552,13 +552,14 @@ const l5f=n5?pf5/n5:null,l5a=n5?pa5/n5:null,mix=(a,b)=>a!=null&&b!=null?.65*a+.3
 return{pf:mix(spf,l5f),pa:mix(spa,l5a),spf,spa,n5,w5,streak:st._streak||''}}
 function pgrid(lh,la){const f=[1];for(let i=1;i<=12;i++)f[i]=f[i-1]*i;const P=(l,k)=>Math.exp(-l)*Math.pow(l,k)/f[k],G=[];for(let i=0;i<=12;i++)for(let j=0;j<=12;j++)G.push([i,j,P(lh,i)*P(la,j)]);return G}
 function buildStats(g,s){const H=side(s,g,'home'),A=side(s,g,'away');if(!H||!A)return{st:'err'};const pr=s.predictor,pred=pr&&pr.homeTeam&&num(pr.homeTeam.gameProjection);
-const out={st:'ok',H,A,pred:pred!=null?pred/100:null,m:null},lg=g.lg,sp=sport(lg)||{};
+const lg=g.lg,sp=sport(lg)||{},gmin=Math.min(recN(g.home.rec),recN(g.away.rec));let w=gmin?.5*Math.min(1,gmin/8):.25;if(/^ncaa/.test(lg))w=Math.min(w,.25);
+const out={st:'ok',H,A,pred:pred!=null?pred/100:null,m:null,w};
 if(H.pf==null||A.pf==null||H.pa==null||A.pa==null)return out;
 if(sp.soc||lg==='nhl'){const adj=sp.soc?1.1:1.04,lh=Math.max(.2,(H.pf+A.pa)/2*Math.sqrt(adj)),la=Math.max(.2,(A.pf+H.pa)/2/Math.sqrt(adj)),G=pgrid(lh,la);let ph=0,pd=0;for(const[i,j,p]of G){if(i>j)ph+=p;else if(i===j)pd+=p}
 out.m={kind:'pois',eh:lh,ea:la,G,ph:lg==='nhl'?ph+pd/2:ph,pd:lg==='nhl'?0:pd,pa:lg==='nhl'?1-ph-pd/2:1-ph-pd}}
 else{const hca=g.neutral?0:(HCA[lg]||2),eh=(H.pf+A.pa)/2+hca/2,ea=(A.pf+H.pa)/2-hca/2,sd=sp.sd||12;let ph=phi((eh-ea)/sd);if(out.pred!=null)ph=(ph+out.pred)/2;out.m={kind:'norm',eh,ea,sd,tsd:TSD[lg]||16,ph,pd:0,pa:1-ph}}
 return out}
-function optModel(g,o){const r=optRaw(g,o);return r==null?null:Math.min(.99,Math.max(.01,.5*r+.5*o.p))}
+function optModel(g,o){const r=optRaw(g,o);if(r==null)return null;const w=(ST[g.id]&&ST[g.id].w)||.5;return Math.min(.99,Math.max(.01,w*r+(1-w)*o.p))}
 function optRaw(g,o){const x=ST[g.id];if(!x||x.st!=='ok'||!x.m)return null;const m=x.m,hp=norm(o.pick)===norm(g.home.n);
 if(o.k==='ml')return hp?m.ph:m.pa;if(o.k==='draw')return m.pd||null;
 if(m.kind==='norm'){const d=m.eh-m.ea,tot=m.eh+m.ea;if(o.k==='spread')return phi(((hp?d:-d)+o.line)/m.sd);if(o.k==='over')return 1-phi((o.line-tot)/m.tsd);if(o.k==='under')return phi((o.line-tot)/m.tsd);return null}
