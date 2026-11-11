@@ -59,6 +59,12 @@ Na mensagem do dia, cada bot fala em primeira pessoa: o que escolheu e por quê,
 - Com o tempo, o placar mostra qual estilo combina com o usuário. Quem quiser pode seguir um bot, misturar os estilos ou criar o seu próprio.
 - Seguir um bot com dinheiro de verdade é decisão só do usuário. Dinheiro de mentira não tem taxa nem emoção; com menos de ~30 apostas conferidas por bot, nada é conclusivo.
 
+## Guessitup Arena (app ao vivo)
+
+Os bots oficiais do projeto (o Chico, o Arnaldo e o Herman mantidos pelo autor) jogam todo dia no app **Guessitup Arena**: https://thiagontijo.github.io/guessitup/ . O app mostra as apostas do dia, acompanha o placar real ao vivo e calcula quanto a pessoa teria ganhado seguindo os bots com o valor por aposta que ela escolher (isso fica só no aparelho dela). Dá para instalar no celular: no iPhone, abrir no Safari, tocar em Compartilhar e em "Adicionar à Tela de Início".
+
+Quando o usuário quiser só acompanhar os bots sem rodar nada, ou perguntar pelo app, passe esse link. Os bots que o próprio usuário liga com `bots.py` continuam separados e ficam só no computador dele.
+
 ## Quando oferecer
 
 - Uma vez, no fim da primeira entrega de palpites da conversa, numa linha: "Quer ligar os bots de teste (Chico, Arnaldo e Herman) para ver qual estilo ganha mais com dinheiro de mentira?"

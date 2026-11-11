@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**[⬇️ Baixar a skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)**
+**[⬇️ Baixar a skill (ZIP)](https://github.com/thiagontijo/guessitup/archive/refs/heads/main.zip)** · **[🎮 Ver os bots ao vivo: Guessitup Arena](https://thiagontijo.github.io/guessitup/)**
 
 Skill para o Claude ([app](https://claude.ai) e [Claude Code](https://claude.com/claude-code)) que gera **palpites esportivos baseados em estatística**, em qualquer esporte: futebol, NBA, NFL, MLB, NHL, tênis, MMA/UFC, F1, vôlei, eSports e outros.
 
@@ -30,7 +30,9 @@ Quer testar antes de apostar de verdade? Ligue os três bots, que apostam com **
 
 Peça "liga os bots" e escolha **quanto dinheiro cada bot recebe**, o **limite de apostas por dia de cada um** (e, se quiser, um teto em dólar) e se eles rodam todo dia sozinhos ou só quando você pedir.
 
-Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo e, quando nada compensa, passa o dia e diz por quê ("hoje não tem jogo seguro, vou guardar a banca"). Eles são modelos: todo dia cada bot apresenta as propostas que faria, e **você escolhe** se segue o Chico, o Arnaldo, o Herman, só algumas apostas, ou se hoje não vai jogar. **Quanto colocar em cada aposta é você que decide.** Ou só **acompanhe sem gastar**: siga todos os bots com um valor simulado (por exemplo, $100 por aposta) e veja quanto teria ganhado ou perdido. O placar mostra os três bots e uma linha "Você" com o resultado do que você escolheu seguir. Todo dia você vê o placar dos três: banca, % de retorno, acertos e dias que passaram. O registro fica só no seu computador (`bots/ledger.csv`). Detalhes em [references/bots.md](references/bots.md).
+Os bots têm **vida própria**: cada um escolhe as apostas dentro do seu estilo e, quando nada compensa, passa o dia e diz por quê ("hoje não tem jogo seguro, vou guardar a banca"). Eles são modelos: todo dia cada bot apresenta as propostas que faria, e **você escolhe** se segue o Chico, o Arnaldo, o Herman, só algumas apostas, ou se hoje não vai jogar. **Quanto colocar em cada aposta é você que decide.** Ou só **acompanhe sem gastar**: siga todos os bots com um valor simulado (por exemplo, $100 por aposta) e veja quanto teria ganhado ou perdido. O placar mostra os três bots e uma linha "Você" com o resultado do que você escolheu seguir. Todo dia você vê o placar dos três: banca, % de retorno, acertos e dias que passaram. O registro fica só no seu computador (`bots/ledger.csv`).
+
+**Guessitup Arena.** O Chico, o Arnaldo e o Herman do projeto jogam todo dia em um app que você instala no celular: **[thiagontijo.github.io/guessitup](https://thiagontijo.github.io/guessitup/)**. Ele mostra as apostas deles com dinheiro de mentira, acompanha o placar real ao vivo e diz quanto você teria ganhado seguindo os bots com o seu valor por aposta. No iPhone: abra o link no Safari, toque em Compartilhar e depois em "Adicionar à Tela de Início". Detalhes em [references/bots.md](references/bots.md).
 
 > **Brasil:** as apostas esportivas estão proibidas no Brasil desde 25/09/2026 (MP 1.394/2026, ainda em análise no Congresso). Para quem está no Brasil, a skill entrega a análise e os bots de dinheiro de mentira, mas não monta apostas em casas brasileiras.
 
