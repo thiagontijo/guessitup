@@ -219,6 +219,20 @@ body.has-slip{padding-bottom:calc(140px + env(safe-area-inset-bottom))}
 .medal{font-size:18px;color:var(--ink2)}
 .blk{display:block;width:100%;margin-top:6px;border-radius:10px 10px 0 0;background:color-mix(in srgb,var(--c) 32%,var(--surface))}
 div.hrow{cursor:pointer}
+.days{margin-top:8px}
+.lgd{font-size:12px;color:var(--mute);margin:4px 0 2px;line-height:1.45}
+.opt{flex-direction:column;align-items:stretch;justify-content:center;gap:2px;min-height:58px;padding:7px 12px}
+.ot{display:flex;justify-content:space-between;align-items:center;gap:6px;min-width:0}
+.ot span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.om{font-size:12px;color:var(--mute);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.val{font-style:normal;color:#35c535;font-weight:600}
+.stx{margin-top:12px;padding:12px;border-radius:12px;border:1px solid var(--hair);font-size:13px;color:var(--ink2);line-height:1.5}
+.stx p+p{margin-top:5px}
+.stx b{color:var(--ink);font-weight:600}
+.stx .best{color:var(--ink)}
+.stx-l{font-size:12px;color:var(--mute);margin-top:10px}
+.sl .num small{display:block;font-family:ui-rounded,system-ui,sans-serif;font-size:11px;color:var(--mute);font-weight:400;letter-spacing:0;text-align:right}
+.ghost.wide{width:100%;margin-top:10px;min-height:44px;border-radius:22px;font-size:14px}
 </style>
 </head>
 <body>
@@ -263,7 +277,7 @@ getBack:['Se acertar, você recebe {a}','If it hits, you get {a}','Si aciertas, 
 placed:['Aposta feita: {a}, recebe {b}','Bet placed: {a}, gets back {b}','Apuesta hecha: {a}, cobras {b}'],copy:['Copiar','Copy','Copiar'],cancel:['Cancelar aposta','Cancel bet','Cancelar apuesta'],cancelled:['Aposta cancelada','Bet cancelled','Apuesta cancelada'],
 noMine:['Nenhuma aposta ainda.','No bets yet.','Sin apuestas aún.'],youSince:['Você entrou na corrida em {d}, com $1,000.','You joined the race on {d} with $1,000.','Entraste a la carrera el {d} con $1,000.'],
 sAmt:['Valor padrão por aposta','Default bet amount','Monto por defecto'],sRestart:['Começar de novo com $1,000','Start over with $1,000','Empezar de nuevo con $1,000'],sRestart2:['Toque de novo para apagar todas as suas apostas','Tap again to erase all your bets','Toca de nuevo para borrar todas tus apuestas'],restarted:['Pronto: $1,000 de novo','Done: $1,000 again','Listo: $1,000 otra vez'],
-podT:['Pódio','Podium','Podio'],ovS:['Mais de {x}','Over {x}','Más de {x}'],unS:['Menos de {x}','Under {x}','Menos de {x}'],
+podT:['Pódio','Podium','Podio'],winner:['Vencedor','Winner','Ganador'],mdl:['modelo {x}','model {x}','modelo {x}'],valT:['+{x} de valor','+{x} value','+{x} de valor'],grade:['nota {g}','grade {g}','nota {g}'],legend:['O número grande é o preço do mercado. "Modelo" é a nossa conta com as estatísticas dos times. Quando o modelo passa o mercado em 3 pontos ou mais, aparece "de valor".','The big number is the market price. "Model" is our estimate from the team stats. When the model beats the market by 3 points or more, you see "value".','El número grande es el precio del mercado. "Modelo" es nuestra cuenta con las estadísticas. Cuando el modelo supera al mercado por 3 puntos o más, aparece "de valor".'],stLoad:['Calculando as estatísticas…','Working out the stats…','Calculando las estadísticas…'],stNone:['Sem estatísticas para este jogo.','No stats for this game.','Sin estadísticas para este partido.'],stProj:['Placar previsto: ','Projected score: ','Marcador previsto: '],stTot:['total {x}','total {x}','total {x}'],stModel:['Chance pelo modelo: ','Model chance: ','Chance del modelo: '],stEspn:['ESPN: {a} x {h}','ESPN: {a} vs {h}','ESPN: {a} x {h}'],stRec:['Campanha: ','Record: ','Campaña: '],stHome:['em casa','home','en casa'],stAway:['fora','away','fuera'],stL5:['últimos 5: {w}-{l}','last 5: {w}-{l}','últimos 5: {w}-{l}'],stAvgT:['Média por jogo: ','Per game: ','Promedio: '],stAvg:['{n} faz {f} e sofre {a}','{n} scores {f}, allows {a}','{n} anota {f} y recibe {a}'],stBest:['Melhor valor: ','Best value: ','Mejor valor: '],stVs:['modelo {m} contra mercado {p}','model {m} vs market {p}','modelo {m} contra mercado {p}'],stFair:['Nenhuma opção com valor: o mercado está justo.','No value here: the market looks fair.','Sin valor: el mercado está justo.'],copyTxt:['Copiar para o app de apostas','Copy for your betting app','Copiar para la app de apuestas'],copied2:['Copiado. Cole no seu app de apostas.','Copied. Paste it in your betting app.','Copiado. Pégalo en tu app de apuestas.'],ovS:['Mais de {x}','Over {x}','Más de {x}'],unS:['Menos de {x}','Under {x}','Menos de {x}'],
 tabArena:['Arena','Arena','Arena'],tabGames:['Jogos','Games','Partidos'],tabHist:['Histórico','History','Historial'],
 round:['Rodada {n}','Round {n}','Ronda {n}'],gamesDone:['{a} de {b} jogos encerrados','{a} of {b} games finished','{a} de {b} partidos terminados'],
 start:['largada','start','salida'],pLive:['Ao vivo','Live','En vivo'],pNext:['Próximo {t}','Next {t}','Próximo {t}'],pSoon:['Começando','Starting','Empezando'],
@@ -474,7 +488,8 @@ function am2p(s){const o=parseFloat(String(s==null?'':s).replace('+',''));if(!is
 const lineOf=s=>{const v=parseFloat(String(s==null?'':s).replace(/[^0-9.+-]/g,''));return isFinite(v)?v:null};
 function parseEv(ev,lg){const c=ev.competitions&&ev.competitions[0];if(!c)return null;const cs=c.competitors||[],h=cs.find(x=>x.homeAway==='home'),a=cs.find(x=>x.homeAway==='away');if(!h||!a||!h.team||!a.team)return null;
 const st=((c.status||ev.status||{}).type)||{},nm=x=>x.team.shortDisplayName||x.team.displayName||x.team.name,H=nm(h),Aw=nm(a);
-const g={id:ev.id,lg,t:ev.date,state:st.state||'pre',detail:st.shortDetail||'',home:{n:H,sc:h.score},away:{n:Aw,sc:a.score},opts:[]};
+const rc=(x,nm)=>{const r=(x.records||[]).find(r=>new RegExp(nm,'i').test(r.name||r.type||''));return r?r.summary:''};
+const g={id:ev.id,lg,t:ev.date,neutral:!!c.neutralSite,state:st.state||'pre',detail:st.shortDetail||'',home:{n:H,sc:h.score,rec:rc(h,'overall|total|all'),split:rc(h,'home')},away:{n:Aw,sc:a.score,rec:rc(a,'overall|total|all'),split:rc(a,'road|away')},opts:[]};
 const o=(c.odds||[])[0];if(!o)return g;const cur=s=>s&&(s.close||s.open)||null;
 const add=(id,label,pick,opp,k,line,odds)=>{const p=am2p(odds);if(p&&p>.01&&p<.99)g.opts.push({id:g.id+':'+id,grp:id.split('-')[0],label,pick,opp,k,line,p})};
 const ml=o.moneyline||{};let hm=cur(ml.home),aw=cur(ml.away),dr=cur(ml.draw);
@@ -491,27 +506,27 @@ mk.busy=true;try{const r=await fetch(API+sport(lg).p+'/scoreboard?dates='+ymd,{c
 catch(e){mk.data[k]={at:Date.now(),err:1,evs:[]}}finally{mk.busy=false}if(S.tab==='bet')render()}
 function botDots(g,o){const day=lastDay();if(!day)return'';const who=[];for(const b of day.bets)for(const l of b.legs)if(l.lg===g.lg&&norm(l.pick)===norm(o.pick)&&(l.k||'ml')===o.k&&etDate(l.t)===etDate(g.t)&&!who.includes(b.bot))who.push(b.bot);
 return who.length?'<i class="pk" title="'+who.map(nameOf).join(', ')+'">'+who.map(w=>'<i class="dot" style="background:'+colorOf(w)+'"></i>').join('')+'</i>':''}
-function mkGame(g){const pre=g.state==='pre'&&Date.parse(g.t)>Date.now(),sel=new Set(S.slip.map(s=>s.o.id)),open=S.mk.open[g.id];
+function mkGame(g){const pre=g.state==='pre'&&Date.parse(g.t)>Date.now(),sel=new Set(S.slip.map(s=>s.o.id));
 const head='<div class="mg-h"><span class="tm"><b>'+esc(g.away.n)+'</b>'+(pre?'':'<span class="num">'+esc(g.away.sc)+'</span>')+'<span class="x">@</span><b>'+esc(g.home.n)+'</b>'+(pre?'':'<span class="num">'+esc(g.home.sc)+'</span>')+'</span><span class="when">'+esc(pre?clockLabel(g.t):g.detail)+'</span></div>';
 if(!pre)return '<div class="mg off">'+head+'<p class="mg-n">'+t('started')+'</p></div>';
 if(!g.opts.length)return '<div class="mg">'+head+'<p class="mg-n">'+t('noOdds')+'</p></div>';
-const grp=x=>g.opts.filter(o=>o.grp===x),btn=o=>'<button class="opt'+(sel.has(o.id)?' on':'')+'" data-act="pick" data-g="'+g.id+'" data-o="'+o.id+'" aria-pressed="'+sel.has(o.id)+'"><span>'+esc(o.label)+'</span><b class="num">'+pc0(o.p)+'</b>'+botDots(g,o)+'</button>';
+const grp=x=>g.opts.filter(o=>o.grp===x),btn=o=>{const mp=optModel(g,o),e=mp==null?null:(mp-o.p)*100;return '<button class="opt'+(sel.has(o.id)?' on':'')+'" data-act="pick" data-g="'+g.id+'" data-o="'+o.id+'" aria-pressed="'+sel.has(o.id)+'"><span class="ot"><span>'+esc(o.label)+'</span><b class="num">'+pc0(o.p)+'</b></span><span class="om">'+(mp==null?'&nbsp;':t('mdl',{x:pc0(mp)})+(e>=3?' <i class="val">'+t('valT',{x:Math.round(e)})+'</i>':''))+'</span>'+botDots(g,o)+'</button>'};
 const ml=grp('ml'),sp=grp('sp'),to=grp('to');
-return '<div class="mg">'+head+'<div class="opts n'+Math.max(1,ml.length)+'">'+ml.map(btn).join('')+'</div>'+(sp.length||to.length?(open?(sp.length?'<p class="ol">'+t('spreadT')+'</p><div class="opts n2">'+sp.map(btn).join('')+'</div>':'')+(to.length?'<p class="ol">'+t('totalT')+'</p><div class="opts n2">'+to.map(btn).join('')+'</div>':''):'')+'<button class="more" data-act="more" data-g="'+g.id+'">'+(open?t('less'):t('more'))+'</button>':'')+'</div>'}
+return '<div class="mg">'+head+'<p class="ol">'+t('winner')+'</p><div class="opts n'+Math.max(1,ml.length)+'">'+ml.map(btn).join('')+'</div>'+(sp.length?'<p class="ol">'+t('spreadT')+'</p><div class="opts n2">'+sp.map(btn).join('')+'</div>':'')+(to.length?'<p class="ol">'+t('totalT')+'</p><div class="opts n2">'+to.map(btn).join('')+'</div>':'')+statsHtml(g)+'</div>'}
 const okBet=g=>g.state==='pre'&&Date.parse(g.t)>Date.now()?1:0;
 function betTab(){const a=actor('you'),mk=S.mk,k=mk.lg+'|'+ymdOf(mk.day),c=mk.data[k];if(!c||Date.now()-c.at>12e4)setTimeout(()=>loadMk(),0);
-const list=c?(c.err?'<div class="empty"><p>'+t('mkErr')+'</p><button class="btn" data-act="mkre">'+t('retry')+'</button></div>':(c.evs.length?c.evs.slice().sort((a,b)=>okBet(b)-okBet(a)||Date.parse(a.t)-Date.parse(b.t)).map(mkGame).join(''):'<p class="empty">'+t('noMk')+'</p>')):'<p class="empty">'+t('loading')+'</p>';
+if(c&&!c.err)wantStats(c.evs);const list=c?(c.err?'<div class="empty"><p>'+t('mkErr')+'</p><button class="btn" data-act="mkre">'+t('retry')+'</button></div>':(c.evs.length?c.evs.slice().sort((a,b)=>okBet(b)-okBet(a)||Date.parse(a.t)-Date.parse(b.t)).map(mkGame).join(''):'<p class="empty">'+t('noMk')+'</p>')):'<p class="empty">'+t('loading')+'</p>';
 return '<div class="day"><h2>'+t('tabBet')+'</h2><p>'+t('avail',{a:money(avail(a))})+(a.stakeOpen?', '+t('inPlay',{a:money(a.stakeOpen)}):'')+'</p></div>'
-+'<div class="seg">'+[0,1].map(v=>'<button data-act="mday" data-v="'+v+'" aria-pressed="'+(mk.day===v)+'">'+t(v?'tomorrow':'todayW')+'</button>').join('')+'</div>'
-+'<div class="lgs">'+MK.map(lg=>'<button class="lgc'+(lg===mk.lg?' on':'')+'" data-act="mlg" data-v="'+lg+'" aria-pressed="'+(lg===mk.lg)+'">'+LGN[lg]+'</button>').join('')+'</div>'+list+'<p class="src">'+t('mktSrc')+'</p>'+foot()}
++'<div class="lgs days">'+[0,1,2,3,4,5,6].map(v=>'<button class="lgc'+(mk.day===v?' on':'')+'" data-act="mday" data-v="'+v+'" aria-pressed="'+(mk.day===v)+'">'+(v===0?t('todayW'):v===1?t('tomorrow'):esc(cap(new Date(Date.now()+v*864e5).toLocaleDateString(LOC[lang],{weekday:'short',day:'numeric'}))))+'</button>').join('')+'</div>'
++'<div class="lgs">'+MK.map(lg=>'<button class="lgc'+(lg===mk.lg?' on':'')+'" data-act="mlg" data-v="'+lg+'" aria-pressed="'+(lg===mk.lg)+'">'+LGN[lg]+'</button>').join('')+'</div>'+'<p class="lgd">'+t('legend')+'</p>'+list+'<p class="src">'+t('mktSrc')+'</p>'+foot()}
 const slipPrice=()=>S.slip.reduce((p,s)=>p*s.o.p,1);
 function slipSheet(){const sl=S.slip,x='<button class="x" data-act="close" aria-label="'+t('close')+'">✕</button>';if(!sl.length)return '<div class="sh"><h3>'+t('slipT')+'</h3>'+x+'</div><p class="pass">'+t('noMine')+'</p>';
 const price=slipPrice(),a=actor('you'),av=avail(a),amt=S.slipAmt||S.pref.amt,chips=[10,20,50,100],bad=amt>av||!(amt>=1);
-return '<div class="sh"><h3>'+t('slipT')+'</h3>'+x+'</div>'+sl.map(s=>'<div class="sl"><div><b>'+esc(legText({pick:s.o.pick,k:s.o.k,line:s.o.line}))+'</b><small>'+esc(s.g.away.n+' @ '+s.g.home.n)+', '+esc(clockLabel(s.g.t))+'</small></div><span class="num">'+pc0(s.o.p)+'</span><button class="x" data-act="unpick" data-o="'+s.o.id+'" aria-label="'+t('close')+'">✕</button></div>').join('')
-+(sl.length>1?'<p class="cmb">'+t('combo',{n:sl.length})+': '+t('chPre')+' '+pc0(price)+'</p>':'')
+return '<div class="sh"><h3>'+t('slipT')+'</h3>'+x+'</div>'+sl.map(s=>'<div class="sl"><div><b>'+esc(legText({pick:s.o.pick,k:s.o.k,line:s.o.line}))+'</b><small>'+esc(s.g.away.n+' @ '+s.g.home.n)+', '+esc(clockLabel(s.g.t))+'</small></div><span class="num">'+pc0(s.o.p)+(optModel(s.g,s.o)!=null?'<small>'+t('mdl',{x:pc0(optModel(s.g,s.o))})+'</small>':'')+'</span><button class="x" data-act="unpick" data-o="'+s.o.id+'" aria-label="'+t('close')+'">✕</button></div>').join('')
++(sl.length>1?'<p class="cmb">'+t('combo',{n:sl.length})+': '+t('chPre')+' '+pc0(price)+(sl.every(s=>optModel(s.g,s.o)!=null)?', '+t('mdl',{x:pc0(sl.reduce((p,s)=>p*optModel(s.g,s.o),1))}):'')+'</p>':'')
 +'<h4>'+t('amount')+'</h4><div class="rowf">'+chips.map(v=>'<button class="chip'+(amt===v?' on':'')+'" data-act="samt" data-v="'+v+'" aria-pressed="'+(amt===v)+'">$'+v+'</button>').join('')+'<label class="chip in'+(chips.includes(amt)?'':' on')+'"><span>$</span><input id="slipIn" inputmode="numeric" pattern="[0-9]*" maxlength="6" value="'+(chips.includes(amt)?'':amt)+'" placeholder="'+t('other')+'" aria-label="'+t('amount')+'"></label></div>'
 +'<p class="get">'+t('getBack',{a:'<b>'+money(amt/price)+'</b>'})+'</p>'+(amt>av?'<p class="warn">'+t('noMoney',{a:money(av)})+'</p>':'')
-+'<button class="btn" data-act="place"'+(bad?' disabled':'')+'>'+t('place',{a:money(amt)})+'</button><p class="src">'+t('avail',{a:money(av)})+'</p>'}
++'<button class="btn" data-act="place"'+(bad?' disabled':'')+'>'+t('place',{a:money(amt)})+'</button><button class="ghost wide" data-act="copytxt">'+t('copyTxt')+'</button><p class="src">'+t('avail',{a:money(av)})+'</p>'}
 function addMine(legs,price,stake,from){const a=actor('you');if(!(stake>=1)||stake>avail(a)){toast(t('noMoney',{a:money(avail(a))}));return false}
 if(legs.some(l=>Date.parse(l.t)<=Date.now())){toast(t('started'));return false}const M=mine();if(!M.start)M.start=D(Date.now());
 const b={id:'m'+Date.now().toString(36)+Math.floor(Math.random()*1e3),at:Date.now(),date:D(Math.min(...legs.map(l=>Date.parse(l.t)))),stake:Math.round(stake),payout:Math.round(stake/price*100)/100,legs,from:from||null};
@@ -522,6 +537,47 @@ function copyBet(id){let src=null;for(const d of days())for(const b of d.bets)if
 const legs=src.legs.map(l=>{const c={lg:l.lg,pick:l.pick,opp:l.opp,t:l.t,p:l.p};if(l.k)c.k=l.k;if(l.line!=null)c.line=l.line;return c});
 if(addMine(legs,src.stake/src.payout,S.pref.amt,src.bot)){render();renderOver()}}
 function cancelBet(id){const M=mine(),i=M.bets.findIndex(b=>b.id===id);if(i<0||!notStarted(M.bets[i]))return;M.bets.splice(i,1);saveMine();toast(t('cancelled'));render();renderOver()}
+
+/* ---------- stats model (from ESPN team numbers, play money only) ---------- */
+const ST={},HCA={nba:2.5,wnba:2,ncaab:3,ncaaw:3,nfl:1.5,ncaaf:2.5},TSD={nba:18,wnba:16,ncaab:16,ncaaw:16,nfl:13,ncaaf:17};
+const num=v=>{const x=parseFloat(v);return isFinite(x)?x:null};
+const recN=s=>{const a=String(s||'').match(/\d+/g);return a?a.reduce((p,x)=>p+(+x),0):0};
+function side(s,g,which){const comp=s.header&&s.header.competitions&&s.header.competitions[0],c=comp&&(comp.competitors||[]).find(x=>x.homeAway===which),id=c&&String(c.id||(c.team&&c.team.id));if(!id)return null;
+const bs=((s.boxscore&&s.boxscore.teams)||[]).find(x=>x.team&&String(x.team.id)===id),st={};((bs&&bs.statistics)||[]).forEach(x=>{st[x.name]=num(x.value!=null&&x.value!==''?x.value:x.displayValue);st['_'+x.name]=x.displayValue});
+const lf=(((s.lastFiveGames||[]).find(x=>x.team&&String(x.team.id)===id))||{}).events||[];let pf5=0,pa5=0,n5=0,w5=0;
+for(const e of lf){const hs=num(e.homeTeamScore),as=num(e.awayTeamScore);if(hs==null||as==null)continue;const home=String(e.homeTeamId)===id;pf5+=home?hs:as;pa5+=home?as:hs;n5++;if(e.gameResult==='W')w5++}
+const t=g[which],games=recN(t.rec)||null;let spf=st.avgPoints??st.avgGoals??st.totalPointsPerGame??null,spa=st.avgPointsAgainst??st.avgGoalsAgainst??null;
+if(spf==null&&st.totalGoals!=null&&games)spf=st.totalGoals/games;if(spa==null&&st.goalsConceded!=null&&games)spa=st.goalsConceded/games;
+const l5f=n5?pf5/n5:null,l5a=n5?pa5/n5:null,mix=(a,b)=>a!=null&&b!=null?.65*a+.35*b:(a!=null?a:b);
+return{pf:mix(spf,l5f),pa:mix(spa,l5a),spf,spa,n5,w5,streak:st._streak||''}}
+function pgrid(lh,la){const f=[1];for(let i=1;i<=12;i++)f[i]=f[i-1]*i;const P=(l,k)=>Math.exp(-l)*Math.pow(l,k)/f[k],G=[];for(let i=0;i<=12;i++)for(let j=0;j<=12;j++)G.push([i,j,P(lh,i)*P(la,j)]);return G}
+function buildStats(g,s){const H=side(s,g,'home'),A=side(s,g,'away');if(!H||!A)return{st:'err'};const pr=s.predictor,pred=pr&&pr.homeTeam&&num(pr.homeTeam.gameProjection);
+const out={st:'ok',H,A,pred:pred!=null?pred/100:null,m:null},lg=g.lg,sp=sport(lg)||{};
+if(H.pf==null||A.pf==null||H.pa==null||A.pa==null)return out;
+if(sp.soc||lg==='nhl'){const adj=sp.soc?1.1:1.04,lh=Math.max(.2,(H.pf+A.pa)/2*Math.sqrt(adj)),la=Math.max(.2,(A.pf+H.pa)/2/Math.sqrt(adj)),G=pgrid(lh,la);let ph=0,pd=0;for(const[i,j,p]of G){if(i>j)ph+=p;else if(i===j)pd+=p}
+out.m={kind:'pois',eh:lh,ea:la,G,ph:lg==='nhl'?ph+pd/2:ph,pd:lg==='nhl'?0:pd,pa:lg==='nhl'?1-ph-pd/2:1-ph-pd}}
+else{const hca=g.neutral?0:(HCA[lg]||2),eh=(H.pf+A.pa)/2+hca/2,ea=(A.pf+H.pa)/2-hca/2,sd=sp.sd||12;let ph=phi((eh-ea)/sd);if(out.pred!=null)ph=(ph+out.pred)/2;out.m={kind:'norm',eh,ea,sd,tsd:TSD[lg]||16,ph,pd:0,pa:1-ph}}
+return out}
+function optModel(g,o){const r=optRaw(g,o);return r==null?null:Math.min(.99,Math.max(.01,.5*r+.5*o.p))}
+function optRaw(g,o){const x=ST[g.id];if(!x||x.st!=='ok'||!x.m)return null;const m=x.m,hp=norm(o.pick)===norm(g.home.n);
+if(o.k==='ml')return hp?m.ph:m.pa;if(o.k==='draw')return m.pd||null;
+if(m.kind==='norm'){const d=m.eh-m.ea,tot=m.eh+m.ea;if(o.k==='spread')return phi(((hp?d:-d)+o.line)/m.sd);if(o.k==='over')return 1-phi((o.line-tot)/m.tsd);if(o.k==='under')return phi((o.line-tot)/m.tsd);return null}
+let s=0;for(const[i,j,p]of m.G){const mg=hp?i-j:j-i;if(o.k==='spread'?mg+o.line>0:o.k==='over'?i+j>o.line:o.k==='under'?i+j<o.line:false)s+=p}return s}
+const gradeOf=e=>e>=8?'A':e>=5?'B':e>=3?'C':'';
+let stQ=[],stRun=0,rT=0;const soon=()=>{clearTimeout(rT);rT=setTimeout(()=>{if(S.tab==='bet')render()},180)};
+function wantStats(evs){for(const g of evs)if(okBet(g)&&!ST[g.id]&&g.opts.length){ST[g.id]={st:'load'};stQ.push(g)}pump()}
+function pump(){while(stRun<3&&stQ.length){const g=stQ.shift();stRun++;fetch(API+sport(g.lg).p+'/summary?event='+g.id,{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(s=>{ST[g.id]=buildStats(g,s)}).catch(()=>{ST[g.id]={st:'err'}}).finally(()=>{stRun--;soon();pump()})}}
+function statsHtml(g){const x=ST[g.id];if(!x)return'';if(x.st==='load')return '<p class="stx-l">'+t('stLoad')+'</p>';if(x.st!=='ok')return '<p class="stx-l">'+t('stNone')+'</p>';
+const A=g.away.n,H=g.home.n,m=x.m,r=v=>Math.round(v),r1=v=>v.toFixed(1),rows=[];
+if(m)rows.push('<p><b>'+t('stProj')+'</b>'+esc(A)+' '+(m.kind==='pois'?r1(m.ea):r(m.ea))+' x '+(m.kind==='pois'?r1(m.eh):r(m.eh))+' '+esc(H)+', '+t('stTot',{x:m.kind==='pois'?r1(m.eh+m.ea):r(m.eh+m.ea)})+'</p>');
+if(m)rows.push('<p><b>'+t('stModel')+'</b>'+esc(A)+' '+pc0(m.pa)+(m.pd?', '+t('drawT')+' '+pc0(m.pd):'')+', '+esc(H)+' '+pc0(m.ph)+(x.pred!=null?' ('+t('stEspn',{a:pc0(1-x.pred),h:pc0(x.pred)})+')':'')+'</p>');
+const tr=(n,rec,split,splitL,b)=>esc(n)+' '+esc(rec||'–')+(split?' ('+splitL+' '+esc(split)+')':'')+(b.n5?', '+t('stL5',{w:b.w5,l:b.n5-b.w5}):'');
+rows.push('<p><b>'+t('stRec')+'</b>'+tr(A,g.away.rec,g.away.split,t('stAway'),x.A)+'; '+tr(H,g.home.rec,g.home.split,t('stHome'),x.H)+'</p>');
+const av=(n,b)=>b.pf!=null&&b.pa!=null?t('stAvg',{n:esc(n),f:(sport(g.lg)||{}).soc||g.lg==='nhl'?r1(b.pf):r(b.pf),a:(sport(g.lg)||{}).soc||g.lg==='nhl'?r1(b.pa):r(b.pa)}):'';
+const avs=[av(A,x.A),av(H,x.H)].filter(Boolean);if(avs.length)rows.push('<p><b>'+t('stAvgT')+'</b>'+avs.join('; ')+'</p>');
+let best=null;for(const o of g.opts){const mp=optModel(g,o);if(mp==null)continue;const e=(mp-o.p)*100;if(!best||e>best.e)best={o,mp,e}}
+rows.push(best&&best.e>=3?'<p class="best"><b>'+t('stBest')+'</b>'+esc(best.o.label)+': '+t('stVs',{m:pc0(best.mp),p:pc0(best.o.p)})+' ('+t('grade',{g:gradeOf(best.e)})+')</p>':(m?'<p class="best">'+t('stFair')+'</p>':''));
+return '<div class="stx">'+rows.join('')+'</div>'}
 
 /* ---------- podium ---------- */
 function dayProfit(date,id){let s=0;const list=id==='you'?mine().bets.filter(b=>b.date===date):((days().find(d=>d.date===date)||{bets:[]}).bets.filter(b=>b.bot===id));
@@ -570,6 +626,7 @@ else if(a==='mlg'){S.mk.lg=el.dataset.v;render()}
 else if(a==='mkre'){loadMk(true);render()}
 else if(a==='samt'){S.slipAmt=+el.dataset.v;renderOver()}
 else if(a==='place')placeSlip();
+else if(a==='copytxt'){const L=S.slip.map(s=>legText({pick:s.o.pick,k:s.o.k,line:s.o.line})+' ('+s.g.away.n+' @ '+s.g.home.n+', '+clockLabel(s.g.t)+') '+pc0(s.o.p));const txt=(S.slip.length>1?t('combo',{n:S.slip.length})+':\n':'')+L.join('\n');(navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(t('copied2'))).catch(()=>toast(txt))}
 else if(a==='copy')copyBet(el.dataset.id);
 else if(a==='cancel')cancelBet(el.dataset.id);
 else if(a==='damt'){p.amt=+el.dataset.v;save();renderOver();render()}
