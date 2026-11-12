@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guessitup · Histórico das dicas</title>
+<meta name="theme-color" content="#0b1026">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Histórico">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icons/icon-180.png">
+<style>
+@font-face{font-family:BSD;src:url(../fonts/bsd-800.woff2) format('woff2');font-weight:800;font-display:swap}
+:root{--bg:#0b1026;--card:#141a3a;--line:#232a55;--ink:#eef1ff;--mute:#9aa3c7;--win:#3ddc84;--loss:#ff5c6c;--live:#ffc24b;--push:#9aa3c7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:max(18px,env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto;-webkit-font-smoothing:antialiased}
+h1{font:800 30px/1.05 BSD,system-ui;letter-spacing:.2px}
+.sub{color:var(--mute);font-size:14px;margin-top:4px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:10px;margin:22px 0 10px}
+.big{background:var(--card);border-radius:18px;padding:16px;grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between}
+.big .n{font:800 64px/1 BSD,system-ui}
+.big .l{color:var(--mute);font-size:14px}
+.tile{background:var(--card);border-radius:14px;padding:12px 14px}
+.tile .l{color:var(--mute);font-size:13px}
+.tile .v{font:800 26px/1.15 BSD,system-ui;margin-top:2px}
+.pos{color:var(--win)}.neg{color:var(--loss)}
+.cal{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px}
+.cal p{font-size:15px}
+.bars{margin-top:10px;display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:84px 1fr 40px;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+.bar i{display:block;height:8px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.bar i b{position:absolute;inset:0 auto 0 0;border-radius:4px}
+.bar span:last-child{color:var(--ink);text-align:right}
+.chart{background:var(--card);border-radius:14px;padding:14px 14px 8px;margin-bottom:22px}
+.chart h2,.list h2{font-size:15px;font-weight:700}
+.chart .l{color:var(--mute);font-size:13px}
+svg{display:block;width:100%;height:auto;margin-top:8px}
+.list h2{margin-bottom:10px}
+.pick{background:var(--card);border-radius:16px;padding:14px;margin-bottom:10px}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.date{color:var(--mute);font-size:13px}
+.lab{font-weight:700;font-size:17px;margin-top:2px}
+.pill{font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;border:1px solid currentColor}
+.pill.w{color:var(--win)}.pill.l{color:var(--loss)}.pill.live{color:var(--live)}.pill.pre,.pill.p{color:var(--push)}
+.leg{border-top:1px solid var(--line);margin-top:10px;padding-top:10px;font-size:14px}
+.leg .at{color:var(--mute);font-size:13px}
+.leg .sc{display:flex;justify-content:space-between;margin-top:4px}
+.leg .sc b{font-variant-numeric:tabular-nums}
+.meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--mute);font-size:13px;margin-top:10px}
+.meta b{color:var(--ink);font-weight:600}
+.mine{margin-top:10px;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+button{font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+form{display:none;gap:8px;margin-top:10px;grid-template-columns:1fr 1fr auto;align-items:end}
+form.on{display:grid}
+label{font-size:12px;color:var(--mute);display:grid;gap:4px}
+input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+.foot{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
+.empty{color:var(--mute);font-size:14px;padding:12px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>Histórico das dicas</h1>
+  <p class="sub">Só as dicas de dinheiro real que o Claude te passou. Sem bots.</p>
+</header>
+
+<section class="hero" aria-label="Resumo">
+  <div class="big"><div><div class="n" id="hit">–</div><div class="l" id="hitl">de acerto</div></div><div class="l" id="rec"></div></div>
+  <div class="tile"><div class="l">Com $10 em cada dica</div><div class="v" id="flat">–</div></div>
+  <div class="tile"><div class="l">Seu dinheiro real</div><div class="v" id="real">–</div><div class="l" id="reall"></div></div>
+</section>
+
+<section class="cal" aria-label="O modelo prometeu e entregou">
+  <p id="calp">Aguardando resultados.</p>
+  <div class="bars" id="bars"></div>
+</section>
+
+<section class="chart">
+  <h2>Lucro acumulado</h2>
+  <div class="l">Se você apostasse $10 em cada dica, na ordem</div>
+  <div id="chart"></div>
+</section>
+
+<section class="list">
+  <h2>Dicas</h2>
+  <div id="list"></div>
+</section>
+
+<p class="foot">Placares ao vivo: ESPN. Seus valores ficam só neste aparelho.</p>
+
+<script>
+(() => {
+  const KEY = 'rec.mine.v1';
+  const PATH = { nba: 'basketball/nba', ncaab: 'basketball/mens-college-basketball', nfl: 'football/nfl', ncaaf: 'football/college-football', nhl: 'hockey/nhl' };
+  const $ = (id) => document.getElementById(id);
+  const money = (v) => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
+  const signed = (v) => (v > 0.5 ? '+' : '') + money(v);
+  const pct = (v) => (v < 0 ? '−' : '') + Math.abs(Math.round(v * 100)) + '%';
+  let picks = [];
+  const live = {}; // eid -> {state, detail, scores:{team:score}}
+
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+  const save = (m) => { try { localStorage.setItem(KEY, JSON.stringify(m)); } catch {} };
+  let mine = load();
+
+  // One-time import from a link: #s=1:10:36.15,2:5:9.47
+  const h = location.hash.match(/s=([\d:.,]+)/);
+  if (h) {
+    h[1].split(',').forEach((x) => { const [id, s, p] = x.split(':').map(Number); if (id && s && p) mine[id] = { stake: s, payout: p }; });
+    save(mine); history.replaceState(null, '', location.pathname);
+  }
+
+  function legState(l) {
+    const g = live[l.eid];
+    if (!g) return { r: 'pre' };
+    const a = g.scores[l.pick], b = g.scores[l.opp];
+    if (a == null || b == null || g.state === 'pre') return { r: 'pre', g };
+    const m = a - b, tot = a + b;
+    let v = l.k === 'spread' ? m + l.line : l.k === 'over' ? tot - l.line : l.k === 'under' ? l.line - tot : m;
+    const r = v > 0 ? 'w' : v < 0 ? 'l' : 'p';
+    return { r: g.state === 'post' ? r : 'live', lean: r, a, b, g };
+  }
+
+  function pickState(p) {
+    const ls = p.legs.map(legState);
+    if (ls.some((s) => s.r === 'l')) return { r: 'l', ls };
+    if (ls.every((s) => s.r === 'w' || s.r === 'p')) return { r: ls.every((s) => s.r === 'p') ? 'p' : 'w', ls };
+    if (ls.some((s) => s.r === 'live')) return { r: 'live', ls };
+    return { r: 'pre', ls };
+  }
+
+  const kindTxt = (l) => l.k === 'spread' ? `${l.pick} ${l.line > 0 ? '+' : '−'}${Math.abs(l.line)}` : l.k === 'over' ? `Over ${l.line}` : l.k === 'under' ? `Under ${l.line}` : `${l.pick} vence`;
+  const pillTxt = { w: 'Ganhou', l: 'Perdeu', p: 'Devolvida', live: 'Em jogo', pre: 'Aguardando' };
+
+  function render() {
+    const st = picks.map((p) => ({ p, s: pickState(p) }));
+    const done = st.filter((x) => ['w', 'l'].includes(x.s.r));
+    const wins = done.filter((x) => x.s.r === 'w').length;
+
+    $('hit').textContent = done.length ? pct(wins / done.length) : '–';
+    $('rec').textContent = done.length ? `${wins} de ${done.length} dicas certas` : 'Nenhuma dica fechou ainda';
+
+    // $10 flat per tip, in order
+    let run = 0; const pts = [0];
+    done.slice().sort((a, b) => a.p.id - b.p.id).forEach((x) => { run += x.s.r === 'w' ? 10 / x.p.price - 10 : -10; pts.push(run); });
+    $('flat').textContent = done.length ? signed(run) : '–';
+    $('flat').className = 'v ' + (run > 0.5 ? 'pos' : run < -0.5 ? 'neg' : '');
+
+    // Real money (this device only)
+    let staked = 0, back = 0, open = 0;
+    st.forEach(({ p, s }) => {
+      const m = mine[p.id]; if (!m) return;
+      if (s.r === 'w') { staked += m.stake; back += m.payout; }
+      else if (s.r === 'l') staked += m.stake;
+      else if (s.r === 'p') { staked += m.stake; back += m.stake; }
+      else open += m.stake;
+    });
+    const prof = back - staked;
+    $('real').textContent = staked ? signed(prof) : '–';
+    $('real').className = 'v ' + (prof > 0.5 ? 'pos' : prof < -0.5 ? 'neg' : '');
+    $('reall').textContent = (staked ? `${money(staked)} apostados, ${pct(prof / staked)}` : 'Nada fechado') + (open ? ` · ${money(open)} em jogo` : '');
+
+    // Promised vs delivered
+    if (done.length) {
+      const prom = done.reduce((t, x) => t + x.p.model, 0) / done.length;
+      const paid = done.reduce((t, x) => t + x.p.price, 0) / done.length;
+      const got = wins / done.length;
+      $('calp').textContent = `O modelo prometeu ${pct(prom)} em média. Acertou ${pct(got)}.` + (done.length < 30 ? ' Ainda é pouca dica para concluir.' : '');
+      $('bars').innerHTML = [['Prometido', prom, 'var(--mute)'], ['Preço pago', paid, 'var(--live)'], ['Acertou', got, got >= paid ? 'var(--win)' : 'var(--loss)']]
+        .map(([n, v, c]) => `<div class="bar"><span>${n}</span><i><b style="width:${Math.round(v * 100)}%;background:${c}"></b></i><span>${pct(v)}</span></div>`).join('');
+    }
+
+    chart(pts);
+
+    $('list').innerHTML = st.slice().reverse().map(({ p, s }) => {
+      const m = mine[p.id];
+      const legs = p.legs.map((l, i) => {
+        const ls = s.ls[i];
+        const sc = ls.a != null ? `<div class="sc"><span>${l.pick} ${ls.a} × ${ls.b} ${l.opp}</span><b>${ls.g.state === 'post' ? 'Final' : ls.g.detail}</b></div>` : ls.g ? `<div class="sc"><span>${l.opp} × ${l.pick}</span><b>${ls.g.detail}</b></div>` : '';
+        return `<div class="leg"><div>${kindTxt(l)} <span class="pill ${ls.r === 'live' ? 'live' : ls.r}" style="font-size:11px;padding:2px 7px;margin-left:4px">${ls.r === 'live' ? (ls.lean === 'w' ? 'Ganhando' : ls.lean === 'p' ? 'Empatando' : 'Perdendo') : pillTxt[ls.r]}</span></div><div class="at">${p.app}: ${l.app_text}</div>${sc}</div>`;
+      }).join('');
+      const mineTxt = m ? `<span>Você: aposta <b>${money(m.stake)}</b>, recebe <b>${money(m.payout)}</b></span><button data-edit="${p.id}" aria-label="Mudar valores">Mudar</button>`
+                        : `<span style="color:var(--mute)">Não registrou aposta</span><button data-edit="${p.id}">Registrar</button>`;
+      return `<article class="pick">
+        <div class="top"><div><div class="date">${new Date(p.date + 'T12:00').toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' })}</div><div class="lab">${p.label}</div></div><span class="pill ${s.r}">${pillTxt[s.r]}</span></div>
+        <div class="meta"><span>Preço <b>${pct(p.price)}</b></span><span>Modelo <b>${pct(p.model)}</b></span><span>$10 recebe <b>${money(10 / p.price)}</b></span></div>
+        ${legs}
+        <div class="mine">${mineTxt}</div>
+        <form data-id="${p.id}"><label>Aposta $<input name="s" inputmode="decimal" value="${m ? m.stake : ''}" required></label><label>Recebe $<input name="p" inputmode="decimal" value="${m ? m.payout : ''}" required></label><button>Salvar</button></form>
+      </article>`;
+    }).join('') || '<p class="empty">Nenhuma dica ainda.</p>';
+  }
+
+  function chart(pts) {
+    const W = 320, H = 120, P = 6;
+    if (pts.length < 2) { $('chart').innerHTML = '<p class="empty">O gráfico aparece quando a primeira dica fechar.</p>'; return; }
+    const lo = Math.min(0, ...pts), hi = Math.max(0, ...pts), span = hi - lo || 1;
+    const x = (i) => P + i * (W - 2 * P) / (pts.length - 1), y = (v) => P + (hi - v) * (H - 2 * P) / span;
+    const d = pts.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join('');
+    const last = pts[pts.length - 1], c = last >= 0 ? 'var(--win)' : 'var(--loss)';
+    $('chart').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Lucro acumulado: ${signed(last)}">
+      <line x1="${P}" x2="${W - P}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)" stroke-dasharray="3 4"/>
+      <path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      ${pts.map((v, i) => i ? `<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${c}" stroke="var(--card)" stroke-width="2"><title>Dica ${i}: ${signed(v)}</title></circle>` : '').join('')}
+      <text x="${W - P}" y="${Math.max(12, y(last) - 8)}" text-anchor="end" fill="var(--ink)" font-size="12" font-weight="700">${signed(last)}</text>
+    </svg>`;
+  }
+
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-edit]'); if (!b) return;
+    b.closest('.pick').querySelector('form').classList.toggle('on');
+  });
+  document.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target, s = parseFloat(f.s.value.replace(',', '.')), p = parseFloat(f.p.value.replace(',', '.'));
+    if (!(s > 0 && p > 0)) return;
+    mine[f.dataset.id] = { stake: s, payout: p }; save(mine); render();
+  });
+
+  async function scores() {
+    const want = {};
+    picks.forEach((p) => p.legs.forEach((l) => { if (PATH[l.lg]) want[l.lg + '|' + l.d] = 1; }));
+    await Promise.all(Object.keys(want).map(async (k) => {
+      const [lg, d] = k.split('|');
+      try {
+        const j = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${PATH[lg]}/scoreboard?dates=${d}&limit=400`).then((r) => r.json());
+        (j.events || []).forEach((ev) => {
+          const c = ev.competitions[0], sc = {};
+          c.competitors.forEach((t) => { sc[t.team.shortDisplayName] = +t.score; sc[t.team.name] = +t.score; sc[t.team.location] = +t.score; });
+          live[ev.id] = { state: ev.status.type.state, detail: ev.status.type.shortDetail, scores: sc };
+        });
+      } catch {}
+    }));
+    render();
+    const anyLive = Object.values(live).some((g) => g.state === 'in');
+    setTimeout(scores, anyLive ? 30000 : 300000);
+  }
+
+  fetch('picks.json', { cache: 'no-store' }).then((r) => r.json()).then((j) => { picks = j.picks || []; render(); scores(); })
+    .catch(() => { $('list').innerHTML = '<p class="empty">Sem conexão. Abra de novo quando tiver internet.</p>'; });
+})();
+</script>
+</body>
+</html>

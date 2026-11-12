@@ -1,0 +1,38 @@
+{
+  "note": "Real-money tips Claude gave Thiago. price = what the betting app charged (0.51 = 51%). model = Guessitup model chance. Results fill in from live scores; r/sc set here only for settled games.",
+  "picks": [
+    {
+      "id": 1, "date": "2026-11-11", "app": "Kalshi",
+      "label": "Combo: Knicks −4.5 + Warriors +6.5",
+      "price": 0.2766, "model": 0.348,
+      "legs": [
+        { "lg": "nba", "d": "20261111", "eid": "401909967", "pick": "Knicks", "opp": "Cavaliers",
+          "k": "spread", "line": -4.5, "price": 0.49, "model": 0.57,
+          "app_text": "NY Knicks win by over 4.5 points · Yes" },
+        { "lg": "nba", "d": "20261111", "eid": "401909974", "pick": "Warriors", "opp": "Rockets",
+          "k": "spread", "line": 6.5, "price": 0.51, "model": 0.61,
+          "app_text": "No · HOU Rockets win by over 6.5 points" }
+      ]
+    },
+    {
+      "id": 2, "date": "2026-11-12", "app": "Kalshi",
+      "label": "Raptors +8.5",
+      "price": 0.51, "model": 0.61,
+      "legs": [
+        { "lg": "nba", "d": "20261112", "eid": "401909976", "pick": "Raptors", "opp": "76ers",
+          "k": "spread", "line": 8.5, "price": 0.51, "model": 0.61,
+          "app_text": "No · PHI 76ers win by over 8.5 points" }
+      ]
+    },
+    {
+      "id": 3, "date": "2026-11-12", "app": "Kalshi",
+      "label": "Wizards +10.5",
+      "price": 0.50, "model": 0.57,
+      "legs": [
+        { "lg": "nba", "d": "20261112", "eid": "401909977", "pick": "Wizards", "opp": "Pistons",
+          "k": "spread", "line": 10.5, "price": 0.50, "model": 0.57,
+          "app_text": "No · DET Pistons win by over 10.5 points" }
+      ]
+    }
+  ]
+}
