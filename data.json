@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-12T04:16:12Z",
+ "updated": "2026-11-12T15:34:45Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -385,7 +385,12 @@
        "t": "2026-11-12T02:30:00Z",
        "p": 0.61,
        "k": "spread",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        108,
+        115
+       ],
+       "r": "l"
       }
      ]
     },
@@ -447,7 +452,12 @@
        "pick": "Warriors",
        "opp": "Rockets",
        "t": "2026-11-12T02:30:00Z",
-       "p": 0.38
+       "p": 0.38,
+       "sc": [
+        108,
+        115
+       ],
+       "r": "l"
       }
      ]
     },
@@ -479,7 +489,12 @@
        "t": "2026-11-12T02:30:00Z",
        "p": 0.61,
        "k": "spread",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        108,
+        115
+       ],
+       "r": "l"
       },
       {
        "lg": "nba",
@@ -508,6 +523,144 @@
         101
        ],
        "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "say": {
+    "chico": {
+     "pt": "Só o Suns em casa. Favorito com um pouco de valor.",
+     "en": "Only the Suns at home. A favorite with a little value.",
+     "es": "Solo los Suns en casa. Favorito con un poco de valor."
+    },
+    "arnaldo": {
+     "pt": "Ontem errei favoritos. Hoje vou nos azarões com pontos e um Over com folga.",
+     "en": "Yesterday I missed on favorites. Today I take the underdogs with points and one Over with a margin.",
+     "es": "Ayer fallé con favoritos. Hoy voy con los perros con puntos y un Over con margen."
+    },
+    "herman": {
+     "pt": "Combo de 4 pernas, paga 13x. Aposta pequena.",
+     "en": "A 4-leg combo that pays 13x. A small bet.",
+     "es": "Combo de 4 patas, paga 13x. Apuesta pequeña."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 15,
+     "bot": "chico",
+     "stake": 19.86,
+     "payout": 27.97,
+     "p": 0.72,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Suns",
+       "opp": "Hornets",
+       "t": "2026-11-13T02:00:00Z",
+       "p": 0.72
+      }
+     ]
+    },
+    {
+     "id": 16,
+     "bot": "arnaldo",
+     "stake": 28.81,
+     "payout": 55.4,
+     "p": 0.61,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Raptors",
+       "opp": "76ers",
+       "t": "2026-11-13T00:00:00Z",
+       "p": 0.61,
+       "k": "spread",
+       "line": 8.5
+      }
+     ]
+    },
+    {
+     "id": 17,
+     "bot": "arnaldo",
+     "stake": 28.81,
+     "payout": 55.4,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Wizards",
+       "opp": "Pistons",
+       "t": "2026-11-13T00:00:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 10.5
+      }
+     ]
+    },
+    {
+     "id": 18,
+     "bot": "arnaldo",
+     "stake": 28.81,
+     "payout": 55.4,
+     "p": 0.58,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Suns",
+       "opp": "Hornets",
+       "t": "2026-11-13T02:00:00Z",
+       "p": 0.58,
+       "k": "over",
+       "line": 214.5
+      }
+     ]
+    },
+    {
+     "id": 19,
+     "bot": "herman",
+     "stake": 9.95,
+     "payout": 130.92,
+     "p": 0.119,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Raptors",
+       "opp": "76ers",
+       "t": "2026-11-13T00:00:00Z",
+       "p": 0.61,
+       "k": "spread",
+       "line": 8.5
+      },
+      {
+       "lg": "nba",
+       "pick": "Wizards",
+       "opp": "Pistons",
+       "t": "2026-11-13T00:00:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 10.5
+      },
+      {
+       "lg": "nba",
+       "pick": "Suns",
+       "opp": "Hornets",
+       "t": "2026-11-13T02:00:00Z",
+       "p": 0.58,
+       "k": "over",
+       "line": 214.5
+      },
+      {
+       "lg": "nfl",
+       "pick": "Giants",
+       "opp": "Commanders",
+       "t": "2026-11-13T01:15:00Z",
+       "p": 0.59,
+       "k": "over",
+       "line": 40.5
       }
      ]
     }
