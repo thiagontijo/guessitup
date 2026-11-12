@@ -1,38 +1,316 @@
 {
-  "note": "Real-money tips Claude gave Thiago. price = what the betting app charged (0.51 = 51%). model = Guessitup model chance. Results fill in from live scores; r/sc set here only for settled games.",
-  "picks": [
+ "note": "Real-money bets Thiago placed with Claude's Guessitup tips. price = what the app charged (0.51 = 51%); model = Guessitup model chance (when known). r/sc are set here for settled games; open games settle from live scores.",
+ "picks": [
+  {
+   "id": 4,
+   "date": "2026-11-07",
+   "app": "Kalshi",
+   "label": "Combo de 4: Hawks, Rockets, Warriors, Thunder",
+   "legs": [
     {
-      "id": 1, "date": "2026-11-11", "app": "Kalshi",
-      "label": "Combo: Knicks −4.5 + Warriors +6.5",
-      "price": 0.2766, "model": 0.348,
-      "legs": [
-        { "lg": "nba", "d": "20261111", "eid": "401909967", "pick": "Knicks", "opp": "Cavaliers",
-          "k": "spread", "line": -4.5, "price": 0.49, "model": 0.57,
-          "app_text": "NY Knicks win by over 4.5 points · Yes" },
-        { "lg": "nba", "d": "20261111", "eid": "401909974", "pick": "Warriors", "opp": "Rockets",
-          "k": "spread", "line": 6.5, "price": 0.51, "model": 0.61,
-          "app_text": "No · HOU Rockets win by over 6.5 points" }
-      ]
+     "lg": "nba",
+     "d": "20261107",
+     "pick": "Hawks",
+     "opp": "Nets",
+     "k": "ml",
+     "app_text": "ATL Hawks to win",
+     "sc": [
+      124,
+      121
+     ],
+     "r": "w"
     },
     {
-      "id": 2, "date": "2026-11-12", "app": "Kalshi",
-      "label": "Raptors +8.5",
-      "price": 0.51, "model": 0.61,
-      "legs": [
-        { "lg": "nba", "d": "20261112", "eid": "401909976", "pick": "Raptors", "opp": "76ers",
-          "k": "spread", "line": 8.5, "price": 0.51, "model": 0.61,
-          "app_text": "No · PHI 76ers win by over 8.5 points" }
-      ]
+     "lg": "nba",
+     "d": "20261107",
+     "pick": "Rockets",
+     "opp": "Suns",
+     "k": "ml",
+     "app_text": "HOU Rockets to win",
+     "sc": [
+      99,
+      102
+     ],
+     "r": "l"
     },
     {
-      "id": 3, "date": "2026-11-12", "app": "Kalshi",
-      "label": "Wizards +10.5",
-      "price": 0.50, "model": 0.57,
-      "legs": [
-        { "lg": "nba", "d": "20261112", "eid": "401909977", "pick": "Wizards", "opp": "Pistons",
-          "k": "spread", "line": 10.5, "price": 0.50, "model": 0.57,
-          "app_text": "No · DET Pistons win by over 10.5 points" }
-      ]
+     "lg": "nba",
+     "d": "20261107",
+     "pick": "Warriors",
+     "opp": "Magic",
+     "k": "ml",
+     "app_text": "GS Warriors to win",
+     "sc": [
+      126,
+      119
+     ],
+     "r": "w"
+    },
+    {
+     "lg": "nba",
+     "d": "20261107",
+     "pick": "Thunder",
+     "opp": "Wizards",
+     "k": "ml",
+     "app_text": "OKC Thunder to win",
+     "sc": [
+      114,
+      75
+     ],
+     "r": "w"
     }
-  ]
+   ],
+   "r": "l"
+  },
+  {
+   "id": 5,
+   "date": "2026-11-07",
+   "app": "Kalshi",
+   "label": "Combo de 2: Rockets + Warriors",
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261107",
+     "pick": "Rockets",
+     "opp": "Suns",
+     "k": "ml",
+     "app_text": "HOU Rockets to win",
+     "sc": [
+      99,
+      102
+     ],
+     "r": "l"
+    },
+    {
+     "lg": "nba",
+     "d": "20261107",
+     "pick": "Warriors",
+     "opp": "Magic",
+     "k": "ml",
+     "app_text": "GS Warriors to win",
+     "sc": [
+      126,
+      119
+     ],
+     "r": "w"
+    }
+   ],
+   "r": "l"
+  },
+  {
+   "id": 7,
+   "date": "2026-11-08",
+   "app": "Kalshi",
+   "label": "Palmeiras se classifica (Copa do Brasil)",
+   "legs": [
+    {
+     "lg": "soccer",
+     "pick": "Palmeiras",
+     "opp": "Vasco",
+     "k": "adv",
+     "app_text": "Yes · Palmeiras advances",
+     "r": "w"
+    }
+   ],
+   "r": "w"
+  },
+  {
+   "id": 8,
+   "date": "2026-11-08",
+   "app": "Kalshi",
+   "label": "Combo de 3: Seahawks, 49ers, Chiefs",
+   "price": 0.5206,
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261108",
+     "pick": "Seahawks",
+     "opp": "Cardinals",
+     "k": "ml",
+     "app_text": "SEA Seahawks to win",
+     "sc": [
+      17,
+      3
+     ],
+     "r": "w"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261108",
+     "pick": "49ers",
+     "opp": "Raiders",
+     "k": "ml",
+     "app_text": "SF 49ers to win",
+     "sc": [
+      38,
+      17
+     ],
+     "r": "w"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261108",
+     "pick": "Chiefs",
+     "opp": "Jets",
+     "k": "ml",
+     "app_text": "KC Chiefs to win",
+     "sc": [
+      35,
+      12
+     ],
+     "r": "w"
+    }
+   ],
+   "r": "w"
+  },
+  {
+   "id": 9,
+   "date": "2026-11-09",
+   "app": "Kalshi",
+   "label": "Combo de 3: Warriors, Spurs, Pistons",
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261109",
+     "pick": "Warriors",
+     "opp": "Pelicans",
+     "k": "ml",
+     "app_text": "GS Warriors to win",
+     "sc": [
+      138,
+      87
+     ],
+     "r": "w"
+    },
+    {
+     "lg": "nba",
+     "d": "20261109",
+     "pick": "Spurs",
+     "opp": "Suns",
+     "k": "ml",
+     "app_text": "SA Spurs to win",
+     "sc": [
+      122,
+      96
+     ],
+     "r": "w"
+    },
+    {
+     "lg": "nba",
+     "d": "20261109",
+     "pick": "Pistons",
+     "opp": "Wizards",
+     "k": "ml",
+     "app_text": "DET Pistons to win",
+     "sc": [
+      122,
+      111
+     ],
+     "r": "w"
+    }
+   ],
+   "r": "w"
+  },
+  {
+   "id": 10,
+   "date": "2026-11-10",
+   "app": "Kalshi",
+   "label": "Bills x Vikings: Under 45.5",
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261110",
+     "pick": "Bills",
+     "opp": "Vikings",
+     "k": "under",
+     "line": 45.5,
+     "app_text": "No · Full Game: over 45.5 points scored?",
+     "sc": [
+      23,
+      6
+     ],
+     "r": "w"
+    }
+   ],
+   "r": "w"
+  },
+  {
+   "id": 1,
+   "date": "2026-11-11",
+   "app": "Kalshi",
+   "label": "Combo: Knicks −4.5 + Warriors +6.5",
+   "price": 0.2766,
+   "model": 0.348,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261111",
+     "eid": "401909967",
+     "pick": "Knicks",
+     "opp": "Cavaliers",
+     "k": "spread",
+     "line": -4.5,
+     "price": 0.49,
+     "model": 0.57,
+     "app_text": "NY Knicks win by over 4.5 points · Yes"
+    },
+    {
+     "lg": "nba",
+     "d": "20261111",
+     "eid": "401909974",
+     "pick": "Warriors",
+     "opp": "Rockets",
+     "k": "spread",
+     "line": 6.5,
+     "price": 0.51,
+     "model": 0.61,
+     "app_text": "No · HOU Rockets win by over 6.5 points"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "date": "2026-11-12",
+   "app": "Kalshi",
+   "label": "Raptors +8.5",
+   "price": 0.51,
+   "model": 0.61,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261112",
+     "eid": "401909976",
+     "pick": "Raptors",
+     "opp": "76ers",
+     "k": "spread",
+     "line": 8.5,
+     "price": 0.51,
+     "model": 0.61,
+     "app_text": "No · PHI 76ers win by over 8.5 points"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "date": "2026-11-12",
+   "app": "Kalshi",
+   "label": "Wizards +10.5",
+   "price": 0.5,
+   "model": 0.57,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261112",
+     "eid": "401909977",
+     "pick": "Wizards",
+     "opp": "Pistons",
+     "k": "spread",
+     "line": 10.5,
+     "price": 0.5,
+     "model": 0.57,
+     "app_text": "No · DET Pistons win by over 10.5 points"
+    }
+   ]
+  }
+ ]
 }

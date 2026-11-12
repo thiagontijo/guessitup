@@ -113,6 +113,7 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
   }
 
   function legState(l) {
+    if (l.r) return { r: l.r, a: l.sc ? l.sc[0] : null, b: l.sc ? l.sc[1] : null, g: { state: 'post', detail: 'Final' } };
     const g = live[l.eid];
     if (!g) return { r: 'pre' };
     const a = g.scores[l.pick], b = g.scores[l.opp];
@@ -125,13 +126,14 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
 
   function pickState(p) {
     const ls = p.legs.map(legState);
+    if (p.r) return { r: p.r, ls };
     if (ls.some((s) => s.r === 'l')) return { r: 'l', ls };
     if (ls.every((s) => s.r === 'w' || s.r === 'p')) return { r: ls.every((s) => s.r === 'p') ? 'p' : 'w', ls };
     if (ls.some((s) => s.r === 'live')) return { r: 'live', ls };
     return { r: 'pre', ls };
   }
 
-  const kindTxt = (l) => l.k === 'spread' ? `${l.pick} ${l.line > 0 ? '+' : '−'}${Math.abs(l.line)}` : l.k === 'over' ? `Over ${l.line}` : l.k === 'under' ? `Under ${l.line}` : `${l.pick} vence`;
+  const kindTxt = (l) => l.k === 'adv' ? `${l.pick} se classifica` : l.k === 'spread' ? `${l.pick} ${l.line > 0 ? '+' : '−'}${Math.abs(l.line)}` : l.k === 'over' ? `Over ${l.line}` : l.k === 'under' ? `Under ${l.line}` : `${l.pick} vence`;
   const pillTxt = { w: 'Ganhou', l: 'Perdeu', p: 'Devolvida', live: 'Em jogo', pre: 'Aguardando' };
 
   function render() {
@@ -144,8 +146,8 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
 
     // $10 flat per tip, in order
     let run = 0; const pts = [0];
-    done.slice().sort((a, b) => a.p.id - b.p.id).forEach((x) => { run += x.s.r === 'w' ? 10 / x.p.price - 10 : -10; pts.push(run); });
-    $('flat').textContent = done.length ? signed(run) : '–';
+    done.filter((x) => x.p.price).forEach((x) => { run += x.s.r === 'w' ? 10 / x.p.price - 10 : -10; pts.push(run); });
+    $('flat').textContent = pts.length > 1 ? signed(run) : '–';
     $('flat').className = 'v ' + (run > 0.5 ? 'pos' : run < -0.5 ? 'neg' : '');
 
     // Real money (this device only)
@@ -163,11 +165,12 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
     $('reall').textContent = (staked ? `${money(staked)} apostados, ${pct(prof / staked)}` : 'Nada fechado') + (open ? ` · ${money(open)} em jogo` : '');
 
     // Promised vs delivered
-    if (done.length) {
-      const prom = done.reduce((t, x) => t + x.p.model, 0) / done.length;
-      const paid = done.reduce((t, x) => t + x.p.price, 0) / done.length;
-      const got = wins / done.length;
-      $('calp').textContent = `O modelo prometeu ${pct(prom)} em média. Acertou ${pct(got)}.` + (done.length < 30 ? ' Ainda é pouca dica para concluir.' : '');
+    const priced = done.filter((x) => x.p.price && x.p.model);
+    if (priced.length) {
+      const prom = priced.reduce((t, x) => t + x.p.model, 0) / priced.length;
+      const paid = priced.reduce((t, x) => t + x.p.price, 0) / priced.length;
+      const got = priced.filter((x) => x.s.r === 'w').length / priced.length;
+      $('calp').textContent = `Nas ${priced.length} dicas com chance do modelo anotada: ele prometeu ${pct(prom)} em média e acertou ${pct(got)}.` + (priced.length < 30 ? ' Ainda é pouca dica para concluir.' : '');
       $('bars').innerHTML = [['Prometido', prom, 'var(--mute)'], ['Preço pago', paid, 'var(--live)'], ['Acertou', got, got >= paid ? 'var(--win)' : 'var(--loss)']]
         .map(([n, v, c]) => `<div class="bar"><span>${n}</span><i><b style="width:${Math.round(v * 100)}%;background:${c}"></b></i><span>${pct(v)}</span></div>`).join('');
     }
@@ -178,14 +181,14 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
       const m = mine[p.id];
       const legs = p.legs.map((l, i) => {
         const ls = s.ls[i];
-        const sc = ls.a != null ? `<div class="sc"><span>${l.pick} ${ls.a} × ${ls.b} ${l.opp}</span><b>${ls.g.state === 'post' ? 'Final' : ls.g.detail}</b></div>` : ls.g ? `<div class="sc"><span>${l.opp} × ${l.pick}</span><b>${ls.g.detail}</b></div>` : '';
+        const sc = ls.a != null ? `<div class="sc"><span>${l.pick} ${ls.a} × ${ls.b} ${l.opp}</span><b>${ls.g.state === 'post' ? 'Final' : ls.g.detail}</b></div>` : l.r ? '' : ls.g ? `<div class="sc"><span>${l.opp} × ${l.pick}</span><b>${ls.g.detail}</b></div>` : '';
         return `<div class="leg"><div>${kindTxt(l)} <span class="pill ${ls.r === 'live' ? 'live' : ls.r}" style="font-size:11px;padding:2px 7px;margin-left:4px">${ls.r === 'live' ? (ls.lean === 'w' ? 'Ganhando' : ls.lean === 'p' ? 'Empatando' : 'Perdendo') : pillTxt[ls.r]}</span></div><div class="at">${p.app}: ${l.app_text}</div>${sc}</div>`;
       }).join('');
       const mineTxt = m ? `<span>Você: aposta <b>${money(m.stake)}</b>, recebe <b>${money(m.payout)}</b></span><button data-edit="${p.id}" aria-label="Mudar valores">Mudar</button>`
                         : `<span style="color:var(--mute)">Não registrou aposta</span><button data-edit="${p.id}">Registrar</button>`;
       return `<article class="pick">
         <div class="top"><div><div class="date">${new Date(p.date + 'T12:00').toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' })}</div><div class="lab">${p.label}</div></div><span class="pill ${s.r}">${pillTxt[s.r]}</span></div>
-        <div class="meta"><span>Preço <b>${pct(p.price)}</b></span><span>Modelo <b>${pct(p.model)}</b></span><span>$10 recebe <b>${money(10 / p.price)}</b></span></div>
+        <div class="meta">${p.price ? `<span>Preço <b>${pct(p.price)}</b></span>` : ''}${p.model ? `<span>Modelo <b>${pct(p.model)}</b></span>` : ''}${p.price ? `<span>$10 recebe <b>${money(10 / p.price)}</b></span>` : '<span>Falta o valor apostado</span>'}</div>
         ${legs}
         <div class="mine">${mineTxt}</div>
         <form data-id="${p.id}"><label>Aposta $<input name="s" inputmode="decimal" value="${m ? m.stake : ''}" required></label><label>Recebe $<input name="p" inputmode="decimal" value="${m ? m.payout : ''}" required></label><button>Salvar</button></form>
@@ -221,7 +224,7 @@ input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--
 
   async function scores() {
     const want = {};
-    picks.forEach((p) => p.legs.forEach((l) => { if (PATH[l.lg]) want[l.lg + '|' + l.d] = 1; }));
+    picks.forEach((p) => p.legs.forEach((l) => { if (PATH[l.lg] && !l.r && !p.r) want[l.lg + '|' + l.d] = 1; }));
     await Promise.all(Object.keys(want).map(async (k) => {
       const [lg, d] = k.split('|');
       try {
