@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-12T15:34:45Z",
+ "updated": "2026-11-13T16:16:59Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -561,7 +561,12 @@
        "pick": "Suns",
        "opp": "Hornets",
        "t": "2026-11-13T02:00:00Z",
-       "p": 0.72
+       "p": 0.72,
+       "sc": [
+        101,
+        96
+       ],
+       "r": "w"
       }
      ]
     },
@@ -579,7 +584,12 @@
        "t": "2026-11-13T00:00:00Z",
        "p": 0.61,
        "k": "spread",
-       "line": 8.5
+       "line": 8.5,
+       "sc": [
+        112,
+        123
+       ],
+       "r": "l"
       }
      ]
     },
@@ -597,7 +607,12 @@
        "t": "2026-11-13T00:00:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 10.5
+       "line": 10.5,
+       "sc": [
+        140,
+        144
+       ],
+       "r": "w"
       }
      ]
     },
@@ -615,7 +630,12 @@
        "t": "2026-11-13T02:00:00Z",
        "p": 0.58,
        "k": "over",
-       "line": 214.5
+       "line": 214.5,
+       "sc": [
+        101,
+        96
+       ],
+       "r": "l"
       }
      ]
     },
@@ -633,7 +653,12 @@
        "t": "2026-11-13T00:00:00Z",
        "p": 0.61,
        "k": "spread",
-       "line": 8.5
+       "line": 8.5,
+       "sc": [
+        112,
+        123
+       ],
+       "r": "l"
       },
       {
        "lg": "nba",
@@ -642,7 +667,12 @@
        "t": "2026-11-13T00:00:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 10.5
+       "line": 10.5,
+       "sc": [
+        140,
+        144
+       ],
+       "r": "w"
       },
       {
        "lg": "nba",
@@ -651,7 +681,12 @@
        "t": "2026-11-13T02:00:00Z",
        "p": 0.58,
        "k": "over",
-       "line": 214.5
+       "line": 214.5,
+       "sc": [
+        101,
+        96
+       ],
+       "r": "l"
       },
       {
        "lg": "nfl",
@@ -660,7 +695,135 @@
        "t": "2026-11-13T01:15:00Z",
        "p": 0.59,
        "k": "over",
-       "line": 40.5
+       "line": 40.5,
+       "sc": [
+        21,
+        24
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "say": {
+    "arnaldo": {
+     "pt": "Fujo do jogo do Warriors: sem o Curry, os números da temporada mentem. Vou de Pacers +8.5, Under no Hawks x Bulls e Clippers +7.5.",
+     "en": "I avoid the Warriors game: without Curry, the season numbers lie. I take Pacers +8.5, the Under in Hawks vs Bulls and Clippers +7.5.",
+     "es": "Evito el partido de los Warriors: sin Curry, los números de la temporada mienten. Voy con Pacers +8.5, Under en Hawks vs Bulls y Clippers +7.5."
+    },
+    "herman": {
+     "pt": "Combo de 4 que paga 10x, com o Predators +1.5 no gelo. Aposta pequena, sonho grande.",
+     "en": "A 4-leg combo that pays 10x, with Predators +1.5 on the ice. Small bet, big dream.",
+     "es": "Combo de 4 que paga 10x, con Predators +1.5 en el hielo. Apuesta pequeña, sueño grande."
+    }
+   },
+   "skip": {
+    "chico": {
+     "pt": "Hoje os favoritos estão caros: o preço passa a minha chance em todos. Fico de fora.",
+     "en": "Today the favorites are too expensive: the price is above my chance on all of them. I sit out.",
+     "es": "Hoy los favoritos están caros: el precio supera mi probabilidad en todos. Me quedo fuera."
+    }
+   },
+   "bets": [
+    {
+     "id": 20,
+     "bot": "arnaldo",
+     "stake": 27.88,
+     "payout": 53.62,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Pacers",
+       "opp": "Knicks",
+       "t": "2026-11-14T00:00:00Z",
+       "p": 0.6,
+       "k": "spread",
+       "line": 8.5
+      }
+     ]
+    },
+    {
+     "id": 21,
+     "bot": "arnaldo",
+     "stake": 27.88,
+     "payout": 52.6,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Bulls",
+       "opp": "Hawks",
+       "t": "2026-11-14T01:00:00Z",
+       "p": 0.6,
+       "k": "under",
+       "line": 246.5
+      }
+     ]
+    },
+    {
+     "id": 22,
+     "bot": "arnaldo",
+     "stake": 27.88,
+     "payout": 51.63,
+     "p": 0.59,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Clippers",
+       "opp": "Thunder",
+       "t": "2026-11-14T03:30:00Z",
+       "p": 0.59,
+       "k": "spread",
+       "line": 7.5
+      }
+     ]
+    },
+    {
+     "id": 23,
+     "bot": "herman",
+     "stake": 9.85,
+     "payout": 103.68,
+     "p": 0.1466,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Pacers",
+       "opp": "Knicks",
+       "t": "2026-11-14T00:00:00Z",
+       "p": 0.6,
+       "k": "spread",
+       "line": 8.5
+      },
+      {
+       "lg": "nba",
+       "pick": "Bulls",
+       "opp": "Hawks",
+       "t": "2026-11-14T01:00:00Z",
+       "p": 0.6,
+       "k": "under",
+       "line": 246.5
+      },
+      {
+       "lg": "nba",
+       "pick": "Clippers",
+       "opp": "Thunder",
+       "t": "2026-11-14T03:30:00Z",
+       "p": 0.59,
+       "k": "spread",
+       "line": 7.5
+      },
+      {
+       "lg": "nhl",
+       "pick": "Predators",
+       "opp": "Golden Knights",
+       "t": "2026-11-14T03:00:00Z",
+       "p": 0.69,
+       "k": "spread",
+       "line": 1.5
       }
      ]
     }
