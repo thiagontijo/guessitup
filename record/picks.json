@@ -311,6 +311,26 @@
      "app_text": "No · DET Pistons win by over 10.5 points"
     }
    ]
+  },
+  {
+   "id": 11,
+   "date": "2026-11-13",
+   "app": "Kalshi",
+   "label": "Pelicans: menos de 116.5 pontos (Team Total)",
+   "price": 0.5476,
+   "model": 0.69,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261113",
+     "eid": "401909300",
+     "pick": "Pelicans",
+     "opp": "Grizzlies",
+     "k": "tunder",
+     "line": 116.5,
+     "app_text": "No · NOP Pelicans over 116.5 points"
+    }
+   ]
   }
  ]
 }
