@@ -16,6 +16,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 | Data | Dica | Preço | Minha chance | Valor | Resultado |
 |---|---|---|---|---|---|
 | 13/11 | Pelicans menos de 116.5 pts (Team Total) | 55% | 69% | $10 → $18 | em jogo |
+| 13/11 | Warriors mais de 102.5 pts (Team Total), contra a onda: 108 pts sem Curry na quarta | 51% | 59% | $5 → $10 | em jogo |
 
 ## Lições
 - 12/11 — Método antigo: o modelo usava 50% do preço do mercado, então seguia os sites. As linhas principais
