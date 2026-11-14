@@ -331,6 +331,26 @@
      "app_text": "No · NOP Pelicans over 116.5 points"
     }
    ]
+  },
+  {
+   "id": 12,
+   "date": "2026-11-13",
+   "app": "Kalshi",
+   "label": "Warriors: mais de 102.5 pontos (Team Total)",
+   "price": 0.5076,
+   "model": 0.59,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261113",
+     "eid": "401909302",
+     "pick": "Warriors",
+     "opp": "Spurs",
+     "k": "tover",
+     "line": 102.5,
+     "app_text": "Yes · GS Warriors over 102.5 points"
+    }
+   ]
   }
  ]
 }
