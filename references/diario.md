@@ -6,7 +6,15 @@ acertar 70% em favoritos caros perde dinheiro; acertar 55% pagando 50% ganha.
 Critério no fim (13/01): com 40+ dicas reais, seguir se o lucro for positivo e o modelo errar a própria
 chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 
-## Regras atuais (12/11, revisadas 14/11)
+## Regras atuais (12/11, revisadas 14/11 e 15/11)
+- 15/11 (Thiago: "errou muito, aprenda e evolua"). Regras mais duras até a calibração se provar:
+  1. Margem mínima sobe para 8 pontos: só indicar se o preço estiver em até (minha chance − 8). SUBSTITUI o "−6" do roteiro.
+  2. Projeção "sem o jogador X" precisa de pelo menos 3 jogos recentes sem ele (Warriors tinha 1 jogo e perdeu).
+  3. Narrativa sozinha não é tese: cansaço, motivação ou "contra a onda" só contam com número que o mercado ainda não pegou (Bulls: o mercado já precificava o back-to-back).
+  4. Se a minha projeção fica a menos de 4 pontos da do mercado, não tem dica: o mercado sabe mais do que eu nessa faixa.
+  5. Nada de aposta ao vivo nem "teste fora da regra". Ao vivo só para acompanhar.
+  6. Valor fixo de $5 por dica; nunca 2 dicas no mesmo jogo ou com a mesma tese.
+  7. Calibração: depois de cada dica, registrar chance prometida e resultado; a cada 10 dicas, comparar (prometido x acertado). Se errar a própria chance por mais de 10 pontos, encolher todas as chances na mesma proporção.
 - 14/11: azarão de 10+ pontos no handicap: nada de "mais pontos" para ele (surra derruba o placar do azarão). Para esse time, olhar o "menos pontos".
 - 14/11: time visitante no 2º jogo de back-to-back (ainda mais depois de prorrogação): descontar ~3 pontos do total dele.
 - Notícia antes de número (relatório oficial de lesões, descanso, viagem, técnico).
@@ -19,7 +27,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 |---|---|---|---|---|---|
 | 13/11 | Pelicans menos de 116.5 pts (Team Total) | 55% | 69% | $10 → $18 | GANHOU (111 pts) |
 | 13/11 | Warriors mais de 102.5 pts (Team Total), contra a onda: 108 pts sem Curry na quarta | 51% | 59% | $5 → $10 | PERDEU (85 pts; Spurs 123) |
-| 14/11 | TESTE fora da regra: Bulls menos de 111.5 (ao vivo, Bulls 31×19 no 2º quarto; tese pré-jogo era 104 pts) | 58% | 64% | $2 → $3 | em jogo |
+| 14/11 | TESTE fora da regra: Bulls menos de 111.5 (ao vivo, Bulls 31×19 no 2º quarto; tese pré-jogo era 104 pts) | 58% | 64% | $2 → $3 | PERDEU (Bulls fez 113+; venceu fora) |
 
 Acumulado (método novo): 2 dicas, 1 certa (50%). Apostado $15, recebido $18, lucro +$3. Chance prometida média 64%, acerto 50% (amostra pequena).
 
