@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-14T15:33:18Z",
+ "updated": "2026-11-15T15:33:27Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -900,7 +900,12 @@
        "t": "2026-11-15T01:00:00Z",
        "p": 0.55,
        "k": "spread",
-       "line": 4.5
+       "line": 4.5,
+       "sc": [
+        137,
+        117
+       ],
+       "r": "w"
       }
      ]
     },
@@ -918,7 +923,12 @@
        "t": "2026-11-15T00:00:00Z",
        "p": 0.6,
        "k": "under",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        2,
+        6
+       ],
+       "r": "l"
       }
      ]
     },
@@ -936,7 +946,12 @@
        "t": "2026-11-15T03:00:00Z",
        "p": 0.68,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        3,
+        2
+       ],
+       "r": "w"
       }
      ]
     },
@@ -954,7 +969,12 @@
        "t": "2026-11-15T01:00:00Z",
        "p": 0.55,
        "k": "spread",
-       "line": 4.5
+       "line": 4.5,
+       "sc": [
+        137,
+        117
+       ],
+       "r": "w"
       },
       {
        "lg": "nhl",
@@ -963,7 +983,12 @@
        "t": "2026-11-15T00:00:00Z",
        "p": 0.6,
        "k": "under",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        2,
+        6
+       ],
+       "r": "l"
       },
       {
        "lg": "nhl",
@@ -972,7 +997,12 @@
        "t": "2026-11-15T03:00:00Z",
        "p": 0.68,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        3,
+        2
+       ],
+       "r": "w"
       },
       {
        "lg": "nhl",
@@ -981,7 +1011,153 @@
        "t": "2026-11-15T02:00:00Z",
        "p": 0.63,
        "k": "spread",
+       "line": 1.5,
+       "sc": [
+        6,
+        5
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-15",
+   "say": {
+    "arnaldo": {
+     "pt": "Ontem 2 de 3. Hoje: Under no 49ers x Cowboys, Dolphins +4.5, Clippers +1.5 e Under no hóquei.",
+     "en": "Yesterday 2 of 3. Today: Under in 49ers vs Cowboys, Dolphins +4.5, Clippers +1.5 and an Under on ice.",
+     "es": "Ayer 2 de 3. Hoy: Under en 49ers vs Cowboys, Dolphins +4.5, Clippers +1.5 y un Under en hockey."
+    },
+    "herman": {
+     "pt": "Ontem o Under do hóquei me derrubou. Hoje combo de 4, paga 13x.",
+     "en": "Yesterday the hockey Under knocked me out. Today a 4-leg combo, pays 13x.",
+     "es": "Ayer el Under del hockey me tumbó. Hoy combo de 4, paga 13x."
+    }
+   },
+   "skip": {
+    "chico": {
+     "pt": "Os favoritos de hoje (Jaguars, Celtics, Spurs) estão todos acima da minha chance. Terceiro dia de fora, e tudo bem.",
+     "en": "Today's favorites (Jaguars, Celtics, Spurs) are all priced above my chance. Third day out, and that's fine.",
+     "es": "Los favoritos de hoy (Jaguars, Celtics, Spurs) están por encima de mi probabilidad. Tercer día fuera, y está bien."
+    }
+   },
+   "bets": [
+    {
+     "id": 28,
+     "bot": "arnaldo",
+     "stake": 30.58,
+     "payout": 61.16,
+     "p": 0.58,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Cowboys",
+       "opp": "49ers",
+       "t": "2026-11-15T21:25:00Z",
+       "p": 0.58,
+       "k": "under",
+       "line": 55.5
+      }
+     ]
+    },
+    {
+     "id": 29,
+     "bot": "arnaldo",
+     "stake": 30.58,
+     "payout": 58.81,
+     "p": 0.58,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Dolphins",
+       "opp": "Colts",
+       "t": "2026-11-15T18:00:00Z",
+       "p": 0.58,
+       "k": "spread",
+       "line": 4.5
+      }
+     ]
+    },
+    {
+     "id": 30,
+     "bot": "arnaldo",
+     "stake": 30.58,
+     "payout": 56.63,
+     "p": 0.64,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Clippers",
+       "opp": "Hornets",
+       "t": "2026-11-15T21:30:00Z",
+       "p": 0.64,
+       "k": "spread",
        "line": 1.5
+      }
+     ]
+    },
+    {
+     "id": 31,
+     "bot": "arnaldo",
+     "stake": 30.58,
+     "payout": 57.7,
+     "p": 0.59,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Sharks",
+       "opp": "Predators",
+       "t": "2026-11-16T02:00:00Z",
+       "p": 0.59,
+       "k": "under",
+       "line": 6.5
+      }
+     ]
+    },
+    {
+     "id": 32,
+     "bot": "herman",
+     "stake": 10.68,
+     "payout": 144.32,
+     "p": 0.127,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Cowboys",
+       "opp": "49ers",
+       "t": "2026-11-15T21:25:00Z",
+       "p": 0.58,
+       "k": "under",
+       "line": 55.5
+      },
+      {
+       "lg": "nfl",
+       "pick": "Dolphins",
+       "opp": "Colts",
+       "t": "2026-11-15T18:00:00Z",
+       "p": 0.58,
+       "k": "spread",
+       "line": 4.5
+      },
+      {
+       "lg": "nba",
+       "pick": "Clippers",
+       "opp": "Hornets",
+       "t": "2026-11-15T21:30:00Z",
+       "p": 0.64,
+       "k": "spread",
+       "line": 1.5
+      },
+      {
+       "lg": "nhl",
+       "pick": "Sharks",
+       "opp": "Predators",
+       "t": "2026-11-16T02:00:00Z",
+       "p": 0.59,
+       "k": "under",
+       "line": 6.5
       }
      ]
     }
