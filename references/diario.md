@@ -19,6 +19,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 |---|---|---|---|---|---|
 | 13/11 | Pelicans menos de 116.5 pts (Team Total) | 55% | 69% | $10 → $18 | GANHOU (111 pts) |
 | 13/11 | Warriors mais de 102.5 pts (Team Total), contra a onda: 108 pts sem Curry na quarta | 51% | 59% | $5 → $10 | PERDEU (85 pts; Spurs 123) |
+| 14/11 | TESTE fora da regra: Bulls menos de 111.5 (ao vivo, Bulls 31×19 no 2º quarto; tese pré-jogo era 104 pts) | 58% | 64% | $2 → $3 | em jogo |
 
 Acumulado (método novo): 2 dicas, 1 certa (50%). Apostado $15, recebido $18, lucro +$3. Chance prometida média 64%, acerto 50% (amostra pequena).
 
