@@ -29,7 +29,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 | 13/11 | Warriors mais de 102.5 pts (Team Total), contra a onda: 108 pts sem Curry na quarta | 51% | 59% | $5 → $10 | PERDEU (85 pts; Spurs 123) |
 | 14/11 | TESTE fora da regra: Bulls menos de 111.5 (ao vivo, Bulls 31×19 no 2º quarto; tese pré-jogo era 104 pts) | 58% | 64% | $2 → $3 | PERDEU (Bulls fez 113+; venceu fora) |
 
-Acumulado (método novo): 2 dicas, 1 certa (50%). Apostado $15, recebido $18, lucro +$3. Chance prometida média 64%, acerto 50% (amostra pequena).
+Acumulado (método novo): 3 apostas, 1 certa (33%). Apostado $17, recebido $18, lucro +$1. Chance prometida média 64%, acerto 33% (amostra pequena; atenção à calibração).
 
 ## Lições
 - 12/11 — Método antigo: o modelo usava 50% do preço do mercado, então seguia os sites. As linhas principais
@@ -43,3 +43,6 @@ Acumulado (método novo): 2 dicas, 1 certa (50%). Apostado $15, recebido $18, lu
 
 ## Estudo
 - 14/11 — Back-to-back. Em 20 mil jogos, o time no 2º jogo seguido arremessa pior, pega menos rebote ofensivo e joga mais devagar; efeito pequeno (0,5-2%) mas real (Economist Writing Every Day / Aicardi). O efeito maior é no visitante: cerca de 3 pontos por 100 posses a menos no ataque fora de casa com pouco descanso (Grantland, Ezekowitz). Mandante em back-to-back quase não perde. Uso: descontar ~3 pontos do visitante em back-to-back; mandante, ~0-1.
+- 14/11 — Bulls (teste ao vivo, fora da regra): fez 117. A tese do cansaço valeu por um quarto e meio; o mercado (110) acertou mais que eu (104). Virou regra (nada ao vivo; narrativa sozinha não é tese).
+- 15/11 — NFL e vento. Vento sustentado abaixo de ~10 mph quase não muda o placar; acima de 15-20 mph o passe e o chute caem bastante, e o efeito dobra acima de 20 mph (Covers; DeucesCracked). Sozinho, um guia estima ~-4 pontos no total com 20 mph. Rajada não é vento sustentado: ESPN só dá rajada. Uso: só considerar under/team total under com vento sustentado de 18+ mph confirmado, e ver se a linha já caiu.
+- 15/11 — Sem dica real: Bills x Jets tem rajadas de 27 mph, mas sem vento sustentado confirmado minha diferença para o mercado ficou abaixo de 4 pontos (regra 4).
