@@ -351,6 +351,27 @@
      "app_text": "Yes · GS Warriors over 102.5 points"
     }
    ]
+  },
+  {
+   "id": 13,
+   "date": "2026-11-14",
+   "app": "Kalshi",
+   "label": "Teste: Bulls menos de 111.5 pts (ao vivo, fora da regra)",
+   "price": 0.578,
+   "model": 0.64,
+   "test": true,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261114",
+     "eid": "401909984",
+     "pick": "Bulls",
+     "opp": "Timberwolves",
+     "k": "tunder",
+     "line": 111.5,
+     "app_text": "No · CHI Bulls over 111.5 points"
+    }
+   ]
   }
  ]
 }
