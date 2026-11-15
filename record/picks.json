@@ -372,6 +372,127 @@
      "app_text": "No · CHI Bulls over 111.5 points"
     }
    ]
+  },
+  {
+   "id": 14,
+   "date": "2026-11-15",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: combo de 3 (Rams, Bengals, 49ers)",
+   "price": 0.3588,
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873061",
+     "pick": "Rams",
+     "opp": "Cardinals",
+     "k": "ml",
+     "app_text": "LA Rams to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873064",
+     "pick": "Bengals",
+     "opp": "Steelers",
+     "k": "ml",
+     "app_text": "CIN Bengals to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873063",
+     "pick": "49ers",
+     "opp": "Cowboys",
+     "k": "ml",
+     "app_text": "SF 49ers to win"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "date": "2026-11-15",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: combo de 4 (Bills, Texans, Jaguars, Seahawks)",
+   "price": 0.3303,
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873054",
+     "pick": "Bills",
+     "opp": "Jets",
+     "k": "ml",
+     "app_text": "BUF Bills to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873056",
+     "pick": "Texans",
+     "opp": "Browns",
+     "k": "ml",
+     "app_text": "HOU Texans to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873057",
+     "pick": "Jaguars",
+     "opp": "Titans",
+     "k": "ml",
+     "app_text": "JAC Jaguars to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873062",
+     "pick": "Seahawks",
+     "opp": "Raiders",
+     "k": "ml",
+     "app_text": "SEA Seahawks to win"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "date": "2026-11-15",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: Bills vencem",
+   "price": 0.8109,
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873054",
+     "pick": "Bills",
+     "opp": "Jets",
+     "k": "ml",
+     "app_text": "Yes · BUF Bills"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "date": "2026-11-15",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: Chiefs vencem",
+   "price": 0.6562,
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261115",
+     "eid": "401873058",
+     "pick": "Chiefs",
+     "opp": "Falcons",
+     "k": "ml",
+     "app_text": "Yes · KC Chiefs"
+    }
+   ]
   }
  ]
 }
