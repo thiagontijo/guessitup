@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-15T15:33:27Z",
+ "updated": "2026-11-16T15:34:18Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -1058,7 +1058,12 @@
        "t": "2026-11-15T21:25:00Z",
        "p": 0.58,
        "k": "under",
-       "line": 55.5
+       "line": 55.5,
+       "sc": [
+        40,
+        46
+       ],
+       "r": "l"
       }
      ]
     },
@@ -1076,7 +1081,12 @@
        "t": "2026-11-15T18:00:00Z",
        "p": 0.58,
        "k": "spread",
-       "line": 4.5
+       "line": 4.5,
+       "sc": [
+        22,
+        24
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1094,7 +1104,12 @@
        "t": "2026-11-15T21:30:00Z",
        "p": 0.64,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        113,
+        105
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1112,7 +1127,12 @@
        "t": "2026-11-16T02:00:00Z",
        "p": 0.59,
        "k": "under",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        4,
+        2
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1130,7 +1150,12 @@
        "t": "2026-11-15T21:25:00Z",
        "p": 0.58,
        "k": "under",
-       "line": 55.5
+       "line": 55.5,
+       "sc": [
+        40,
+        46
+       ],
+       "r": "l"
       },
       {
        "lg": "nfl",
@@ -1139,7 +1164,12 @@
        "t": "2026-11-15T18:00:00Z",
        "p": 0.58,
        "k": "spread",
-       "line": 4.5
+       "line": 4.5,
+       "sc": [
+        22,
+        24
+       ],
+       "r": "w"
       },
       {
        "lg": "nba",
@@ -1148,7 +1178,12 @@
        "t": "2026-11-15T21:30:00Z",
        "p": 0.64,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        113,
+        105
+       ],
+       "r": "w"
       },
       {
        "lg": "nhl",
@@ -1157,7 +1192,155 @@
        "t": "2026-11-16T02:00:00Z",
        "p": 0.59,
        "k": "under",
+       "line": 6.5,
+       "sc": [
+        4,
+        2
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "say": {
+    "chico": {
+     "pt": "Só uma hoje: Nuggets em casa contra o Suns, 75% no meu modelo. Sem lesão nova nesse jogo.",
+     "en": "Only one today: Nuggets at home vs the Suns, 75% in my model. No new injury in this game.",
+     "es": "Solo una hoy: Nuggets en casa contra los Suns, 75% en mi modelo. Sin lesión nueva en este partido."
+    },
+    "arnaldo": {
+     "pt": "Fugi dos 5 jogos com lesão nova. Fico com os azarões que meu modelo acha baratos (Nets +5.5, Suns +9.5, Canucks +1.5) e o Under no Rangers.",
+     "en": "I skipped the 5 games with new injuries. I take the underdogs my model sees as cheap (Nets +5.5, Suns +9.5, Canucks +1.5) and the Under in the Rangers game.",
+     "es": "Evité los 5 partidos con lesión nueva. Me quedo con los underdogs baratos para mi modelo (Nets +5.5, Suns +9.5, Canucks +1.5) y el Under en el de los Rangers."
+    },
+    "herman": {
+     "pt": "Azarão de valor: Chargers (0-8, mas o Ravens está no 3º quarterback) e Canucks. Pago pouco, recebo muito se der.",
+     "en": "Value underdogs: Chargers (0-8, but the Ravens are on their 3rd quarterback) and Canucks. Small stake, big payout if they hit.",
+     "es": "Underdogs de valor: Chargers (0-8, pero los Ravens van con su 3er quarterback) y Canucks. Poco riesgo, mucho premio si salen."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 33,
+     "bot": "chico",
+     "stake": 20.02,
+     "payout": 25.02,
+     "p": 0.75,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Nuggets",
+       "opp": "Suns",
+       "t": "2026-11-17T02:00:00Z",
+       "p": 0.75
+      }
+     ]
+    },
+    {
+     "id": 34,
+     "bot": "arnaldo",
+     "stake": 32.1,
+     "payout": 60.57,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Nets",
+       "opp": "76ers",
+       "t": "2026-11-17T00:30:00Z",
+       "p": 0.6,
+       "k": "spread",
+       "line": 5.5
+      }
+     ]
+    },
+    {
+     "id": 35,
+     "bot": "arnaldo",
+     "stake": 32.1,
+     "payout": 61.73,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Suns",
+       "opp": "Nuggets",
+       "t": "2026-11-17T02:00:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 9.5
+      }
+     ]
+    },
+    {
+     "id": 36,
+     "bot": "arnaldo",
+     "stake": 32.1,
+     "payout": 56.32,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Rangers",
+       "opp": "Canadiens",
+       "t": "2026-11-17T00:30:00Z",
+       "p": 0.6,
+       "k": "under",
        "line": 6.5
+      }
+     ]
+    },
+    {
+     "id": 37,
+     "bot": "arnaldo",
+     "stake": 32.1,
+     "payout": 68.3,
+     "p": 0.55,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Canucks",
+       "opp": "Mammoth",
+       "t": "2026-11-17T02:30:00Z",
+       "p": 0.55,
+       "k": "spread",
+       "line": 1.5
+      }
+     ]
+    },
+    {
+     "id": 38,
+     "bot": "herman",
+     "stake": 10.57,
+     "payout": 30.2,
+     "p": 0.42,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Chargers",
+       "opp": "Ravens",
+       "t": "2026-11-17T01:15:00Z",
+       "p": 0.42
+      }
+     ]
+    },
+    {
+     "id": 39,
+     "bot": "herman",
+     "stake": 10.57,
+     "payout": 39.15,
+     "p": 0.33,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Canucks",
+       "opp": "Mammoth",
+       "t": "2026-11-17T02:30:00Z",
+       "p": 0.33
       }
      ]
     }
