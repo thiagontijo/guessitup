@@ -493,6 +493,43 @@
      "app_text": "Yes · KC Chiefs"
     }
    ]
+  },
+  {
+   "id": 18,
+   "date": "2026-11-16",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: combo de 3 (Celtics, Nuggets, Ravens)",
+   "price": 0.4342,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261116",
+     "eid": "401909994",
+     "pick": "Celtics",
+     "opp": "Magic",
+     "k": "ml",
+     "app_text": "BOS Celtics to win"
+    },
+    {
+     "lg": "nba",
+     "d": "20261116",
+     "eid": "401910001",
+     "pick": "Nuggets",
+     "opp": "Suns",
+     "k": "ml",
+     "app_text": "DEN Nuggets to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261116",
+     "eid": "401873065",
+     "pick": "Ravens",
+     "opp": "Chargers",
+     "k": "ml",
+     "app_text": "BAL Ravens to win"
+    }
+   ]
   }
  ]
 }
