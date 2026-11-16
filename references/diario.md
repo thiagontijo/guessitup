@@ -29,6 +29,9 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 | 13/11 | Warriors mais de 102.5 pts (Team Total), contra a onda: 108 pts sem Curry na quarta | 51% | 59% | $5 → $10 | PERDEU (85 pts; Spurs 123) |
 | 14/11 | TESTE fora da regra: Bulls menos de 111.5 (ao vivo, Bulls 31×19 no 2º quarto; tese pré-jogo era 104 pts) | 58% | 64% | $2 → $3 | PERDEU (Bulls fez 113+; venceu fora) |
 
+| 15/11 | Sem dica real (regra 4 no Bills x Jets) | — | — | — | — |
+| 16/11 | Sem dica real: nenhum jogo passou nas regras 2 e 4 | — | — | — | — |
+
 Acumulado (método novo): 3 apostas, 1 certa (33%). Apostado $17, recebido $18, lucro +$1. Chance prometida média 64%, acerto 33% (amostra pequena; atenção à calibração).
 
 ## Lições
@@ -41,8 +44,12 @@ Acumulado (método novo): 3 apostas, 1 certa (33%). Apostado $17, recebido $18, 
 - 13/11 — Pelicans: a tese acertou o número em cheio (projeção 111, placar 111). Lesões confirmadas + box scores recentes SEM os desfalques foram a base certa. O 2º quarto de 35 pontos assustou; o 4º quarto com reservas segurou.
 - 13/11 — Warriors: 1 jogo sem o Curry era pouca prova, e o handicap de 12.5 já avisava o risco de surra. O Spurs abriu 24 no 1º quarto; Warriors fez 85. Virou regra (azarão grande).
 
+- 15/11 — Apostas do próprio Thiago (não são dicas minhas, ficam fora do placar acima): Chiefs ganhou ($5→$8), Bills ganhou ($10→$12), combo de 3 ganhou com o Bengals 38-18 ($10→$28), combo de 4 perdeu no Texans ($10). Dia dele: $35 apostado, $48 recebido, +$13. Lição: combo de 4 morre em 1 perna; a de 3 passou porque eram 3 favoritos com folga.
+- 16/11 — Autocrítica da semana (seg): dicas reais 3, 1 certa, +$1; prometi 64% de média e acertei 33%. Os 2 erros (Warriors, Bulls) quebraram o que hoje é regra (pouca prova sem o jogador; ao vivo por narrativa). Bots: Arnaldo +7%, Herman +6%, Chico zero (aposta pouco). Ajuste: regras duras de 15/11 seguem; hoje elas barraram tudo (Warriors só 2 jogos sem Curry; Pelicans com 4 desfalques novos; Chargers x Ravens com projeção a menos de 4 pts do mercado).
+
 ## Estudo
 - 14/11 — Back-to-back. Em 20 mil jogos, o time no 2º jogo seguido arremessa pior, pega menos rebote ofensivo e joga mais devagar; efeito pequeno (0,5-2%) mas real (Economist Writing Every Day / Aicardi). O efeito maior é no visitante: cerca de 3 pontos por 100 posses a menos no ataque fora de casa com pouco descanso (Grantland, Ezekowitz). Mandante em back-to-back quase não perde. Uso: descontar ~3 pontos do visitante em back-to-back; mandante, ~0-1.
 - 14/11 — Bulls (teste ao vivo, fora da regra): fez 117. A tese do cansaço valeu por um quarto e meio; o mercado (110) acertou mais que eu (104). Virou regra (nada ao vivo; narrativa sozinha não é tese).
 - 15/11 — NFL e vento. Vento sustentado abaixo de ~10 mph quase não muda o placar; acima de 15-20 mph o passe e o chute caem bastante, e o efeito dobra acima de 20 mph (Covers; DeucesCracked). Sozinho, um guia estima ~-4 pontos no total com 20 mph. Rajada não é vento sustentado: ESPN só dá rajada. Uso: só considerar under/team total under com vento sustentado de 18+ mph confirmado, e ver se a linha já caiu.
 - 15/11 — Sem dica real: Bills x Jets tem rajadas de 27 mph, mas sem vento sustentado confirmado minha diferença para o mercado ficou abaixo de 4 pontos (regra 4).
+- 16/11 — NHL: goleiro titular e back-to-back. Goleiro que joga as 2 noites seguidas perde cerca de 1 ponto de defesa (~.010 de save%) segundo o estudo do Eric Tulsky (NHL.com/Kraken). O reserva descansado não é desastre: o time costuma se fechar mais, e o mercado exagera quando o titular senta fora de back-to-back (theScore; Action Network). O que muda: em total de gols da NHL, só analisar depois do goleiro confirmado (sai ~1 h antes); titular no 2º jogo seguido = +0,2 a +0,3 gol para o adversário; reserva de nível de reposição (GSAx negativo) pesa mais que o cansaço.
