@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-16T15:34:18Z",
+ "updated": "2026-11-17T15:32:45Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -1236,7 +1236,12 @@
        "pick": "Nuggets",
        "opp": "Suns",
        "t": "2026-11-17T02:00:00Z",
-       "p": 0.75
+       "p": 0.75,
+       "sc": [
+        105,
+        117
+       ],
+       "r": "l"
       }
      ]
     },
@@ -1254,7 +1259,12 @@
        "t": "2026-11-17T00:30:00Z",
        "p": 0.6,
        "k": "spread",
-       "line": 5.5
+       "line": 5.5,
+       "sc": [
+        123,
+        135
+       ],
+       "r": "l"
       }
      ]
     },
@@ -1272,7 +1282,12 @@
        "t": "2026-11-17T02:00:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 9.5
+       "line": 9.5,
+       "sc": [
+        117,
+        105
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1290,7 +1305,12 @@
        "t": "2026-11-17T00:30:00Z",
        "p": 0.6,
        "k": "under",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        3,
+        1
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1308,7 +1328,12 @@
        "t": "2026-11-17T02:30:00Z",
        "p": 0.55,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        3,
+        2
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1324,7 +1349,12 @@
        "pick": "Chargers",
        "opp": "Ravens",
        "t": "2026-11-17T01:15:00Z",
-       "p": 0.42
+       "p": 0.42,
+       "sc": [
+        23,
+        20
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1340,7 +1370,153 @@
        "pick": "Canucks",
        "opp": "Mammoth",
        "t": "2026-11-17T02:30:00Z",
-       "p": 0.33
+       "p": 0.33,
+       "sc": [
+        3,
+        2
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "say": {
+    "arnaldo": {
+     "pt": "Fugi dos 3 jogos de NBA com lesão nova. Fico no Under do Wild, nos azarões +1.5 da NHL e no Under do Blazers x Wolves (ontem deu 204).",
+     "en": "I skipped the 3 NBA games with new injuries. I take the Wild Under, two NHL +1.5 underdogs and the Under in Blazers at Wolves (204 last night).",
+     "es": "Evité los 3 partidos de NBA con lesión nueva. Me quedo con el Under del Wild, dos underdogs +1.5 de la NHL y el Under de Blazers en Wolves (anoche fueron 204)."
+    },
+    "herman": {
+     "pt": "Combo de 4 na NHL, todos +1.5 que meu modelo acha baratos. Paga mais de 4 vezes.",
+     "en": "A 4-leg NHL combo, all +1.5 lines my model sees as cheap. It pays more than 4 times.",
+     "es": "Combo de 4 en la NHL, todos +1.5 que mi modelo ve baratos. Paga más de 4 veces."
+    }
+   },
+   "skip": {
+    "chico": {
+     "pt": "Nada acima de 70% que pague alguma coisa hoje; os favoritos grandes estão em jogos com lesão nova ou no college a 95%.",
+     "en": "Nothing above 70% pays anything today; the big favorites are in games with new injuries or college games at 95%.",
+     "es": "Nada por encima de 70% paga algo hoy; los grandes favoritos están en partidos con lesión nueva o en college al 95%."
+    }
+   },
+   "bets": [
+    {
+     "id": 40,
+     "bot": "arnaldo",
+     "stake": 33.84,
+     "payout": 59.37,
+     "p": 0.63,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Wild",
+       "opp": "Predators",
+       "t": "2026-11-18T01:00:00Z",
+       "p": 0.63,
+       "k": "under",
+       "line": 6.5
+      }
+     ]
+    },
+    {
+     "id": 41,
+     "bot": "arnaldo",
+     "stake": 33.84,
+     "payout": 50.51,
+     "p": 0.72,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Ducks",
+       "opp": "Blues",
+       "t": "2026-11-18T01:00:00Z",
+       "p": 0.72,
+       "k": "spread",
+       "line": 1.5
+      }
+     ]
+    },
+    {
+     "id": 42,
+     "bot": "arnaldo",
+     "stake": 33.84,
+     "payout": 47.66,
+     "p": 0.75,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Oilers",
+       "opp": "Panthers",
+       "t": "2026-11-18T00:00:00Z",
+       "p": 0.75,
+       "k": "spread",
+       "line": 1.5
+      }
+     ]
+    },
+    {
+     "id": 43,
+     "bot": "arnaldo",
+     "stake": 33.84,
+     "payout": 65.08,
+     "p": 0.56,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Timberwolves",
+       "opp": "Trail Blazers",
+       "t": "2026-11-18T01:00:00Z",
+       "p": 0.56,
+       "k": "under",
+       "line": 228.5
+      }
+     ]
+    },
+    {
+     "id": 44,
+     "bot": "herman",
+     "stake": 11.05,
+     "payout": 46.74,
+     "p": 0.2917,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Oilers",
+       "opp": "Panthers",
+       "t": "2026-11-18T00:00:00Z",
+       "p": 0.75,
+       "k": "spread",
+       "line": 1.5
+      },
+      {
+       "lg": "nhl",
+       "pick": "Ducks",
+       "opp": "Blues",
+       "t": "2026-11-18T01:00:00Z",
+       "p": 0.72,
+       "k": "spread",
+       "line": 1.5
+      },
+      {
+       "lg": "nhl",
+       "pick": "Flyers",
+       "opp": "Sabres",
+       "t": "2026-11-18T00:00:00Z",
+       "p": 0.74,
+       "k": "spread",
+       "line": 1.5
+      },
+      {
+       "lg": "nhl",
+       "pick": "Jets",
+       "opp": "Senators",
+       "t": "2026-11-18T00:00:00Z",
+       "p": 0.73,
+       "k": "spread",
+       "line": 1.5
       }
      ]
     }
