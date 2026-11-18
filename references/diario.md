@@ -31,9 +31,9 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 
 | 15/11 | Sem dica real (regra 4 no Bills x Jets) | — | — | — | — |
 | 16/11 | Sem dica real: nenhum jogo passou nas regras 2 e 4 | — | — | — | — |
-| 17/11 | Blazers menos de ~113.5 pts (Team Total) em Minnesota, revanche no 2º jogo seguido; projeção 106 (5 jogos sem Morant: 112 de média; Wolves em casa sofre ~102; ontem 98) | a conferir | 75% (113.5) | $5 | aberta |
+| 17/11 | Blazers menos de ~113.5 pts (Team Total) em Minnesota, revanche no 2º jogo seguido; projeção 106 (5 jogos sem Morant: 112 de média; Wolves em casa sofre ~102; ontem 98) | 47% (111.5) | 69% (111.5) | $5 | GANHOU (Blazers 105; projeção 106) |
 
-Acumulado (método novo): 3 apostas, 1 certa (33%). Apostado $17, recebido $18, lucro +$1. Chance prometida média 64%, acerto 33% (amostra pequena; atenção à calibração).
+Acumulado (método novo): dicas indicadas 4, certas 2 (50%); chance prometida média 65%. Dinheiro das que ele apostou: $17 → $18 (+$1) até 16/11; em 17/11 ele apostou por engano no Wolves menos de 113.5 (44¢, também ganharia: Wolves 106) — confirmar se vendeu e se pegou a do Blazers.
 
 ## Lições
 - 12/11 — Método antigo: o modelo usava 50% do preço do mercado, então seguia os sites. As linhas principais
@@ -50,6 +50,9 @@ Acumulado (método novo): 3 apostas, 1 certa (33%). Apostado $17, recebido $18, 
 
 - 16/11 — Combo do Thiago (Celtics + Nuggets + Ravens, $10 → $23) perdeu as 3 pernas: Magic ganhou em Boston 115-105, Suns ganhou em Denver 117-105, Chargers ganhou 23-20. Os azarões de valor dos bots (Chargers, Canucks, Suns +9.5) acertaram todos. Lição: favorito de 77-79% ainda perde 1 em 4-5; 3 juntos = 41%. E onde meu modelo discordava do mercado (Ravens 61% x 68%), a perna caiu. Antes de combo de favoritos, olhar se algum está superestimado.
 
+- 17/11 — Blazers menos pontos: a tese acertou quase em cheio (projeção 106, placar 105; Wolves 106-105). Base certa: 5 jogos sem o Morant + defesa do Wolves em casa + revanche no 2º jogo seguido; o mercado chegou a subir o total para 228.5 e depois desceu a 226.5. Lição de execução: o Thiago tocou na linha do time errado (Wolves). Na dica, escrever o texto exato do tíquete ("No · POR Trail Blazers over 111.5") para ele conferir.
+- 17/11 — Combo 19 do Thiago (Lakers, Spurs, Wolves, Clippers) perdeu no Spurs (93-105 Pistons); Clippers também perdeu (107-132). Eram os 4 jogos com lesão nova que eu e os bots evitamos.
+
 ## Estudo
 - 14/11 — Back-to-back. Em 20 mil jogos, o time no 2º jogo seguido arremessa pior, pega menos rebote ofensivo e joga mais devagar; efeito pequeno (0,5-2%) mas real (Economist Writing Every Day / Aicardi). O efeito maior é no visitante: cerca de 3 pontos por 100 posses a menos no ataque fora de casa com pouco descanso (Grantland, Ezekowitz). Mandante em back-to-back quase não perde. Uso: descontar ~3 pontos do visitante em back-to-back; mandante, ~0-1.
 - 14/11 — Bulls (teste ao vivo, fora da regra): fez 117. A tese do cansaço valeu por um quarto e meio; o mercado (110) acertou mais que eu (104). Virou regra (nada ao vivo; narrativa sozinha não é tese).
@@ -57,3 +60,4 @@ Acumulado (método novo): 3 apostas, 1 certa (33%). Apostado $17, recebido $18, 
 - 15/11 — Sem dica real: Bills x Jets tem rajadas de 27 mph, mas sem vento sustentado confirmado minha diferença para o mercado ficou abaixo de 4 pontos (regra 4).
 - 16/11 — NHL: goleiro titular e back-to-back. Goleiro que joga as 2 noites seguidas perde cerca de 1 ponto de defesa (~.010 de save%) segundo o estudo do Eric Tulsky (NHL.com/Kraken). O reserva descansado não é desastre: o time costuma se fechar mais, e o mercado exagera quando o titular senta fora de back-to-back (theScore; Action Network). O que muda: em total de gols da NHL, só analisar depois do goleiro confirmado (sai ~1 h antes); titular no 2º jogo seguido = +0,2 a +0,3 gol para o adversário; reserva de nível de reposição (GSAx negativo) pesa mais que o cansaço.
 - 17/11 — Tênis em quadra coberta (ATP Finals, Turim): quadra dura indoor favorece saque e pontos curtos, sem vento nem sol (Drop Shot). Em 2023 os jogadores confirmaram o saque 84% das vezes nas primeiras partidas (Brain Game Tennis). O que muda: em Turim, total de games tende a subir (mais tie-breaks); linha de "menos games" só com sacador fraco ou adversário que devolve muito bem; procurar "tie-break no 1º set" quando dois grandes sacadores se enfrentam.
+- 18/11 — College basquete em novembro: favoritos de 20+ pontos em quadra neutra em nov/dez ganham quase sempre (94-2) mas cobrem só 38% do handicap (VSiN, desde 2010). Novembro é o melhor mês para o "menos pontos" no college (Unders 1.421-1.269 em 5 temporadas; cfb51/Vegas). O que muda: no college, desconfiar de favorito gigante no handicap e preferir "menos pontos" em jogo cedo na temporada; o modelo de temporada dos bots ainda é fraco aqui (poucos jogos).
