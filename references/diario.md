@@ -15,6 +15,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
   5. Nada de aposta ao vivo nem "teste fora da regra". Ao vivo só para acompanhar.
   6. Valor fixo de $5 por dica; nunca 2 dicas no mesmo jogo ou com a mesma tese.
   7. Calibração: depois de cada dica, registrar chance prometida e resultado; a cada 10 dicas, comparar (prometido x acertado). Se errar a própria chance por mais de 10 pontos, encolher todas as chances na mesma proporção.
+- 18/11 (pedido do Thiago: "apostar pouco todos os dias para treinarmos"): TODO dia ter 1 "aposta de treino" de $2-3, separada da dica real. Mesmo método (notícia, número, mercado fora do principal, tese escrita, tabela de preço máximo = chance − 8), mas aceita diferença de 3+ pontos para o mercado (a dica real segue com 4+ e $5). Marcar como "treino" no Histórico. Nada de combo nem ao vivo. Se a dica real do dia existir, o treino é outro jogo.
 - 14/11: azarão de 10+ pontos no handicap: nada de "mais pontos" para ele (surra derruba o placar do azarão). Para esse time, olhar o "menos pontos".
 - 14/11: time visitante no 2º jogo de back-to-back (ainda mais depois de prorrogação): descontar ~3 pontos do total dele.
 - Notícia antes de número (relatório oficial de lesões, descanso, viagem, técnico).
