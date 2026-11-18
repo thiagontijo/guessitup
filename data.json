@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-17T15:32:45Z",
+ "updated": "2026-11-18T15:32:50Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -1417,7 +1417,12 @@
        "t": "2026-11-18T01:00:00Z",
        "p": 0.63,
        "k": "under",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        7,
+        3
+       ],
+       "r": "l"
       }
      ]
     },
@@ -1435,7 +1440,12 @@
        "t": "2026-11-18T01:00:00Z",
        "p": 0.72,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        6,
+        8
+       ],
+       "r": "l"
       }
      ]
     },
@@ -1453,7 +1463,12 @@
        "t": "2026-11-18T00:00:00Z",
        "p": 0.75,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        5,
+        2
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1471,7 +1486,12 @@
        "t": "2026-11-18T01:00:00Z",
        "p": 0.56,
        "k": "under",
-       "line": 228.5
+       "line": 228.5,
+       "sc": [
+        106,
+        105
+       ],
+       "r": "w"
       }
      ]
     },
@@ -1489,7 +1509,12 @@
        "t": "2026-11-18T00:00:00Z",
        "p": 0.75,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        5,
+        2
+       ],
+       "r": "w"
       },
       {
        "lg": "nhl",
@@ -1498,7 +1523,12 @@
        "t": "2026-11-18T01:00:00Z",
        "p": 0.72,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        6,
+        8
+       ],
+       "r": "l"
       },
       {
        "lg": "nhl",
@@ -1507,7 +1537,12 @@
        "t": "2026-11-18T00:00:00Z",
        "p": 0.74,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        4,
+        3
+       ],
+       "r": "w"
       },
       {
        "lg": "nhl",
@@ -1516,7 +1551,186 @@
        "t": "2026-11-18T00:00:00Z",
        "p": 0.73,
        "k": "spread",
+       "line": 1.5,
+       "sc": [
+        1,
+        2
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "say": {
+    "chico": {
+     "pt": "Só o Heat em casa contra um Bucks que fez 101 de média nos últimos 8. Pago caro, mas é o que eu faço.",
+     "en": "Only the Heat at home vs a Bucks team that scored 101 a game in the last 8. Expensive, but that is my style.",
+     "es": "Solo el Heat en casa contra unos Bucks que promedian 101 en los últimos 8. Caro, pero es mi estilo."
+    },
+    "arnaldo": {
+     "pt": "Under no Bucks x Heat (o ataque do Bucks está travado) e azarões com pontos: Houston, UConn, West Virginia e Avalanche +1.5.",
+     "en": "Under in Bucks at Heat (the Bucks offense is stuck) and underdogs with points: Houston, UConn, West Virginia and Avalanche +1.5.",
+     "es": "Under en Bucks-Heat (el ataque de los Bucks está trabado) y underdogs con puntos: Houston, UConn, West Virginia y Avalanche +1.5."
+    },
+    "herman": {
+     "pt": "Combo de 4 com os mesmos azarões do Arnaldo. Paga quase 10 vezes.",
+     "en": "A 4-leg combo with the same underdogs as Arnaldo. It pays almost 10 times.",
+     "es": "Combo de 4 con los mismos underdogs de Arnaldo. Paga casi 10 veces."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 45,
+     "bot": "chico",
+     "stake": 19.62,
+     "payout": 22.3,
+     "p": 0.85,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Heat",
+       "opp": "Bucks",
+       "t": "2026-11-19T00:00:00Z",
+       "p": 0.85
+      }
+     ]
+    },
+    {
+     "id": 46,
+     "bot": "arnaldo",
+     "stake": 33.16,
+     "payout": 62.57,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Heat",
+       "opp": "Bucks",
+       "t": "2026-11-19T00:00:00Z",
+       "p": 0.6,
+       "k": "under",
+       "line": 237.5
+      }
+     ]
+    },
+    {
+     "id": 47,
+     "bot": "arnaldo",
+     "stake": 33.16,
+     "payout": 63.77,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Houston",
+       "opp": "Florida",
+       "t": "2026-11-18T21:30:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 2.5
+      }
+     ]
+    },
+    {
+     "id": 48,
+     "bot": "arnaldo",
+     "stake": 33.16,
+     "payout": 62.57,
+     "p": 0.58,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "UConn",
+       "opp": "Arizona",
+       "t": "2026-11-19T02:00:00Z",
+       "p": 0.58,
+       "k": "spread",
+       "line": 3.5
+      }
+     ]
+    },
+    {
+     "id": 49,
+     "bot": "arnaldo",
+     "stake": 33.16,
+     "payout": 46.06,
+     "p": 0.77,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Avalanche",
+       "opp": "Mammoth",
+       "t": "2026-11-19T03:00:00Z",
+       "p": 0.77,
+       "k": "spread",
        "line": 1.5
+      }
+     ]
+    },
+    {
+     "id": 50,
+     "bot": "arnaldo",
+     "stake": 33.16,
+     "payout": 63.77,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "West Virginia",
+       "opp": "Kansas",
+       "t": "2026-11-19T00:30:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 8.5
+      }
+     ]
+    },
+    {
+     "id": 51,
+     "bot": "herman",
+     "stake": 10.94,
+     "payout": 106.21,
+     "p": 0.1451,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Houston",
+       "opp": "Florida",
+       "t": "2026-11-18T21:30:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 2.5
+      },
+      {
+       "lg": "ncaab",
+       "pick": "UConn",
+       "opp": "Arizona",
+       "t": "2026-11-19T02:00:00Z",
+       "p": 0.58,
+       "k": "spread",
+       "line": 3.5
+      },
+      {
+       "lg": "nhl",
+       "pick": "Avalanche",
+       "opp": "Mammoth",
+       "t": "2026-11-19T03:00:00Z",
+       "p": 0.77,
+       "k": "spread",
+       "line": 1.5
+      },
+      {
+       "lg": "ncaab",
+       "pick": "West Virginia",
+       "opp": "Kansas",
+       "t": "2026-11-19T00:30:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 8.5
       }
      ]
     }
