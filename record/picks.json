@@ -530,6 +530,52 @@
      "app_text": "BAL Ravens to win"
     }
    ]
+  },
+  {
+   "id": 19,
+   "date": "2026-11-17",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: combo de 4 (Lakers, Spurs, Wolves, Clippers)",
+   "price": 0.2476,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261117",
+     "eid": "401910005",
+     "pick": "Lakers",
+     "opp": "Hornets",
+     "k": "ml",
+     "app_text": "LA Lakers to win"
+    },
+    {
+     "lg": "nba",
+     "d": "20261117",
+     "eid": "401910004",
+     "pick": "Spurs",
+     "opp": "Pistons",
+     "k": "ml",
+     "app_text": "SA Spurs to win"
+    },
+    {
+     "lg": "nba",
+     "d": "20261117",
+     "eid": "401910003",
+     "pick": "Timberwolves",
+     "opp": "Trail Blazers",
+     "k": "ml",
+     "app_text": "MIN Timberwolves to win"
+    },
+    {
+     "lg": "nba",
+     "d": "20261117",
+     "eid": "401910006",
+     "pick": "Clippers",
+     "opp": "Jazz",
+     "k": "ml",
+     "app_text": "LA Clippers to win"
+    }
+   ]
   }
  ]
 }
