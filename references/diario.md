@@ -32,7 +32,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 
 | 15/11 | Sem dica real (regra 4 no Bills x Jets) | — | — | — | — |
 | 16/11 | Sem dica real: nenhum jogo passou nas regras 2 e 4 | — | — | — | — |
-| 19/11 | Blazers menos de ~119.5 pts (Team Total) em Milwaukee; projeção 116 (Blazers 112 nos 7 últimos, Bucks sofre 119); margem mínima (4 pts) | a conferir | 64% (119.5) | $5 | aberta |
+| 19/11 | Blazers menos de ~119.5 pts (Team Total) em Milwaukee; projeção 116 (Blazers 112 nos 7 últimos, Bucks sofre 119); margem mínima (4 pts) | — | — | — | CANCELADA na conferência das 18h45 (Bucks sem Myles Turner e Kuzma; mercado foi a 121, minha projeção a ~119) |
 | 17/11 | Blazers menos de ~113.5 pts (Team Total) em Minnesota, revanche no 2º jogo seguido; projeção 106 (5 jogos sem Morant: 112 de média; Wolves em casa sofre ~102; ontem 98) | 47% (111.5) | 69% (111.5) | $5 | GANHOU (Blazers 105; projeção 106) |
 
 Acumulado (método novo): dicas indicadas 4, certas 2 (50%); chance prometida média 65%. Dinheiro das que ele apostou: $17 → $18 (+$1) até 16/11; em 17/11 ele apostou por engano no Wolves menos de 113.5 (44¢, também ganharia: Wolves 106) — confirmar se vendeu e se pegou a do Blazers.
