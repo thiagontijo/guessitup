@@ -576,6 +576,26 @@
      "app_text": "LA Clippers to win"
     }
    ]
+  },
+  {
+   "id": 20,
+   "date": "2026-11-17",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Wolves menos de 113.5 (pegou por engano no lugar da dica Blazers)",
+   "price": 0.4878,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261117",
+     "eid": "401910003",
+     "pick": "Timberwolves",
+     "opp": "Trail Blazers",
+     "k": "tunder",
+     "line": 113.5,
+     "app_text": "No · MIN Timberwolves over 113.5"
+    }
+   ]
   }
  ]
 }
