@@ -596,6 +596,34 @@
      "app_text": "No · MIN Timberwolves over 113.5"
     }
    ]
+  },
+  {
+   "id": 21,
+   "date": "2026-11-19",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: combo de 2 (Knicks, Texans)",
+   "price": 0.4975,
+   "legs": [
+    {
+     "lg": "nba",
+     "d": "20261119",
+     "eid": "401910021",
+     "pick": "Knicks",
+     "opp": "Timberwolves",
+     "k": "ml",
+     "app_text": "NY Knicks to win"
+    },
+    {
+     "lg": "nfl",
+     "d": "20261119",
+     "eid": "401873066",
+     "pick": "Texans",
+     "opp": "Colts",
+     "k": "ml",
+     "app_text": "HOU Texans to win"
+    }
+   ]
   }
  ]
 }
