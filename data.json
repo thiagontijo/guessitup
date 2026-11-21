@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-20T15:32:56Z",
+ "updated": "2026-11-21T15:33:26Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -2055,14 +2055,24 @@
        "pick": "Oregon",
        "opp": "Michigan State",
        "t": "2026-11-21T01:00:00Z",
-       "p": 0.87
+       "p": 0.87,
+       "sc": [
+        45,
+        7
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaaf",
        "pick": "Duke",
        "opp": "Clemson",
        "t": "2026-11-21T00:30:00Z",
-       "p": 0.81
+       "p": 0.81,
+       "sc": [
+        10,
+        20
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2080,7 +2090,12 @@
        "t": "2026-11-21T01:00:00Z",
        "p": 0.59,
        "k": "spread",
-       "line": 17.5
+       "line": 17.5,
+       "sc": [
+        7,
+        45
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2096,7 +2111,12 @@
        "pick": "Bulls",
        "opp": "Wizards",
        "t": "2026-11-21T01:00:00Z",
-       "p": 0.6
+       "p": 0.6,
+       "sc": [
+        94,
+        98
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2114,7 +2134,12 @@
        "t": "2026-11-20T23:00:00Z",
        "p": 0.58,
        "k": "over",
-       "line": 48.5
+       "line": 48.5,
+       "sc": [
+        48,
+        17
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2132,7 +2157,12 @@
        "t": "2026-11-21T02:00:00Z",
        "p": 0.56,
        "k": "spread",
-       "line": 9.5
+       "line": 9.5,
+       "sc": [
+        24,
+        17
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2150,7 +2180,12 @@
        "t": "2026-11-21T01:00:00Z",
        "p": 0.59,
        "k": "spread",
-       "line": 17.5
+       "line": 17.5,
+       "sc": [
+        7,
+        45
+       ],
+       "r": "l"
       },
       {
        "lg": "ncaaf",
@@ -2159,7 +2194,12 @@
        "t": "2026-11-21T02:00:00Z",
        "p": 0.56,
        "k": "spread",
-       "line": 9.5
+       "line": 9.5,
+       "sc": [
+        24,
+        17
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaaf",
@@ -2168,7 +2208,12 @@
        "t": "2026-11-20T23:00:00Z",
        "p": 0.54,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        48,
+        17
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaaf",
@@ -2177,7 +2222,193 @@
        "t": "2026-11-21T00:30:00Z",
        "p": 0.55,
        "k": "spread",
-       "line": 12.5
+       "line": 12.5,
+       "sc": [
+        20,
+        10
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "say": {
+    "chico": {
+     "pt": "Combo de 2 bem seguro: Wake Forest e Liberty, os dois acima de 90%. Paga pouco, mas é o meu jeito.",
+     "en": "A safe 2-leg combo: Wake Forest and Liberty, both above 90%. Small payout, but that is my way.",
+     "es": "Combo de 2 muy seguro: Wake Forest y Liberty, ambos sobre 90%. Paga poco, pero es mi estilo."
+    },
+    "arnaldo": {
+     "pt": "Sábado de college: azarões com até 9 pontos (San José State, Baylor, TCU, Nebraska) e Over no North Carolina x Virginia. Fujo dos handicaps gigantes, que me queimaram.",
+     "en": "College Saturday: underdogs getting up to 9 points (San José State, Baylor, TCU, Nebraska) and the Over in North Carolina at Virginia. I avoid the huge spreads that burned me.",
+     "es": "Sábado de college: underdogs con hasta 9 puntos (San José State, Baylor, TCU, Nebraska) y el Over en North Carolina-Virginia. Evito los handicaps gigantes que me quemaron."
+    },
+    "herman": {
+     "pt": "Combo de 4 azarões do Arnaldo. Paga 13 vezes.",
+     "en": "A 4-leg combo with Arnaldo's underdogs. It pays 13 times.",
+     "es": "Combo de 4 con los underdogs de Arnaldo. Paga 13 veces."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 65,
+     "bot": "chico",
+     "stake": 18.9,
+     "payout": 21.85,
+     "p": 0.846,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "Wake Forest",
+       "opp": "Georgia Tech",
+       "t": "2026-11-21T17:00:00Z",
+       "p": 0.94
+      },
+      {
+       "lg": "ncaaf",
+       "pick": "Liberty",
+       "opp": "Western Kentucky",
+       "t": "2026-11-21T18:00:00Z",
+       "p": 0.9
+      }
+     ]
+    },
+    {
+     "id": 66,
+     "bot": "arnaldo",
+     "stake": 27.09,
+     "payout": 53.12,
+     "p": 0.56,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "San José State",
+       "opp": "UNLV",
+       "t": "2026-11-22T00:00:00Z",
+       "p": 0.56,
+       "k": "spread",
+       "line": 6.5
+      }
+     ]
+    },
+    {
+     "id": 67,
+     "bot": "arnaldo",
+     "stake": 27.09,
+     "payout": 51.11,
+     "p": 0.58,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "Virginia",
+       "opp": "North Carolina",
+       "t": "2026-11-21T17:30:00Z",
+       "p": 0.58,
+       "k": "over",
+       "line": 41.5
+      }
+     ]
+    },
+    {
+     "id": 68,
+     "bot": "arnaldo",
+     "stake": 27.09,
+     "payout": 51.11,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "Baylor",
+       "opp": "Texas Tech",
+       "t": "2026-11-21T20:30:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 5.5
+      }
+     ]
+    },
+    {
+     "id": 69,
+     "bot": "arnaldo",
+     "stake": 27.09,
+     "payout": 51.11,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "TCU",
+       "opp": "Utah",
+       "t": "2026-11-22T02:00:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 8.5
+      }
+     ]
+    },
+    {
+     "id": 70,
+     "bot": "arnaldo",
+     "stake": 27.09,
+     "payout": 51.11,
+     "p": 0.56,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "Nebraska",
+       "opp": "Ohio State",
+       "t": "2026-11-21T17:00:00Z",
+       "p": 0.56,
+       "k": "spread",
+       "line": 3.5
+      }
+     ]
+    },
+    {
+     "id": 71,
+     "bot": "herman",
+     "stake": 10.62,
+     "payout": 139.74,
+     "p": 0.1019,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "San José State",
+       "opp": "UNLV",
+       "t": "2026-11-22T00:00:00Z",
+       "p": 0.56,
+       "k": "spread",
+       "line": 6.5
+      },
+      {
+       "lg": "ncaaf",
+       "pick": "Baylor",
+       "opp": "Texas Tech",
+       "t": "2026-11-21T20:30:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 5.5
+      },
+      {
+       "lg": "ncaaf",
+       "pick": "TCU",
+       "opp": "Utah",
+       "t": "2026-11-22T02:00:00Z",
+       "p": 0.57,
+       "k": "spread",
+       "line": 8.5
+      },
+      {
+       "lg": "ncaaf",
+       "pick": "Nebraska",
+       "opp": "Ohio State",
+       "t": "2026-11-21T17:00:00Z",
+       "p": 0.56,
+       "k": "spread",
+       "line": 3.5
       }
      ]
     }
