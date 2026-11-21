@@ -16,6 +16,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
   6. Valor fixo de $5 por dica; nunca 2 dicas no mesmo jogo ou com a mesma tese.
   7. Calibração: depois de cada dica, registrar chance prometida e resultado; a cada 10 dicas, comparar (prometido x acertado). Se errar a própria chance por mais de 10 pontos, encolher todas as chances na mesma proporção.
 - 19/11 (pedido do Thiago: "ter um parâmetro de fazer aposta depois de começar para saber como nós saímos"): categoria AO VIVO-TESTE, separada. Só total de um time; só nos intervalos (fim do 1º quarto, intervalo, fim do 3º); $2 fixo; no máximo 1 por noite; conta pela fórmula livewp/total ao vivo (final ≈ pontos + minutos restantes × (0,5·ritmo do jogo + 0,5·projeção pré-jogo/48), desvio 11·raiz(restante/48)); só entra se minha chance − preço do Kalshi ≥ 8 pontos. Registrar como "ao vivo-teste" para medir à parte. A regra 5 segue valendo para as dicas reais.
+- 21/11 (calibração): projeção de total de um time passa a ser 60% o ataque do próprio time + 40% a defesa do adversário (antes 50/50). Defesa ruim recente regride mais do que eu contava (Nets sofria 130+ e segurou o Magic em 113).
 - 20/11 (bots): NHL +1.5 do azarão cobre ~60% no geral (Daily Faceoff); o app cobra 64-75%. Bots só vão de +1.5 na NHL se o preço for 60% ou menos. Arnaldo foi 2 de 6 nesse mercado.
 - 18/11 (pedido do Thiago: "apostar pouco todos os dias para treinarmos"): TODO dia ter 1 "aposta de treino" de $2-3, separada da dica real. Mesmo método (notícia, número, mercado fora do principal, tese escrita, tabela de preço máximo = chance − 8), mas aceita diferença de 3+ pontos para o mercado (a dica real segue com 4+ e $5). Marcar como "treino" no Histórico. Nada de combo nem ao vivo. Se a dica real do dia existir, o treino é outro jogo.
 - 14/11: azarão de 10+ pontos no handicap: nada de "mais pontos" para ele (surra derruba o placar do azarão). Para esse time, olhar o "menos pontos".
@@ -34,11 +35,11 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 
 | 15/11 | Sem dica real (regra 4 no Bills x Jets) | — | — | — | — |
 | 16/11 | Sem dica real: nenhum jogo passou nas regras 2 e 4 | — | — | — | — |
-| 20/11 | Magic MAIS de ~114.5 pts (Team Total) no Brooklyn; projeção 121 (Magic 114.5 nos 6 últimos; Nets sofreu 129, 135, 137 nos 3 últimos) | a conferir | 72% (114.5) | $5 | aberta |
+| 20/11 | Magic MAIS de ~114.5 pts (Team Total) no Brooklyn; projeção 121 (Magic 114.5 nos 6 últimos; Nets sofreu 129, 135, 137 nos 3 últimos) | — | 72% (114.5) | $5 | PERDEU (Magic 113, Nets 111) |
 | 19/11 | Blazers menos de ~119.5 pts (Team Total) em Milwaukee; projeção 116 (Blazers 112 nos 7 últimos, Bucks sofre 119); margem mínima (4 pts) | — | — | — | CANCELADA na conferência das 18h45 (Bucks sem Myles Turner e Kuzma; mercado foi a 121, minha projeção a ~119) |
 | 17/11 | Blazers menos de ~113.5 pts (Team Total) em Minnesota, revanche no 2º jogo seguido; projeção 106 (5 jogos sem Morant: 112 de média; Wolves em casa sofre ~102; ontem 98) | 47% (111.5) | 69% (111.5) | $5 | GANHOU (Blazers 105; projeção 106) |
 
-Acumulado (método novo): dicas indicadas 4, certas 2 (50%); chance prometida média 65%. Dinheiro das que ele apostou: $17 → $18 (+$1) até 16/11; em 17/11 ele apostou por engano no Wolves menos de 113.5 (44¢, também ganharia: Wolves 106) — confirmar se vendeu e se pegou a do Blazers.
+Acumulado (método novo): dicas indicadas 5, certas 2 (40%), 1 cancelada (teria perdido); chance prometida média 67%. Calibração ruim: prometo ~67% e acerto 40%. Dinheiro das que ele apostou: $17 → $18 (+$1) até 16/11; em 17/11 ele apostou por engano no Wolves menos de 113.5 (44¢, também ganharia: Wolves 106) — confirmar se vendeu e se pegou a do Blazers.
 
 ## Lições
 - 12/11 — Método antigo: o modelo usava 50% do preço do mercado, então seguia os sites. As linhas principais
@@ -62,6 +63,8 @@ Acumulado (método novo): dicas indicadas 4, certas 2 (50%); chance prometida m�
 
 - 19/11 — Dica Blazers CANCELADA na conferência (Bucks sem Turner): o Blazers fez 124, teria perdido. A conferência de 1 h antes salvou a dica. Treino Warriors menos de 109.5: Warriors fez 98 (teria ganhado; ele não confirmou se apostou). A conta ao vivo do fim do 1º quarto deu 98 para o Warriors: exata. Combo dele Knicks + Texans ganhou ($10 → $20). Bots: 0 de 7 (pior dia), quase tudo NHL +1.5 e azarão com pontos.
 
+- 20/11 — Magic MAIS de 114.5 PERDEU por 1,5 ponto (Magic 113, Nets 111). Minha projeção (121) errou 8 pontos: dei peso demais à defesa ruim recente do Nets, que em casa e com o jogo travado segurou o placar. Treino Hawks MAIS de 112.5 também perdeu por pouco (Hawks 111). Lição: os dois erros foram no mesmo sentido (eu superestimei pontos); mudar o peso para 60/40.
+
 ## Estudo
 - 14/11 — Back-to-back. Em 20 mil jogos, o time no 2º jogo seguido arremessa pior, pega menos rebote ofensivo e joga mais devagar; efeito pequeno (0,5-2%) mas real (Economist Writing Every Day / Aicardi). O efeito maior é no visitante: cerca de 3 pontos por 100 posses a menos no ataque fora de casa com pouco descanso (Grantland, Ezekowitz). Mandante em back-to-back quase não perde. Uso: descontar ~3 pontos do visitante em back-to-back; mandante, ~0-1.
 - 14/11 — Bulls (teste ao vivo, fora da regra): fez 117. A tese do cansaço valeu por um quarto e meio; o mercado (110) acertou mais que eu (104). Virou regra (nada ao vivo; narrativa sozinha não é tese).
@@ -72,3 +75,4 @@ Acumulado (método novo): dicas indicadas 4, certas 2 (50%); chance prometida m�
 - 18/11 — College basquete em novembro: favoritos de 20+ pontos em quadra neutra em nov/dez ganham quase sempre (94-2) mas cobrem só 38% do handicap (VSiN, desde 2010). Novembro é o melhor mês para o "menos pontos" no college (Unders 1.421-1.269 em 5 temporadas; cfb51/Vegas). O que muda: no college, desconfiar de favorito gigante no handicap e preferir "menos pontos" em jogo cedo na temporada; o modelo de temporada dos bots ainda é fraco aqui (poucos jogos).
 - 19/11 — NFL de quinta (semana curta): o "menos pontos" já foi forte (24-13 em 2021-22, Audacy) e segue levemente na frente (17-10 desde 2021, PFF), mas guias de 2026 dizem que o mercado já embutiu boa parte disso (DeucesCracked). O que muda: quinta à noite sozinha não é tese; só soma se houver outro motivo concreto (quarterback reserva, ataque fraco, viagem longa).
 - 20/11 — NHL puck line: o azarão +1.5 cobre por volta de 60% (Daily Faceoff, 2024-25); cerca de 1 em 4 jogos termina por 1 gol, e 20-25% dos jogos têm gol de goleiro vazio, quase sempre de quem já está na frente (Fox Sports). O que muda: +1.5 a 66-75% é caro; só vale abaixo de ~60% ou com tese de goleiro.
+- 21/11 — College futebol americano em novembro: a "motivação de chegar ao bowl" (times com 5 vitórias) é quase neutra no handicap, 52,6% desde 2005 (Action Network). Favoritos gigantes ganham, mas cobrem menos (Georgia de Kirby Smart: 68-3 como favorito de 10+ na SEC, só 36-34-1 no handicap; FanSided). O que muda: motivação sozinha não é tese; em favorito de 14+ no college, desconfiar do handicap, mas o modelo dos bots também exagera nos azarões grandes (perderam MSU +17.5, WVU +8.5, Colts +12.5).
