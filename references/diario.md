@@ -35,6 +35,8 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 
 | 15/11 | Sem dica real (regra 4 no Bills x Jets) | — | — | — | — |
 | 16/11 | Sem dica real: nenhum jogo passou nas regras 2 e 4 | — | — | — | — |
+| 22/11 | Bears MENOS de ~29.5 pts (Team Total) vs Saints, chuva em Chicago; projeção 23 (conta nova 60/40: Bears 25.8 nos 5 últimos, Saints sofre 21.6; chuva −1.5) | a conferir | 75% (29.5) | $5 | aberta |
+| 21/11 | Sem dica real (conta em ajuste após 2 erros no mesmo sentido) | — | — | — | — |
 | 20/11 | Magic MAIS de ~114.5 pts (Team Total) no Brooklyn; projeção 121 (Magic 114.5 nos 6 últimos; Nets sofreu 129, 135, 137 nos 3 últimos) | — | 72% (114.5) | $5 | PERDEU (Magic 113, Nets 111) |
 | 19/11 | Blazers menos de ~119.5 pts (Team Total) em Milwaukee; projeção 116 (Blazers 112 nos 7 últimos, Bucks sofre 119); margem mínima (4 pts) | — | — | — | CANCELADA na conferência das 18h45 (Bucks sem Myles Turner e Kuzma; mercado foi a 121, minha projeção a ~119) |
 | 17/11 | Blazers menos de ~113.5 pts (Team Total) em Minnesota, revanche no 2º jogo seguido; projeção 106 (5 jogos sem Morant: 112 de média; Wolves em casa sofre ~102; ontem 98) | 47% (111.5) | 69% (111.5) | $5 | GANHOU (Blazers 105; projeção 106) |
@@ -65,6 +67,8 @@ Acumulado (método novo): dicas indicadas 5, certas 2 (40%), 1 cancelada (teria 
 
 - 20/11 — Magic MAIS de 114.5 PERDEU por 1,5 ponto (Magic 113, Nets 111). Minha projeção (121) errou 8 pontos: dei peso demais à defesa ruim recente do Nets, que em casa e com o jogo travado segurou o placar. Treino Hawks MAIS de 112.5 também perdeu por pouco (Hawks 111). Lição: os dois erros foram no mesmo sentido (eu superestimei pontos); mudar o peso para 60/40.
 
+- 21/11 — Sem dica. Bots: Chico acertou (Wake + Liberty), Arnaldo 3 de 5 (Nebraska +3.5, Over UNC x UVA, San José State +6.5; perdeu Baylor e TCU). Os azarões de até 7 pontos acertaram; os de 8.5+ perderam de novo.
+
 ## Estudo
 - 14/11 — Back-to-back. Em 20 mil jogos, o time no 2º jogo seguido arremessa pior, pega menos rebote ofensivo e joga mais devagar; efeito pequeno (0,5-2%) mas real (Economist Writing Every Day / Aicardi). O efeito maior é no visitante: cerca de 3 pontos por 100 posses a menos no ataque fora de casa com pouco descanso (Grantland, Ezekowitz). Mandante em back-to-back quase não perde. Uso: descontar ~3 pontos do visitante em back-to-back; mandante, ~0-1.
 - 14/11 — Bulls (teste ao vivo, fora da regra): fez 117. A tese do cansaço valeu por um quarto e meio; o mercado (110) acertou mais que eu (104). Virou regra (nada ao vivo; narrativa sozinha não é tese).
@@ -76,3 +80,4 @@ Acumulado (método novo): dicas indicadas 5, certas 2 (40%), 1 cancelada (teria 
 - 19/11 — NFL de quinta (semana curta): o "menos pontos" já foi forte (24-13 em 2021-22, Audacy) e segue levemente na frente (17-10 desde 2021, PFF), mas guias de 2026 dizem que o mercado já embutiu boa parte disso (DeucesCracked). O que muda: quinta à noite sozinha não é tese; só soma se houver outro motivo concreto (quarterback reserva, ataque fraco, viagem longa).
 - 20/11 — NHL puck line: o azarão +1.5 cobre por volta de 60% (Daily Faceoff, 2024-25); cerca de 1 em 4 jogos termina por 1 gol, e 20-25% dos jogos têm gol de goleiro vazio, quase sempre de quem já está na frente (Fox Sports). O que muda: +1.5 a 66-75% é caro; só vale abaixo de ~60% ou com tese de goleiro.
 - 21/11 — College futebol americano em novembro: a "motivação de chegar ao bowl" (times com 5 vitórias) é quase neutra no handicap, 52,6% desde 2005 (Action Network). Favoritos gigantes ganham, mas cobrem menos (Georgia de Kirby Smart: 68-3 como favorito de 10+ na SEC, só 36-34-1 no handicap; FanSided). O que muda: motivação sozinha não é tese; em favorito de 14+ no college, desconfiar do handicap, mas o modelo dos bots também exagera nos azarões grandes (perderam MSU +17.5, WVU +8.5, Colts +12.5).
+- 22/11 — NFL com chuva: jogos com chuva no início marcam ~3 pontos a menos e o "menos pontos" bate 58% (Covers, banco OVERcast desde 2010); neve quase não muda. Conselho do mesmo autor: em jogo de chuva, esperar ter certeza da chuva antes de apostar. O que muda: chuva vale −1,5 ponto por time na minha conta, só se a previsão estiver firme na conferência de 1 h antes.
