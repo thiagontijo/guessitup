@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-21T15:33:26Z",
+ "updated": "2026-11-22T15:33:10Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -2266,14 +2266,24 @@
        "pick": "Wake Forest",
        "opp": "Georgia Tech",
        "t": "2026-11-21T17:00:00Z",
-       "p": 0.94
+       "p": 0.94,
+       "sc": [
+        50,
+        29
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaaf",
        "pick": "Liberty",
        "opp": "Western Kentucky",
        "t": "2026-11-21T18:00:00Z",
-       "p": 0.9
+       "p": 0.9,
+       "sc": [
+        45,
+        14
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2291,7 +2301,12 @@
        "t": "2026-11-22T00:00:00Z",
        "p": 0.56,
        "k": "spread",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        24,
+        22
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2309,7 +2324,12 @@
        "t": "2026-11-21T17:30:00Z",
        "p": 0.58,
        "k": "over",
-       "line": 41.5
+       "line": 41.5,
+       "sc": [
+        41,
+        24
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2327,7 +2347,12 @@
        "t": "2026-11-21T20:30:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 5.5
+       "line": 5.5,
+       "sc": [
+        10,
+        20
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2345,7 +2370,12 @@
        "t": "2026-11-22T02:00:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 8.5
+       "line": 8.5,
+       "sc": [
+        17,
+        38
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2363,7 +2393,12 @@
        "t": "2026-11-21T17:00:00Z",
        "p": 0.56,
        "k": "spread",
-       "line": 3.5
+       "line": 3.5,
+       "sc": [
+        31,
+        28
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2381,7 +2416,12 @@
        "t": "2026-11-22T00:00:00Z",
        "p": 0.56,
        "k": "spread",
-       "line": 6.5
+       "line": 6.5,
+       "sc": [
+        24,
+        22
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaaf",
@@ -2390,7 +2430,12 @@
        "t": "2026-11-21T20:30:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 5.5
+       "line": 5.5,
+       "sc": [
+        10,
+        20
+       ],
+       "r": "l"
       },
       {
        "lg": "ncaaf",
@@ -2399,7 +2444,12 @@
        "t": "2026-11-22T02:00:00Z",
        "p": 0.57,
        "k": "spread",
-       "line": 8.5
+       "line": 8.5,
+       "sc": [
+        17,
+        38
+       ],
+       "r": "l"
       },
       {
        "lg": "ncaaf",
@@ -2408,7 +2458,162 @@
        "t": "2026-11-21T17:00:00Z",
        "p": 0.56,
        "k": "spread",
-       "line": 3.5
+       "line": 3.5,
+       "sc": [
+        31,
+        28
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-22",
+   "say": {
+    "chico": {
+     "pt": "Combo de 2 favoritos em casa: Bills e Broncos.",
+     "en": "A 2-leg home favorites combo: Bills and Broncos.",
+     "es": "Combo de 2 favoritos en casa: Bills y Broncos."
+    },
+    "arnaldo": {
+     "pt": "Domingo de NFL: Under no Bucs x Lions, Panthers, Over no Raiders x Broncos e no Jets x Chargers, e Penguins +1.5 (a 57%, dentro da regra nova).",
+     "en": "NFL Sunday: Under in Bucs at Lions, Panthers, Over in Raiders at Broncos and Jets at Chargers, and Penguins +1.5 (at 57%, inside the new rule).",
+     "es": "Domingo de NFL: Under en Bucs-Lions, Panthers, Over en Raiders-Broncos y Jets-Chargers, y Penguins +1.5 (a 57%, dentro de la regla nueva)."
+    },
+    "herman": {
+     "pt": "Azarão de valor: Saints em Chicago debaixo de chuva. Pago pouco, recebo quase 6 vezes.",
+     "en": "Value underdog: Saints in Chicago in the rain. Small stake, almost 6 times back.",
+     "es": "Underdog de valor: Saints en Chicago bajo la lluvia. Poco riesgo, casi 6 veces."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 72,
+     "bot": "chico",
+     "stake": 18.95,
+     "payout": 23.45,
+     "p": 0.7553,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Bills",
+       "opp": "Dolphins",
+       "t": "2026-11-22T18:00:00Z",
+       "p": 0.91
+      },
+      {
+       "lg": "nfl",
+       "pick": "Broncos",
+       "opp": "Raiders",
+       "t": "2026-11-22T21:25:00Z",
+       "p": 0.83
+      }
+     ]
+    },
+    {
+     "id": 73,
+     "bot": "arnaldo",
+     "stake": 27.68,
+     "payout": 52.23,
+     "p": 0.62,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Lions",
+       "opp": "Buccaneers",
+       "t": "2026-11-22T18:00:00Z",
+       "p": 0.62,
+       "k": "under",
+       "line": 48.5
+      }
+     ]
+    },
+    {
+     "id": 74,
+     "bot": "arnaldo",
+     "stake": 27.68,
+     "payout": 46.92,
+     "p": 0.63,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Panthers",
+       "opp": "Ravens",
+       "t": "2026-11-22T18:00:00Z",
+       "p": 0.63
+      }
+     ]
+    },
+    {
+     "id": 75,
+     "bot": "arnaldo",
+     "stake": 27.68,
+     "payout": 52.23,
+     "p": 0.64,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Broncos",
+       "opp": "Raiders",
+       "t": "2026-11-22T21:25:00Z",
+       "p": 0.64,
+       "k": "over",
+       "line": 40.5
+      }
+     ]
+    },
+    {
+     "id": 76,
+     "bot": "arnaldo",
+     "stake": 27.68,
+     "payout": 53.23,
+     "p": 0.57,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Chargers",
+       "opp": "Jets",
+       "t": "2026-11-22T21:05:00Z",
+       "p": 0.57,
+       "k": "over",
+       "line": 42.5
+      }
+     ]
+    },
+    {
+     "id": 77,
+     "bot": "arnaldo",
+     "stake": 27.68,
+     "payout": 48.56,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Penguins",
+       "opp": "Stars",
+       "t": "2026-11-23T00:00:00Z",
+       "p": 0.6,
+       "k": "spread",
+       "line": 1.5
+      }
+     ]
+    },
+    {
+     "id": 78,
+     "bot": "herman",
+     "stake": 10.51,
+     "payout": 61.82,
+     "p": 0.24,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Saints",
+       "opp": "Bears",
+       "t": "2026-11-22T18:00:00Z",
+       "p": 0.24
       }
      ]
     }
