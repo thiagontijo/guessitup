@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-22T15:33:10Z",
+ "updated": "2026-11-23T15:35:54Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -2502,14 +2502,24 @@
        "pick": "Bills",
        "opp": "Dolphins",
        "t": "2026-11-22T18:00:00Z",
-       "p": 0.91
+       "p": 0.91,
+       "sc": [
+        26,
+        9
+       ],
+       "r": "w"
       },
       {
        "lg": "nfl",
        "pick": "Broncos",
        "opp": "Raiders",
        "t": "2026-11-22T21:25:00Z",
-       "p": 0.83
+       "p": 0.83,
+       "sc": [
+        38,
+        24
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2527,7 +2537,12 @@
        "t": "2026-11-22T18:00:00Z",
        "p": 0.62,
        "k": "under",
-       "line": 48.5
+       "line": 48.5,
+       "sc": [
+        31,
+        21
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2543,7 +2558,12 @@
        "pick": "Panthers",
        "opp": "Ravens",
        "t": "2026-11-22T18:00:00Z",
-       "p": 0.63
+       "p": 0.63,
+       "sc": [
+        35,
+        33
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2561,7 +2581,12 @@
        "t": "2026-11-22T21:25:00Z",
        "p": 0.64,
        "k": "over",
-       "line": 40.5
+       "line": 40.5,
+       "sc": [
+        38,
+        24
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2579,7 +2604,12 @@
        "t": "2026-11-22T21:05:00Z",
        "p": 0.57,
        "k": "over",
-       "line": 42.5
+       "line": 42.5,
+       "sc": [
+        24,
+        27
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2597,7 +2627,12 @@
        "t": "2026-11-23T00:00:00Z",
        "p": 0.6,
        "k": "spread",
-       "line": 1.5
+       "line": 1.5,
+       "sc": [
+        0,
+        1
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2613,7 +2648,77 @@
        "pick": "Saints",
        "opp": "Bears",
        "t": "2026-11-22T18:00:00Z",
-       "p": 0.24
+       "p": 0.24,
+       "sc": [
+        13,
+        21
+       ],
+       "r": "l"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-23",
+   "say": {
+    "chico": {
+     "pt": "Combo de 2 favoritos fortes em casa: Rockets e Timberwolves.",
+     "en": "A 2-leg combo of strong home favorites: Rockets and Timberwolves.",
+     "es": "Combo de 2 favoritos fuertes en casa: Rockets y Timberwolves."
+    },
+    "arnaldo": {
+     "pt": "Só uma: Under 54.5 no Bengals x Commanders. Os Overs do dia ficaram abaixo de 5 pontos de folga, então passei.",
+     "en": "Only one: Under 54.5 in Bengals at Commanders. Today's Overs had less than 5 points of edge, so I passed.",
+     "es": "Solo una: Under 54.5 en Bengals-Commanders. Los Overs del día tenían menos de 5 puntos de ventaja, así que pasé."
+    }
+   },
+   "skip": {
+    "herman": {
+     "pt": "Hoje passo: nenhum azarão com 5 pontos de folga que eu confie (o Jazz está sem Markkanen e Jackson).",
+     "en": "I pass today: no underdog with 5 points of edge that I trust (Utah is without Markkanen and Jackson).",
+     "es": "Hoy paso: ningún underdog con 5 puntos de ventaja en el que confíe (Utah sin Markkanen ni Jackson)."
+    }
+   },
+   "bets": [
+    {
+     "id": 79,
+     "bot": "chico",
+     "stake": 19.04,
+     "payout": 25.45,
+     "p": 0.7056,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Rockets",
+       "opp": "Clippers",
+       "t": "2026-11-24T01:30:00Z",
+       "p": 0.84
+      },
+      {
+       "lg": "nba",
+       "pick": "Timberwolves",
+       "opp": "Nets",
+       "t": "2026-11-24T00:30:00Z",
+       "p": 0.84
+      }
+     ]
+    },
+    {
+     "id": 80,
+     "bot": "arnaldo",
+     "stake": 29.56,
+     "payout": 56.85,
+     "p": 0.6,
+     "legs": [
+      {
+       "lg": "nfl",
+       "pick": "Commanders",
+       "opp": "Bengals",
+       "t": "2026-11-24T01:15:00Z",
+       "p": 0.6,
+       "k": "under",
+       "line": 54.5
       }
      ]
     }
