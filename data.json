@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-23T15:35:54Z",
+ "updated": "2026-11-24T15:33:28Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -2693,14 +2693,24 @@
        "pick": "Rockets",
        "opp": "Clippers",
        "t": "2026-11-24T01:30:00Z",
-       "p": 0.84
+       "p": 0.84,
+       "sc": [
+        116,
+        104
+       ],
+       "r": "w"
       },
       {
        "lg": "nba",
        "pick": "Timberwolves",
        "opp": "Nets",
        "t": "2026-11-24T00:30:00Z",
-       "p": 0.84
+       "p": 0.84,
+       "sc": [
+        142,
+        116
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2718,7 +2728,134 @@
        "t": "2026-11-24T01:15:00Z",
        "p": 0.6,
        "k": "under",
-       "line": 54.5
+       "line": 54.5,
+       "sc": [
+        22,
+        20
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-24",
+   "say": {
+    "chico": {
+     "pt": "Combo de 2 bem seguro no college: Gonzaga e St. John's.",
+     "en": "A safe 2-leg college combo: Gonzaga and St. John's.",
+     "es": "Combo de 2 muy seguro en college: Gonzaga y St. John's."
+    },
+    "arnaldo": {
+     "pt": "Dois vencedores no college: Texas Tech em Louisville e Miami contra o TCU. Os handicaps grandes de hoje eu deixo passar.",
+     "en": "Two college winners: Texas Tech at Louisville and Miami against TCU. I let today's big spreads go.",
+     "es": "Dos ganadores en college: Texas Tech en Louisville y Miami contra TCU. Dejo pasar los handicaps grandes de hoy."
+    },
+    "herman": {
+     "pt": "Combo de 5 favoritos (Gonzaga, St. John's, Miami, Texas Tech e Nuggets). Paga quase 4 vezes.",
+     "en": "A 5-leg favorites combo (Gonzaga, St. John's, Miami, Texas Tech and Nuggets). It pays almost 4 times.",
+     "es": "Combo de 5 favoritos (Gonzaga, St. John's, Miami, Texas Tech y Nuggets). Paga casi 4 veces."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 81,
+     "bot": "chico",
+     "stake": 19.17,
+     "payout": 23.73,
+     "p": 0.7304,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Gonzaga",
+       "opp": "Kansas St",
+       "t": "2026-11-25T05:30:00Z",
+       "p": 0.88
+      },
+      {
+       "lg": "ncaab",
+       "pick": "St John's",
+       "opp": "Oregon",
+       "t": "2026-11-25T03:30:00Z",
+       "p": 0.83
+      }
+     ]
+    },
+    {
+     "id": 82,
+     "bot": "arnaldo",
+     "stake": 30.38,
+     "payout": 50.63,
+     "p": 0.64,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Texas Tech",
+       "opp": "Louisville",
+       "t": "2026-11-25T01:00:00Z",
+       "p": 0.64
+      }
+     ]
+    },
+    {
+     "id": 83,
+     "bot": "arnaldo",
+     "stake": 30.38,
+     "payout": 43.4,
+     "p": 0.72,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Miami",
+       "opp": "TCU",
+       "t": "2026-11-24T20:00:00Z",
+       "p": 0.72
+      }
+     ]
+    },
+    {
+     "id": 84,
+     "bot": "herman",
+     "stake": 10.41,
+     "payout": 40.35,
+     "p": 0.239,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Gonzaga",
+       "opp": "Kansas St",
+       "t": "2026-11-25T05:30:00Z",
+       "p": 0.88
+      },
+      {
+       "lg": "ncaab",
+       "pick": "St John's",
+       "opp": "Oregon",
+       "t": "2026-11-25T03:30:00Z",
+       "p": 0.83
+      },
+      {
+       "lg": "ncaab",
+       "pick": "Miami",
+       "opp": "TCU",
+       "t": "2026-11-24T20:00:00Z",
+       "p": 0.72
+      },
+      {
+       "lg": "ncaab",
+       "pick": "Texas Tech",
+       "opp": "Louisville",
+       "t": "2026-11-25T01:00:00Z",
+       "p": 0.64
+      },
+      {
+       "lg": "nba",
+       "pick": "Nuggets",
+       "opp": "Mavericks",
+       "t": "2026-11-25T03:00:00Z",
+       "p": 0.71
       }
      ]
     }
