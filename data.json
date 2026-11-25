@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-24T15:33:28Z",
+ "updated": "2026-11-25T15:32:44Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -2772,14 +2772,24 @@
        "pick": "Gonzaga",
        "opp": "Kansas St",
        "t": "2026-11-25T05:30:00Z",
-       "p": 0.88
+       "p": 0.88,
+       "sc": [
+        101,
+        61
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "St John's",
        "opp": "Oregon",
        "t": "2026-11-25T03:30:00Z",
-       "p": 0.83
+       "p": 0.83,
+       "sc": [
+        90,
+        79
+       ],
+       "r": "w"
       }
      ]
     },
@@ -2795,7 +2805,12 @@
        "pick": "Texas Tech",
        "opp": "Louisville",
        "t": "2026-11-25T01:00:00Z",
-       "p": 0.64
+       "p": 0.64,
+       "sc": [
+        64,
+        72
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2811,7 +2826,12 @@
        "pick": "Miami",
        "opp": "TCU",
        "t": "2026-11-24T20:00:00Z",
-       "p": 0.72
+       "p": 0.72,
+       "sc": [
+        71,
+        84
+       ],
+       "r": "l"
       }
      ]
     },
@@ -2827,35 +2847,193 @@
        "pick": "Gonzaga",
        "opp": "Kansas St",
        "t": "2026-11-25T05:30:00Z",
-       "p": 0.88
+       "p": 0.88,
+       "sc": [
+        101,
+        61
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "St John's",
        "opp": "Oregon",
        "t": "2026-11-25T03:30:00Z",
-       "p": 0.83
+       "p": 0.83,
+       "sc": [
+        90,
+        79
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "Miami",
        "opp": "TCU",
        "t": "2026-11-24T20:00:00Z",
-       "p": 0.72
+       "p": 0.72,
+       "sc": [
+        71,
+        84
+       ],
+       "r": "l"
       },
       {
        "lg": "ncaab",
        "pick": "Texas Tech",
        "opp": "Louisville",
        "t": "2026-11-25T01:00:00Z",
-       "p": 0.64
+       "p": 0.64,
+       "sc": [
+        64,
+        72
+       ],
+       "r": "l"
       },
       {
        "lg": "nba",
        "pick": "Nuggets",
        "opp": "Mavericks",
        "t": "2026-11-25T03:00:00Z",
-       "p": 0.71
+       "p": 0.71,
+       "sc": [
+        101,
+        120
+       ],
+       "r": "l"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-25",
+   "say": {
+    "chico": {
+     "pt": "Combo Rockets + USC e o Grizzlies sozinho contra o Clippers. Favoritos claros em casa.",
+     "en": "Rockets + USC combo and the Grizzlies alone against the Clippers. Clear home favorites.",
+     "es": "Combo Rockets + USC y los Grizzlies solos contra los Clippers. Favoritos claros en casa."
+    },
+    "arnaldo": {
+     "pt": "Ontem perdi as duas no college. Hoje: Wild vence o Mammoth, e o combo Wild + Grizzlies.",
+     "en": "Yesterday I lost both college picks. Today: Wild beat the Mammoth, and the Wild + Grizzlies combo.",
+     "es": "Ayer perdí las dos de college. Hoy: Wild gana a Mammoth, y el combo Wild + Grizzlies."
+    },
+    "herman": {
+     "pt": "Dois azarões de valor: Flyers em Washington e Ole Miss no Arizona. Pago pouco, recebo 2 a 3 vezes.",
+     "en": "Two value underdogs: Flyers in Washington and Ole Miss at Arizona. Small stakes, 2 to 3 times back.",
+     "es": "Dos underdogs de valor: Flyers en Washington y Ole Miss en Arizona. Poco riesgo, 2 a 3 veces."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 85,
+     "bot": "chico",
+     "stake": 19.26,
+     "payout": 27.63,
+     "p": 0.6375,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Rockets",
+       "opp": "Suns",
+       "t": "2026-11-26T01:30:00Z",
+       "p": 0.75
+      },
+      {
+       "lg": "ncaab",
+       "pick": "USC",
+       "opp": "South Carolina",
+       "t": "2026-11-25T21:30:00Z",
+       "p": 0.85
+      }
+     ]
+    },
+    {
+     "id": 86,
+     "bot": "chico",
+     "stake": 19.26,
+     "payout": 26.38,
+     "p": 0.75,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Grizzlies",
+       "opp": "Clippers",
+       "t": "2026-11-26T01:00:00Z",
+       "p": 0.75
+      }
+     ]
+    },
+    {
+     "id": 87,
+     "bot": "arnaldo",
+     "stake": 28.56,
+     "payout": 47.6,
+     "p": 0.63,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Wild",
+       "opp": "Mammoth",
+       "t": "2026-11-26T01:00:00Z",
+       "p": 0.63
+      }
+     ]
+    },
+    {
+     "id": 88,
+     "bot": "arnaldo",
+     "stake": 28.56,
+     "payout": 65.21,
+     "p": 0.4725,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Wild",
+       "opp": "Mammoth",
+       "t": "2026-11-26T01:00:00Z",
+       "p": 0.63
+      },
+      {
+       "lg": "nba",
+       "pick": "Grizzlies",
+       "opp": "Clippers",
+       "t": "2026-11-26T01:00:00Z",
+       "p": 0.75
+      }
+     ]
+    },
+    {
+     "id": 89,
+     "bot": "herman",
+     "stake": 10.3,
+     "payout": 24.52,
+     "p": 0.48,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Flyers",
+       "opp": "Capitals",
+       "t": "2026-11-26T00:00:00Z",
+       "p": 0.48
+      }
+     ]
+    },
+    {
+     "id": 90,
+     "bot": "herman",
+     "stake": 10.3,
+     "payout": 30.29,
+     "p": 0.4,
+     "legs": [
+      {
+       "lg": "ncaab",
+       "pick": "Ole Miss",
+       "opp": "Arizona",
+       "t": "2026-11-25T19:30:00Z",
+       "p": 0.4
       }
      ]
     }
