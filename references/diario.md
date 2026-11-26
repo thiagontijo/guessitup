@@ -25,6 +25,7 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 - Nada de vencedor, handicap ou total principal. Procurar team total, props, 1º tempo, linha alternativa.
 - Tese escrita + chance própria; só indicar com 6+ pontos acima do preço. Máximo 2 por dia; dia sem tese = sem dica.
 - Valor sugerido: até 5% da banca.
+- 26/11 — REGRA: nada de dica "mais pontos" (Team Total) para time no 2º jogo seguido, e para "mais pontos" a defesa do adversário entra pela temporada inteira, não só pelos últimos jogos (2 erros: Magic 20/11, Suns 25/11).
 
 ## Placar das dicas reais (método novo, desde 13/11)
 | Data | Dica | Preço | Minha chance | Valor | Resultado |
@@ -46,8 +47,6 @@ chance por no máximo 5 pontos. Se não, mudar o método ou parar.
 | 17/11 | Blazers menos de ~113.5 pts (Team Total) em Minnesota, revanche no 2º jogo seguido; projeção 106 (5 jogos sem Morant: 112 de média; Wolves em casa sofre ~102; ontem 98) | 47% (111.5) | 69% (111.5) | $5 | GANHOU (Blazers 105; projeção 106) |
 
 Acumulado (método novo): dicas indicadas 7, certas 3 (43%), 1 cancelada (teria perdido); chance prometida média 68%. Calibração ruim: prometo 68%, acerto 43%. As 4 erradas: Warriors, Bulls (teste), Magic, Suns. Duas das 4 (Magic, Suns) foram "mais pontos" puxados pela defesa ruim recente do adversário.
-
-- 26/11 — REGRA: nada de dica "mais pontos" (Team Total) para time no 2º jogo seguido, e para "mais pontos" a defesa do adversário entra pela temporada inteira, não só pelos últimos jogos (2 erros: Magic 20/11, Suns 25/11).
 
 ## Lições
 - 12/11 — Método antigo: o modelo usava 50% do preço do mercado, então seguia os sites. As linhas principais
