@@ -624,6 +624,25 @@
      "app_text": "HOU Texans to win"
     }
    ]
+  },
+  {
+   "id": 22,
+   "date": "2026-11-26",
+   "app": "Kalshi",
+   "src": "voce",
+   "label": "Sua escolha: Bills vencem os Chiefs (Thanksgiving, chuva e vento)",
+   "price": 0.6662,
+   "legs": [
+    {
+     "lg": "nfl",
+     "d": "20261126",
+     "eid": "401873082",
+     "pick": "Bills",
+     "opp": "Chiefs",
+     "k": "ml",
+     "app_text": "BUF Bills"
+    }
+   ]
   }
  ]
 }
