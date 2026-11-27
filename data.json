@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-26T15:33:07Z",
+ "updated": "2026-11-27T15:32:23Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -3112,14 +3112,24 @@
        "pick": "Texas",
        "opp": "Georgetown",
        "t": "2026-11-26T19:30:00Z",
-       "p": 0.79
+       "p": 0.79,
+       "sc": [
+        92,
+        83
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "UCLA",
        "opp": "Saint Mary's",
        "t": "2026-11-26T22:00:00Z",
-       "p": 0.78
+       "p": 0.78,
+       "sc": [
+        70,
+        85
+       ],
+       "r": "l"
       }
      ]
     },
@@ -3135,14 +3145,24 @@
        "pick": "Alabama",
        "opp": "Kansas St",
        "t": "2026-11-27T02:00:00Z",
-       "p": 0.9
+       "p": 0.9,
+       "sc": [
+        104,
+        91
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "Texas Tech",
        "opp": "Oregon",
        "t": "2026-11-27T04:30:00Z",
-       "p": 0.82
+       "p": 0.82,
+       "sc": [
+        62,
+        59
+       ],
+       "r": "w"
       }
      ]
     },
@@ -3160,7 +3180,12 @@
        "t": "2026-11-26T18:00:00Z",
        "p": 0.68,
        "k": "under",
-       "line": 56.5
+       "line": 56.5,
+       "sc": [
+        35,
+        39
+       ],
+       "r": "l"
       }
      ]
     },
@@ -3176,42 +3201,224 @@
        "pick": "Cowboys",
        "opp": "Eagles",
        "t": "2026-11-26T21:30:00Z",
-       "p": 0.79
+       "p": 0.79,
+       "sc": [
+        38,
+        39
+       ],
+       "r": "l"
       },
       {
        "lg": "ncaab",
        "pick": "Alabama",
        "opp": "Kansas St",
        "t": "2026-11-27T02:00:00Z",
-       "p": 0.9
+       "p": 0.9,
+       "sc": [
+        104,
+        91
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "Texas Tech",
        "opp": "Oregon",
        "t": "2026-11-27T04:30:00Z",
-       "p": 0.82
+       "p": 0.82,
+       "sc": [
+        62,
+        59
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "Texas",
        "opp": "Georgetown",
        "t": "2026-11-26T19:30:00Z",
-       "p": 0.79
+       "p": 0.79,
+       "sc": [
+        92,
+        83
+       ],
+       "r": "w"
       },
       {
        "lg": "ncaab",
        "pick": "UCLA",
        "opp": "Saint Mary's",
        "t": "2026-11-26T22:00:00Z",
-       "p": 0.78
+       "p": 0.78,
+       "sc": [
+        70,
+        85
+       ],
+       "r": "l"
       },
       {
        "lg": "ncaab",
        "pick": "LSU",
        "opp": "SMU",
        "t": "2026-11-27T00:00:00Z",
+       "p": 0.72,
+       "sc": [
+        95,
+        86
+       ],
+       "r": "w"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "date": "2026-11-27",
+   "say": {
+    "chico": {
+     "pt": "Dois combos de favoritos em casa: Pistons + Blazers e, no college, Ole Miss + Memphis.",
+     "en": "Two home-favorite combos: Pistons + Blazers and, in college, Ole Miss + Memphis.",
+     "es": "Dos combos de favoritos en casa: Pistons + Blazers y, en college, Ole Miss + Memphis."
+    },
+    "arnaldo": {
+     "pt": "Estou −13%, então só vencedores com folga: Knicks contra o Heat e Sabres contra os Penguins.",
+     "en": "I am down 13%, so only winners with an edge: Knicks over the Heat and Sabres over the Penguins.",
+     "es": "Voy −13%, así que solo ganadores con ventaja: Knicks sobre el Heat y Sabres sobre los Penguins."
+    },
+    "herman": {
+     "pt": "Combo de 6 de Black Friday: Pistons, Blazers, Raptors, Celtics, Ole Miss e Knicks. Paga mais de 4 vezes.",
+     "en": "A 6-leg Black Friday combo: Pistons, Blazers, Raptors, Celtics, Ole Miss and Knicks. It pays more than 4 times.",
+     "es": "Combo de 6 de Black Friday: Pistons, Blazers, Raptors, Celtics, Ole Miss y Knicks. Paga más de 4 veces."
+    }
+   },
+   "skip": {},
+   "bets": [
+    {
+     "id": 95,
+     "bot": "chico",
+     "stake": 19.29,
+     "payout": 29.41,
+     "p": 0.6478,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Pistons",
+       "opp": "Bucks",
+       "t": "2026-11-28T00:30:00Z",
+       "p": 0.82
+      },
+      {
+       "lg": "nba",
+       "pick": "Trail Blazers",
+       "opp": "Warriors",
+       "t": "2026-11-28T02:30:00Z",
+       "p": 0.79
+      }
+     ]
+    },
+    {
+     "id": 96,
+     "bot": "chico",
+     "stake": 19.29,
+     "payout": 23.05,
+     "p": 0.792,
+     "legs": [
+      {
+       "lg": "ncaaf",
+       "pick": "Ole Miss",
+       "opp": "Mississippi St",
+       "t": "2026-11-27T17:00:00Z",
+       "p": 0.88
+      },
+      {
+       "lg": "ncaaf",
+       "pick": "Memphis",
+       "opp": "Temple",
+       "t": "2026-11-27T20:30:00Z",
+       "p": 0.9
+      }
+     ]
+    },
+    {
+     "id": 97,
+     "bot": "arnaldo",
+     "stake": 26.04,
+     "payout": 40.69,
+     "p": 0.67,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Knicks",
+       "opp": "Heat",
+       "t": "2026-11-28T00:00:00Z",
+       "p": 0.67
+      }
+     ]
+    },
+    {
+     "id": 98,
+     "bot": "arnaldo",
+     "stake": 26.04,
+     "payout": 42.69,
+     "p": 0.63,
+     "legs": [
+      {
+       "lg": "nhl",
+       "pick": "Sabres",
+       "opp": "Penguins",
+       "t": "2026-11-28T01:00:00Z",
+       "p": 0.63
+      }
+     ]
+    },
+    {
+     "id": 99,
+     "bot": "herman",
+     "stake": 10.0,
+     "payout": 42.55,
+     "p": 0.209,
+     "legs": [
+      {
+       "lg": "nba",
+       "pick": "Pistons",
+       "opp": "Bucks",
+       "t": "2026-11-28T00:30:00Z",
+       "p": 0.82
+      },
+      {
+       "lg": "nba",
+       "pick": "Trail Blazers",
+       "opp": "Warriors",
+       "t": "2026-11-28T02:30:00Z",
+       "p": 0.79
+      },
+      {
+       "lg": "nba",
+       "pick": "Raptors",
+       "opp": "Nets",
+       "t": "2026-11-28T00:30:00Z",
+       "p": 0.76
+      },
+      {
+       "lg": "nba",
+       "pick": "Celtics",
+       "opp": "Hawks",
+       "t": "2026-11-28T01:00:00Z",
        "p": 0.72
+      },
+      {
+       "lg": "ncaaf",
+       "pick": "Ole Miss",
+       "opp": "Mississippi St",
+       "t": "2026-11-27T17:00:00Z",
+       "p": 0.88
+      },
+      {
+       "lg": "nba",
+       "pick": "Knicks",
+       "opp": "Heat",
+       "t": "2026-11-28T00:00:00Z",
+       "p": 0.67
       }
      ]
     }
