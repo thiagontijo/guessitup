@@ -1,7 +1,7 @@
 {
  "v": 1,
  "bank": 1000,
- "updated": "2026-11-28T15:32:04Z",
+ "updated": "2026-11-28T15:32:15Z",
  "days": [
   {
    "date": "2026-11-10",
@@ -3500,9 +3500,9 @@
    },
    "skip": {
     "arnaldo": {
-     "pt": "Perdi 8 seguidas e estou −18%. Hoje eu paro e não aposto: nenhum jogo tem folga clara no meu modelo.",
-     "en": "I lost 8 in a row and I am down 18%. Today I stop and do not bet: no game has a clear edge in my model.",
-     "es": "Perdí 8 seguidas y voy −18%. Hoy paro y no apuesto: ningún partido tiene ventaja clara en mi modelo."
+     "pt": "Perdi 7 seguidas e estou −18%. Hoje eu paro e não aposto: nenhum jogo tem folga clara no meu modelo.",
+     "en": "I lost 7 in a row and I am down 18%. Today I stop and do not bet: no game has a clear edge in my model.",
+     "es": "Perdí 7 seguidas y voy −18%. Hoy paro y no apuesto: ningún partido tiene ventaja clara en mi modelo."
     }
    },
    "bets": [
